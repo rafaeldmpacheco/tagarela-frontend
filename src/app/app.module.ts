@@ -1,40 +1,53 @@
-import { NgModule, ErrorHandler } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
+import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import {ErrorHandler, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from "@angular/common/http";
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+
+import {MyApp} from './app.component';
+
+import {AboutPage} from '../pages/about/about';
+import {ContactPage} from '../pages/contact/contact';
+import {HomePage} from '../pages/home/home';
+import {TabsPage} from '../pages/tabs/tabs';
+import {LoginPage} from '../pages/login/login';
+
+import {LoginService} from "../providers/login.service";
 
 @NgModule({
-  declarations: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
-  ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp)
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+	imports: [
+		BrowserModule,
+		IonicModule.forRoot(MyApp),
+		HttpClientModule,
+	],
+	bootstrap: [IonicApp],
+	declarations: [
+		MyApp,
+		AboutPage,
+		ContactPage,
+		HomePage,
+		TabsPage,
+		LoginPage
+	],
+	entryComponents: [
+		MyApp,
+		AboutPage,
+		ContactPage,
+		HomePage,
+		TabsPage,
+		LoginPage
+	],
+	providers: [
+		StatusBar,
+		SplashScreen,
+		LoginService,
+		{
+			provide: ErrorHandler, useClass: IonicErrorHandler
+		}
+	]
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -1,0 +1,23 @@
+<ion-content>
+	<div class="logo-area">
+		<div class="logo"></div>
+	</div>
+	<div class="login-input-area">
+		<ion-list margin>
+			<ion-item>
+				<ion-input type="email" [(ngModel)]="email" placeholder="usuário"
+						   name="email"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-input type="password" [(ngModel)]="password" placeholder="senha"
+						   name="password"></ion-input>
+			</ion-item>
+		</ion-list>
+		<div margin-left margin-right *ngIf="exceptionMessage">
+			<p class="alert alert-warning" text-center>{{exceptionMessage}}</p>
+		</div>
+		<div margin-left margin-right>
+			<button ion-button block class="login-button" (click)="login()">Entrar</button>
+		</div>
+	</div>
+</ion-content>

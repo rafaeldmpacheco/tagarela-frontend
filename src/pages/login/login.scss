@@ -1,0 +1,127 @@
+login {
+
+	ion-content {
+		background: url(../../assets/imgs/login-background.png) center center;
+		background-size: cover;
+		position: relative;
+	}
+
+	.scroll-content {
+		padding-bottom: 0 !important; //Impede que os campos subam na tela ao realizar tabulação
+	}
+
+	.logo-area {
+		height: 35%;
+		margin: auto;
+
+		.logo {
+			//background: url(../../assets/imgs/logo-app.png) no-repeat center center;
+			background-size: contain;
+			margin: auto;
+			height: 100%;
+			min-height: 80px;
+			max-height: 125px;
+			top: 50%;
+			position: relative;
+			transform: translateY(-50%);
+		}
+
+	}
+
+	.login-input-area {
+
+		ion-item {
+			padding-left: 0;
+		}
+
+		.input-cover {
+			position: relative;
+		}
+
+		.item-input ion-input {
+			position: relative;
+		}
+
+		ion-input {
+			font-size: 95%;
+			padding-left: 16px;
+		}
+
+		.text-input {
+			border: 0;
+			margin: 12px 8px 13px 0;
+		}
+
+		.text-input::-webkit-input-placeholder {
+			color: #FFF;
+			font-size: 90%;
+		}
+
+		.text-input::-moz-placeholder {
+			color: #FFF;
+			font-size: 90%;
+		}
+
+		ion-list, .toolbar .toolbar-background {
+			background: rgba(0, 0, 0, 0.5);
+		}
+
+		ion-list {
+			margin: 16px;
+		}
+
+		.item {
+			background: transparent;
+			color: #FFF;
+			border-top: 0;
+			&:first-child {
+				border-top: 0;
+				border-bottom: 1px solid #989898;
+			}
+			&:last-child, .item-inner {
+				border-bottom: 0;
+			}
+
+		}
+
+		.item-input.input-has-focus .item-inner,
+		.item-input.input-has-focus:last-child {
+			box-shadow: none;
+			border-bottom: 0;
+		}
+
+		form {
+			height: 40%;
+			min-height: 200px;
+		}
+
+		.login-button {
+			background-color: rgba(0, 0, 0, 0.38);
+			min-height: 40px;
+			line-height: 40px;
+			color: white;
+			border: 0;
+			border-radius: 0;
+			font-size: 95%;
+		}
+
+		ion-list .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child,
+		.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+			box-shadow: none;
+			border-bottom: 0;
+		}
+
+	}
+
+	.alert {
+		padding: 15px;
+		margin-bottom: 20px;
+		border-radius: 4px;
+	}
+	.alert-warning {
+		color: #8a6d3b;
+		background-color: #fcf8e3;
+	}
+
+}
+
