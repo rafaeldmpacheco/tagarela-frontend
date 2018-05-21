@@ -1,9 +1,9 @@
-login {
+register {
 
 	ion-content {
-	//	background: url(../../assets/imgs/login-background.png) center center;
-	//	background-size: cover;
-	//	position: relative;
+		//	background: url(../../assets/imgs/login-background.png) center center;
+		//	background-size: cover;
+		//	position: relative;
 		background-color: #333;
 	}
 
@@ -35,23 +35,17 @@ login {
 		margin-top: 50%;
 
 		ion-item {
-			padding-left: 0;
+			padding-left: 10px;
 			border: none;
 		}
 
 		ion-input {
 			font-size: 95%;
-			padding-left: 16px;
 		}
 
-		.text-input {
-			border: 0;
-			margin: 12px 8px 13px 0;
-		}
-
-		.text-input::-webkit-input-placeholder {
-			color: #FFF;
-			font-size: 90%;
+		ion-label {
+			padding-left: 9px;
+			font-size: 15.2px;
 		}
 
 		ion-list, .toolbar .toolbar-background {
@@ -66,9 +60,9 @@ login {
 			background: transparent;
 			color: #FFF;
 			border-top: 0;
+			border-bottom: 1px solid #989898;
 			&:first-child {
 				border-top: 0;
-				border-bottom: 1px solid #989898;
 			}
 			&:last-child, .item-inner {
 				border-bottom: 0;

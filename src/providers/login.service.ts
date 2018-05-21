@@ -23,5 +23,19 @@ export class LoginService {
 		}
 	}
 
+	public newUser(email: string, password: string, role: string): Observable<any> {
+		try {
+			let user = {
+				name: email,
+				password: password,
+				role: role
+			};
+			let url: string = `http://localhost:3000/api/login/newUser`;
+			return this.httpClient.post(url, user);
+		}
+		catch (e) {
+			return Observable.throw(e);
+		}
+	}
 
 }

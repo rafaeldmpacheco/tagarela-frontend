@@ -1,0 +1,30 @@
+<ion-content style="background-color: #333">
+	<div class="login-input-area">
+		<ion-list center>
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="email" placeholder="usuário"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-input type="password" [(ngModel)]="password" placeholder="senha"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label>papel</ion-label>
+				<ion-select [(ngModel)]="role">
+					<ion-option value="teacher">Professor</ion-option>
+					<ion-option value="student">Aluno</ion-option>
+				</ion-select>
+			</ion-item>
+		</ion-list>
+	</div>
+
+	<div margin-left margin-right *ngIf="exceptionMessage">
+		<p class="alert alert-warning" text-center>{{exceptionMessage}}</p>
+	</div>
+
+	<ion-buttons start margin-left margin-right style="text-align: center">
+		<button ion-button style="background-color: white; color: black" (click)="backToWelcome()">Cancelar</button>
+		<button ion-button style="background-color: white; color: black" (click)="register()">Concluído</button>
+	</ion-buttons>
+</ion-content>

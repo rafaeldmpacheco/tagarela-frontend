@@ -1,32 +1,36 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
-import {TabsPage} from "../tabs/tabs";
 import {LoginService} from "../../providers/login.service";
+import {WelcomePage} from "../welcome/welcome";
+import {TabsPage} from "../tabs/tabs";
 
 @Component({
-	selector: 'login',
-	templateUrl: 'login.html'
+	selector: 'register',
+	templateUrl: 'register.html'
 })
-export class LoginPage {
+export class RegisterPage {
 
 	public email: string;
 	public password: string;
+	public role: string;
 	public exceptionMessage: string;
 
 	constructor(private navController: NavController,
 				private loginService: LoginService) {
 	}
 
-	public login() {
+	public backToWelcome() {
+		this.navController.push(WelcomePage)
+	}
+
+	public register() {
 		if (this.email && this.password) {
-			this.loginService.authenticate(this.email, this.password).subscribe(response => {
+			this.loginService.newUser(this.email, this.password, this.role).subscribe(response => {
 				if (response && response.success) {
 					this.navController.push(TabsPage);
-				} else {
-					this.exceptionMessage = 'Usuário ou senha incorretos';
 				}
 			}, () => {
-				this.exceptionMessage = 'Não foi possível realizar o login';
+				this.exceptionMessage = 'Não foi possível realizar o cadastro';
 			});
 		}
 	}

@@ -16,6 +16,8 @@ import {TabsPage} from '../pages/tabs/tabs';
 import {LoginPage} from '../pages/login/login';
 
 import {LoginService} from "../providers/login.service";
+import {WelcomePage} from "../pages/welcome/welcome";
+import {RegisterPage} from "../pages/register/register";
 
 @NgModule({
 	imports: [
@@ -30,7 +32,9 @@ import {LoginService} from "../providers/login.service";
 		ContactPage,
 		HomePage,
 		TabsPage,
-		LoginPage
+		LoginPage,
+		WelcomePage,
+		RegisterPage
 	],
 	entryComponents: [
 		MyApp,
@@ -38,7 +42,9 @@ import {LoginService} from "../providers/login.service";
 		ContactPage,
 		HomePage,
 		TabsPage,
-		LoginPage
+		LoginPage,
+		WelcomePage,
+		RegisterPage
 	],
 	providers: [
 		StatusBar,
