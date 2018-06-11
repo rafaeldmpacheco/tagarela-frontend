@@ -1,0 +1,20 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Nova Prancha</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-grid>
+		<ion-row>
+
+			<ion-col col-4 *ngFor="let image of boardImages; let i = index">
+				<ion-card>
+					<img *ngIf="image" src="{{image}}"/>
+
+					<button ion-button *ngIf="!image" (click)="newImage(i)">Adicionar</button>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

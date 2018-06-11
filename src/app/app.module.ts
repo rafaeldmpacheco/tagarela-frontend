@@ -6,6 +6,7 @@ import {HttpClientModule} from "@angular/common/http";
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
+import {Camera} from "@ionic-native/camera";
 
 import {MyApp} from './app.component';
 
@@ -18,12 +19,13 @@ import {LoginPage} from '../pages/login/login';
 import {LoginService} from "../providers/login.service";
 import {WelcomePage} from "../pages/welcome/welcome";
 import {RegisterPage} from "../pages/register/register";
+import {ManageBoardPage} from "../pages/manage-board/manage-board";
 
 @NgModule({
 	imports: [
 		BrowserModule,
 		IonicModule.forRoot(MyApp),
-		HttpClientModule,
+		HttpClientModule
 	],
 	bootstrap: [IonicApp],
 	declarations: [
@@ -34,7 +36,8 @@ import {RegisterPage} from "../pages/register/register";
 		TabsPage,
 		LoginPage,
 		WelcomePage,
-		RegisterPage
+		RegisterPage,
+		ManageBoardPage
 	],
 	entryComponents: [
 		MyApp,
@@ -44,11 +47,13 @@ import {RegisterPage} from "../pages/register/register";
 		TabsPage,
 		LoginPage,
 		WelcomePage,
-		RegisterPage
+		RegisterPage,
+		ManageBoardPage
 	],
 	providers: [
 		StatusBar,
 		SplashScreen,
+		Camera,
 		LoginService,
 		{
 			provide: ErrorHandler, useClass: IonicErrorHandler
