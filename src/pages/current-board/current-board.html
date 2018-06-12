@@ -1,6 +1,6 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>Nova Prancha</ion-title>
+		<ion-title>Prancha</ion-title>
 	</ion-navbar>
 </ion-header>
 
@@ -9,14 +9,9 @@
 		<ion-row>
 			<ion-col col-4 *ngFor="let image of boardImages; let i = index">
 				<ion-card>
-					<img *ngIf="image" src="{{image}}"/>
-
-					<button ion-button *ngIf="!image" (click)="newImage(i)">Adicionar</button>
+					<img *ngIf="image" src="{{image}}" (click)="selectedImage(i)"/>
 				</ion-card>
 			</ion-col>
-		</ion-row>
-		<ion-row>
-			<button ion-button (click)="saveBoard()">Salvar prancha</button>
 		</ion-row>
 	</ion-grid>
 </ion-content>

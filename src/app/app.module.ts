@@ -20,6 +20,8 @@ import {LoginService} from "../providers/login.service";
 import {WelcomePage} from "../pages/welcome/welcome";
 import {RegisterPage} from "../pages/register/register";
 import {ManageBoardPage} from "../pages/manage-board/manage-board";
+import {BoardService} from "../providers/board.service";
+import {CurrentBoardPage} from "../pages/current-board/current-board";
 
 @NgModule({
 	imports: [
@@ -37,7 +39,8 @@ import {ManageBoardPage} from "../pages/manage-board/manage-board";
 		LoginPage,
 		WelcomePage,
 		RegisterPage,
-		ManageBoardPage
+		ManageBoardPage,
+		CurrentBoardPage
 	],
 	entryComponents: [
 		MyApp,
@@ -48,13 +51,15 @@ import {ManageBoardPage} from "../pages/manage-board/manage-board";
 		LoginPage,
 		WelcomePage,
 		RegisterPage,
-		ManageBoardPage
+		ManageBoardPage,
+		CurrentBoardPage
 	],
 	providers: [
 		StatusBar,
 		SplashScreen,
 		Camera,
 		LoginService,
+		BoardService,
 		{
 			provide: ErrorHandler, useClass: IonicErrorHandler
 		}
