@@ -8,7 +8,7 @@ import {NavController, NavParams} from 'ionic-angular';
 export class CurrentBoardPage {
 
 	public boardImages: any[];
-	public selectedImages: any[];
+	public selectedImages: any[] = [];
 
 	constructor(private navCtrl: NavController,
 				private navParams: NavParams) {
