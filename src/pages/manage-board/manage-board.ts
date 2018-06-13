@@ -9,14 +9,14 @@ import {BoardService} from "../../providers/board.service";
 })
 export class ManageBoardPage {
 
-	public boardImages: any[] = [];
+	public board: any = {name: '', images: []};
 
 	constructor(private navCtrl: NavController,
 				private actionSheetCtrl: ActionSheetController,
 				private boardService: BoardService,
 				private camera: Camera) {
 		for (let i = 0; i < 9; i++) {
-			this.boardImages.push(this.mockImage);
+			this.board.images.push(this.mockImage);
 		}
 	}
 
@@ -31,14 +31,14 @@ export class ManageBoardPage {
 			quality: 100,
 		};
 		this.camera.getPicture(options).then((imageData) => {
-			this.boardImages[index] = 'data:image/jpeg;base64,' + imageData;
+			this.board.images[index] = 'data:image/jpeg;base64,' + imageData;
 		}).catch((error) => {
 			console.log(error);
 		});
 	}
 
 	saveBoard(): void {
-		this.boardService.saveBoardImages(this.boardImages);
+		this.boardService.saveBoardImages(this.board);
 		this.navCtrl.pop();
 	}
 
