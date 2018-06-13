@@ -1,13 +1,14 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>Prancha</ion-title>
+		<ion-title>Prancha {{board?.name}}</ion-title>
+
 	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
 	<ion-grid>
 		<ion-row>
-			<ion-col col-4 *ngFor="let image of boardImages; let i = index">
+			<ion-col col-4 *ngFor="let image of board?.images; let i = index">
 				<ion-card>
 					<img *ngIf="image" src="{{image}}" (click)="selectedImage(i)"/>
 				</ion-card>

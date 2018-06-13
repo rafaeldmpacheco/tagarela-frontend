@@ -1,21 +1,24 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 
 @Component({
 	selector: 'current-board',
 	templateUrl: 'current-board.html'
 })
-export class CurrentBoardPage {
+export class CurrentBoardPage implements OnInit {
 
-	public boardImages: any[];
+	public board: any;
 	public selectedImages: any[] = [];
 
 	constructor(private navCtrl: NavController,
 				private navParams: NavParams) {
-		this.boardImages = this.navParams.get('boardImages');
+	}
+
+	ngOnInit(): void {
+		this.board = this.navParams.get('boardImages');
 	}
 
 	selectedImage(index) {
-		this.selectedImages.push(this.boardImages[index]);
+		this.selectedImages.push(this.board.images[index]);
 	}
 }

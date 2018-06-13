@@ -6,17 +6,17 @@ import {Observable} from "rxjs";
 @Injectable()
 export class BoardService {
 
-	private boardImages: any[];
+	private board: any;
 
 	constructor(private httpClient: HttpClient) {
 	}
 
-	public saveBoardImages(boardImages: any[]): void {
-		this.boardImages = boardImages;
+	public saveBoardImages(board: any): void {
+		this.board = board;
 	}
 
-	public getBoardImages(): any[] {
-		return this.boardImages;
+	public getBoardImages(): any {
+		return this.board;
 	}
 
 }

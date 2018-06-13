@@ -10,8 +10,6 @@ import {CurrentBoardPage} from "../current-board/current-board";
 })
 export class HomePage {
 
-	public boardImages: any[];
-
 	constructor(private navCtrl: NavController,
 				private boardService: BoardService) {
 	}
@@ -21,7 +19,6 @@ export class HomePage {
 	}
 
 	getBoard() {
-		this.boardImages = this.boardService.getBoardImages();
-		this.navCtrl.push(CurrentBoardPage, {boardImages: this.boardImages});
+		this.navCtrl.push(CurrentBoardPage, {boardImages: this.boardService.getBoardImages()});
 	}
 }
