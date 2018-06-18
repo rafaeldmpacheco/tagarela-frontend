@@ -15,9 +15,15 @@ export class ManageBoardPage {
 				private actionSheetCtrl: ActionSheetController,
 				private boardService: BoardService,
 				private camera: Camera) {
-		for (let i = 0; i < 9; i++) {
-			this.board.images.push(this.mockImage);
-		}
+		this.board.images.push(this.mockImage);
+		this.board.images.push(null);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
 	}
 
 	newImage(index): void {

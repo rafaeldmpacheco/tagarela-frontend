@@ -11,12 +11,14 @@ export class BoardService {
 	constructor(private httpClient: HttpClient) {
 	}
 
-	public saveBoardImages(board: any): void {
-		this.board = board;
+	public saveBoardImages(board: any): Observable<any> {
+		let url: string = `http://localhost:3000/api/board/newBoard`;
+		return this.httpClient.post(url, {board});
 	}
 
-	public getBoardImages(): any {
-		return this.board;
+	public getBoardImages(): Observable<any> {
+		let url: string = `http://localhost:3000/api/board/boards`;
+		return this.httpClient.get(url);
 	}
 
 }

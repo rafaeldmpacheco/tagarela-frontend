@@ -6,11 +6,18 @@ import {Observable} from "rxjs";
 @Injectable()
 export class LoginService {
 
+	private email: string;
+
+	getEmail() {
+		return this.email;
+	}
+
 	constructor(private httpClient: HttpClient) {
 	}
 
 	public authenticate(email: string, password: string): Observable<any> {
 		try {
+			this.email = email;
 			let user = {
 				name: email,
 				password: password

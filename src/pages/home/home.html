@@ -1,11 +1,19 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>Home</ion-title>
+		<ion-title>Pranchas</ion-title>
 	</ion-navbar>
 </ion-header>
 
-<ion-content padding>
-	<button ion-button (click)="cadastrarPrancha()">Cadastrar prancha</button>
-
-	<button ion-button (click)="getBoard()">Ver prancha</button>
+<ion-content padding class="card-background-page">
+	<ion-grid>
+		<ion-row>
+			<ion-col col-12>
+				<button ion-button (click)="cadastrarPrancha()">Cadastrar prancha</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<ion-card *ngFor="let board of boardImages; let i = index" (click)="getBoard(boardImages[i])">
+		<img src="{{board?.images[0]}}"/>
+		<div class="card-title">{{board?.name}}</div>
+	</ion-card>
 </ion-content>

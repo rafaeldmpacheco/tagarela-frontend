@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {ManageBoardPage} from "../manage-board/manage-board";
 import {BoardService} from "../../providers/board.service";
@@ -8,7 +8,9 @@ import {CurrentBoardPage} from "../current-board/current-board";
 	selector: 'page-home',
 	templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements AfterViewInit {
+
+	public boardImages: any[] = [];
 
 	constructor(private navCtrl: NavController,
 				private boardService: BoardService) {
@@ -18,7 +20,14 @@ export class HomePage {
 		this.navCtrl.push(ManageBoardPage)
 	}
 
-	getBoard() {
-		this.navCtrl.push(CurrentBoardPage, {boardImages: this.boardService.getBoardImages()});
+	getBoard(board) {
+		this.navCtrl.push(CurrentBoardPage, {boardImages: board});
 	}
+
+	ngAfterViewInit(): void {
+		this.boardService.getBoardImages().subscribe(boards => {
+			this.boardImages = boards;
+		})
+	}
+
 }
