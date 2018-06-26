@@ -27,6 +27,7 @@ export class RegisterPage {
 		if (this.email && this.password) {
 			this.loginService.newUser(this.email, this.password, this.role).subscribe(response => {
 				if (response && response.success) {
+					this.loginService.setUser(response.user);
 					this.navController.push(TabsPage);
 				}
 			}, () => {

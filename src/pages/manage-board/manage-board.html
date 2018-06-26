@@ -7,8 +7,10 @@
 
 <ion-content padding>
 	<ion-grid>
-		<ion-row>
-			<ion-input type="text" value="" placeholder="Nome da prancha" [(ngModel)]="board.name"></ion-input>
+		<ion-row style="padding-bottom: 10%">
+			<ion-item>
+				<ion-input type="text" value="" placeholder="Nome da prancha" [(ngModel)]="board.name"></ion-input>
+			</ion-item>
 		</ion-row>
 		<ion-row>
 			<ion-col col-4 *ngFor="let image of board?.images; let i = index" class="no-padding">

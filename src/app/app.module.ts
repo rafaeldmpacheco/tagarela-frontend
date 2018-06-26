@@ -10,7 +10,7 @@ import {Camera} from "@ionic-native/camera";
 
 import {MyApp} from './app.component';
 
-import {ContactPage} from '../pages/contact/contact';
+import {ProfileModal, ProfilePage} from '../pages/profile/profile';
 import {HomePage} from '../pages/home/home';
 import {TabsPage} from '../pages/tabs/tabs';
 import {LoginPage} from '../pages/login/login';
@@ -31,7 +31,8 @@ import {CurrentBoardPage} from "../pages/current-board/current-board";
 	bootstrap: [IonicApp],
 	declarations: [
 		MyApp,
-		ContactPage,
+		ProfilePage,
+		ProfileModal,
 		HomePage,
 		TabsPage,
 		LoginPage,
@@ -42,7 +43,8 @@ import {CurrentBoardPage} from "../pages/current-board/current-board";
 	],
 	entryComponents: [
 		MyApp,
-		ContactPage,
+		ProfilePage,
+		ProfileModal,
 		HomePage,
 		TabsPage,
 		LoginPage,
