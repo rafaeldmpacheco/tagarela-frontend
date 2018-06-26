@@ -13,7 +13,7 @@
 			</ion-item>
 		</ion-row>
 		<ion-row>
-			<ion-col col-4 *ngFor="let image of board?.images; let i = index" style="padding: 0 2% 10% 2%">
+			<ion-col col-4 *ngFor="let image of board?.images; let i = index" class="board-space">
 				<ion-card class="no-margin width-100 height-100" *ngIf="image">
 					<img (click)="newImage(i)" src="{{image}}"/>
 				</ion-card>
