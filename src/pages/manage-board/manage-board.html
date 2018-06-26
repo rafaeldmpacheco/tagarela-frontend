@@ -13,13 +13,12 @@
 			</ion-item>
 		</ion-row>
 		<ion-row>
-			<ion-col col-4 *ngFor="let image of board?.images; let i = index" class="no-padding">
-				<ion-card class="no-margin width-100 height-100" style="text-align: center">
-					<img *ngIf="image" (click)="newImage(i)" src="{{image}}"/>
-
-					<button ion-button class="font-size-1rem" *ngIf="!image" (click)="newImage(i)">
-						Adicionar
-					</button>
+			<ion-col col-4 *ngFor="let image of board?.images; let i = index" style="padding: 0 2% 10% 2%">
+				<ion-card class="no-margin width-100 height-100" *ngIf="image">
+					<img (click)="newImage(i)" src="{{image}}"/>
+				</ion-card>
+				<ion-card *ngIf="!image" class="no-margin width-100 height-100 new-image-button" (click)="newImage(i)">
+					Adicionar
 				</ion-card>
 			</ion-col>
 		</ion-row>

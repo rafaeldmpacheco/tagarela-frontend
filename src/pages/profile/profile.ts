@@ -24,9 +24,6 @@ export class ProfilePage implements OnInit {
 
 	atualizarUsuario() {
 		let profileModal = this.modalCtrl.create(ProfileModal, {user: this.user});
-		profileModal.onDidDismiss(data => {
-			console.log(data);
-		});
 		profileModal.present();
 	}
 
