@@ -6,18 +6,16 @@ import {Observable} from "rxjs";
 @Injectable()
 export class BoardService {
 
-	private board: any;
-
 	constructor(private httpClient: HttpClient) {
 	}
 
 	public saveBoardImages(board: any): Observable<any> {
-		let url: string = `http://localhost:3000/api/board/newBoard`;
-		return this.httpClient.post(url, {board});
+		let url: string = `https://tagarela-backend.herokuapp.com/api/board/newBoard`;
+		return this.httpClient.post(url, board);
 	}
 
 	public getBoardImages(): Observable<any> {
-		let url: string = `http://localhost:3000/api/board/boards`;
+		let url: string = `https://tagarela-backend.herokuapp.com/api/board/boards`;
 		return this.httpClient.get(url);
 	}
 

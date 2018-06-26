@@ -21,6 +21,7 @@ export class LoginPage {
 		if (this.email && this.password) {
 			this.loginService.authenticate(this.email, this.password).subscribe(response => {
 				if (response && response.success) {
+					this.loginService.setUser(response);
 					this.navController.push(TabsPage);
 				} else {
 					this.exceptionMessage = 'Usuário ou senha incorretos';

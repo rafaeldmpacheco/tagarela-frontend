@@ -7,6 +7,15 @@ import {Observable} from "rxjs";
 export class LoginService {
 
 	private email: string;
+	public user: any;
+
+	setUser(user) {
+		this.user = user;
+	}
+
+	getUser() {
+		return this.user;
+	}
 
 	getEmail() {
 		return this.email;
@@ -22,7 +31,7 @@ export class LoginService {
 				name: email,
 				password: password
 			};
-			let url: string = `http://localhost:3000/api/login/authenticate`;
+			let url: string = `https://tagarela-backend.herokuapp.com/api/login/authenticate`;
 			return this.httpClient.post(url, user);
 		}
 		catch (e) {
@@ -37,7 +46,7 @@ export class LoginService {
 				password: password,
 				role: role
 			};
-			let url: string = `http://localhost:3000/api/login/newUser`;
+			let url: string = `https://tagarela-backend.herokuapp.com/api/login/newUser`;
 			return this.httpClient.post(url, user);
 		}
 		catch (e) {

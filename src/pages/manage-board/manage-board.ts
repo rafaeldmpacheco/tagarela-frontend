@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {ActionSheetController, NavController} from 'ionic-angular';
+import {Component, OnInit} from '@angular/core';
+import {ActionSheetController, NavController, NavParams} from 'ionic-angular';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {BoardService} from "../../providers/board.service";
 
@@ -7,14 +7,15 @@ import {BoardService} from "../../providers/board.service";
 	selector: 'manage-board',
 	templateUrl: 'manage-board.html'
 })
-export class ManageBoardPage {
+export class ManageBoardPage implements OnInit {
 
 	public board: any = {name: '', images: []};
 
 	constructor(private navCtrl: NavController,
 				private actionSheetCtrl: ActionSheetController,
 				private boardService: BoardService,
-				private camera: Camera) {
+				private camera: Camera,
+				private navParams: NavParams) {
 		this.board.images.push(this.mockImage);
 		this.board.images.push(null);
 		this.board.images.push(this.mockImage);
@@ -24,6 +25,12 @@ export class ManageBoardPage {
 		this.board.images.push(this.mockImage);
 		this.board.images.push(this.mockImage);
 		this.board.images.push(this.mockImage);
+	}
+
+	ngOnInit(): void {
+		if (this.navParams.get('boardImages')) {
+			this.board = this.navParams.get('boardImages');
+		}
 	}
 
 	newImage(index): void {
@@ -44,8 +51,9 @@ export class ManageBoardPage {
 	}
 
 	saveBoard(): void {
-		this.boardService.saveBoardImages(this.board);
-		this.navCtrl.pop();
+		this.boardService.saveBoardImages(this.board).subscribe(response => {
+			this.navCtrl.pop();
+		});
 	}
 
 	private mockImage = 'https://www.google.com.br/logos/doodles/2018/dia-dos-namorados-2018-5894886078283776.3-l.png';

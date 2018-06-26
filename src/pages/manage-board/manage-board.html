@@ -1,6 +1,7 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>Nova Prancha</ion-title>
+		<ion-title *ngIf="!board?.name">Nova Prancha</ion-title>
+		<ion-title *ngIf="board?.name">{{board?.name}}</ion-title>
 	</ion-navbar>
 </ion-header>
 
@@ -12,9 +13,10 @@
 		<ion-row>
 			<ion-col col-4 *ngFor="let image of board?.images; let i = index" class="no-padding">
 				<ion-card class="no-margin width-100 height-100" style="text-align: center">
-					<img *ngIf="image" src="{{image}}"/>
+					<img *ngIf="image" (click)="newImage(i)" src="{{image}}"/>
 
-					<button ion-button class="font-size-1rem" *ngIf="!image" (click)="newImage(i)">Adicionar
+					<button ion-button class="font-size-1rem" *ngIf="!image" (click)="newImage(i)">
+						Adicionar
 					</button>
 				</ion-card>
 			</ion-col>
