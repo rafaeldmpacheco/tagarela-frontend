@@ -56,7 +56,7 @@ export class LoginService {
 
 	public updateUser(user): Observable<any> {
 		try {
-			let url: string = `https://tagarela-backend.herokuapp.com/api/login/user/${user._id}`;
+			let url: string = 'https://tagarela-backend.herokuapp.com/api/login/user/' + user._id;
 			return this.httpClient.put(url, {name: user.name, password: user.password});
 		}
 		catch (e) {

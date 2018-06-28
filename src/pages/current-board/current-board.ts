@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 
 @Component({
@@ -11,6 +11,7 @@ export class CurrentBoardPage implements OnInit {
 	public selectedImages: any[] = [];
 
 	constructor(private navCtrl: NavController,
+				private renderer: Renderer2,
 				private navParams: NavParams) {
 	}
 
@@ -19,6 +20,21 @@ export class CurrentBoardPage implements OnInit {
 	}
 
 	selectedImage(index) {
-		this.selectedImages.push(this.board.images[index]);
+		const elemento = document.getElementById(`card-${index}`);
+		let indexSelectedImages = this.selectedImages.findIndex(item => item.id === index);
+
+		if (indexSelectedImages === -1) {
+			this.renderer.removeClass(elemento, 'unselected');
+			this.renderer.addClass(elemento, 'selected');
+			this.selectedImages.push({
+				url: this.board.images[index],
+				id: index
+			});
+		} else {
+			this.selectedImages.splice(indexSelectedImages, 1);
+			this.renderer.removeClass(elemento, 'selected');
+			this.renderer.addClass(elemento, 'unselected');
+		}
+
 	}
 }
