@@ -9,7 +9,7 @@
 	<ion-grid>
 		<ion-row>
 			<ion-col col-4 *ngFor="let image of board?.images; let i = index" class="board-space">
-				<ion-card class="no-margin width-100 height-100" id="card-{{i}}"  (click)="selectedImage(i)">
+				<ion-card class="no-margin width-100" id="card-{{i}}"  (click)="selectedImage(i)">
 					<img *ngIf="image" src="{{image}}"/>
 				</ion-card>
 			</ion-col>
