@@ -18,6 +18,10 @@ export class HomePage implements AfterViewInit {
 				private loginService: LoginService,
 				private boardService: BoardService) {
 		this.user = this.loginService.getUser();
+
+		this.boardService.haveNewBoard.subscribe(() => {
+			this.getBoardImages();
+		});
 	}
 
 	cadastrarPrancha() {
@@ -33,9 +37,13 @@ export class HomePage implements AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
+		this.getBoardImages();
+	}
+
+
+	private getBoardImages() {
 		this.boardService.getBoardImages().subscribe(boards => {
 			this.boardImages = boards;
 		})
 	}
-
 }

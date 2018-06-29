@@ -51,8 +51,20 @@ export class ManageBoardPage implements OnInit {
 	}
 
 	saveBoard(): void {
-		this.boardService.saveBoardImages(this.board).subscribe(response => {
+		this.boardService.saveBoardImages(this.board).subscribe(() => {
+			this.boardService.haveNewBoard.next();
 			this.navCtrl.pop();
+		}, (err) => {
+			console.log(err)
+		});
+	}
+
+	deleteBoard(): void {
+		this.boardService.deleteBoardImages(this.board._id).subscribe(() => {
+			this.boardService.haveNewBoard.next();
+			this.navCtrl.pop();
+		}, (err) => {
+			console.log(err)
 		});
 	}
 
