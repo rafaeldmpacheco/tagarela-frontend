@@ -17,14 +17,14 @@ export class ManageBoardPage implements OnInit {
 				private camera: Camera,
 				private navParams: NavParams) {
 		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
+		this.board.images.push(this.mockImage);
 		this.board.images.push(null);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
 	}
 
 	ngOnInit(): void {
@@ -68,6 +68,6 @@ export class ManageBoardPage implements OnInit {
 		});
 	}
 
-	private mockImage = 'https://www.google.com.br/logos/doodles/2018/dia-dos-namorados-2018-5894886078283776.3-l.png';
+	private mockImage = 'https://static1.squarespace.com/static/55fc0004e4b069a519961e2d/t/55fc301ae4b01342ae9212a1/1442590746805/';
 
 }
