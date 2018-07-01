@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {App, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {LoginService} from "../../providers/login.service";
 import {WelcomePage} from "../welcome/welcome";
-import {TabsPage} from "../tabs/tabs";
 
 @Component({
 	selector: 'page-profile',

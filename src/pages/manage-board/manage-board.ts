@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActionSheetController, NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {BoardService} from "../../providers/board.service";
 
@@ -12,7 +12,6 @@ export class ManageBoardPage implements OnInit {
 	public board: any = {name: '', images: []};
 
 	constructor(private navCtrl: NavController,
-				private actionSheetCtrl: ActionSheetController,
 				private boardService: BoardService,
 				private camera: Camera,
 				private navParams: NavParams) {

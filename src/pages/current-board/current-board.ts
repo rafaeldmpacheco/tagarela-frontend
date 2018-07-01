@@ -1,5 +1,5 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavParams} from 'ionic-angular';
 
 @Component({
 	selector: 'current-board',
@@ -10,8 +10,7 @@ export class CurrentBoardPage implements OnInit {
 	public board: any;
 	public selectedImages: any[] = [];
 
-	constructor(private navCtrl: NavController,
-				private renderer: Renderer2,
+	constructor(private renderer: Renderer2,
 				private navParams: NavParams) {
 	}
 

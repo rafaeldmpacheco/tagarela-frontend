@@ -29,6 +29,8 @@ export class RegisterPage {
 				if (response && response.success) {
 					this.loginService.setUser(response.user);
 					this.navController.push(TabsPage);
+				} else {
+					this.exceptionMessage = response.message;
 				}
 			}, () => {
 				this.exceptionMessage = 'Não foi possível realizar o cadastro';
