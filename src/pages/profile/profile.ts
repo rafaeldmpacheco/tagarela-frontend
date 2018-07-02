@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {App, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {LoginService} from "../../providers/login.service";
 import {WelcomePage} from "../welcome/welcome";
+import {LoadingService} from "../../providers/loading.service";
 
 @Component({
 	selector: 'page-profile',
@@ -70,6 +71,7 @@ export class ProfileModal {
 
 	constructor(private navParams: NavParams,
 				private viewCtrl: ViewController,
+				private loadingService: LoadingService,
 				private loginService: LoginService) {
 		this.user = this.navParams.get('user');
 	}
@@ -79,9 +81,15 @@ export class ProfileModal {
 	}
 
 	updateUser() {
+		let loading: any = this.loadingService.createLoadingPage("Aguarde...");
+		loading.present();
 		this.loginService.updateUser(this.user).subscribe(response => {
 			this.loginService.setUser(response.user);
 			this.viewDismiss();
+			loading.dismiss();
+		}, (e) => {
+			loading.dismiss();
+			console.log(e)
 		});
 	}
 }

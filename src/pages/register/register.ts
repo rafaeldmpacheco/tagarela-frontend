@@ -3,6 +3,7 @@ import {NavController} from "ionic-angular";
 import {LoginService} from "../../providers/login.service";
 import {WelcomePage} from "../welcome/welcome";
 import {TabsPage} from "../tabs/tabs";
+import {LoadingService} from "../../providers/loading.service";
 
 @Component({
 	selector: 'register',
@@ -16,6 +17,7 @@ export class RegisterPage {
 	public exceptionMessage: string;
 
 	constructor(private navController: NavController,
+				private loadingService: LoadingService,
 				private loginService: LoginService) {
 	}
 
@@ -24,6 +26,9 @@ export class RegisterPage {
 	}
 
 	public register() {
+		let loading: any = this.loadingService.createLoadingPage("Aguarde...");
+		loading.present();
+
 		this.loginService.newUser(this.email, this.password, this.role).subscribe(response => {
 			if (response && response.success) {
 				this.loginService.setUser(response.user);
@@ -31,8 +36,10 @@ export class RegisterPage {
 			} else {
 				this.exceptionMessage = response.message;
 			}
+			loading.dismiss();
 		}, () => {
 			this.exceptionMessage = 'Não foi possível realizar o cadastro';
+			loading.dismiss();
 		});
 	}
 }

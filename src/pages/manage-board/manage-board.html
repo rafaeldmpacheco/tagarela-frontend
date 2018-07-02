@@ -24,7 +24,9 @@
 		</ion-row>
 		<ion-row>
 			<ion-col col-6>
-				<button ion-button (click)="saveBoard()">Salvar prancha</button>
+				<button ion-button (click)="updateBoard()" *ngIf="board?._id">Atualizar prancha</button>
+
+				<button ion-button (click)="saveBoard()" *ngIf="!board?._id">Salvar prancha</button>
 			</ion-col>
 			<ion-col col-6 *ngIf="board?._id">
 				<button ion-button (click)="deleteBoard()">Deletar prancha</button>

@@ -21,6 +21,7 @@ import {RegisterPage} from "../pages/register/register";
 import {ManageBoardPage} from "../pages/manage-board/manage-board";
 import {BoardService} from "../providers/board.service";
 import {CurrentBoardPage} from "../pages/current-board/current-board";
+import {LoadingService} from "../providers/loading.service";
 
 @NgModule({
 	imports: [
@@ -59,6 +60,7 @@ import {CurrentBoardPage} from "../pages/current-board/current-board";
 		Camera,
 		LoginService,
 		BoardService,
+		LoadingService,
 		{
 			provide: ErrorHandler, useClass: IonicErrorHandler
 		}

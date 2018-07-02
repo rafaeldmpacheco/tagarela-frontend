@@ -4,6 +4,7 @@ import {ManageBoardPage} from "../manage-board/manage-board";
 import {BoardService} from "../../providers/board.service";
 import {CurrentBoardPage} from "../current-board/current-board";
 import {LoginService} from "../../providers/login.service";
+import {LoadingService} from "../../providers/loading.service";
 
 @Component({
 	selector: 'page-home',
@@ -16,6 +17,7 @@ export class HomePage implements AfterViewInit {
 
 	constructor(private navCtrl: NavController,
 				private loginService: LoginService,
+				private loadingService: LoadingService,
 				private boardService: BoardService) {
 		this.user = this.loginService.getUser();
 
@@ -29,7 +31,7 @@ export class HomePage implements AfterViewInit {
 	}
 
 	getBoard(board) {
-		if (this.user && this.user.role === 'TEACHER') {
+		if (this.user && (this.user.role === 'TEACHER' || this.user.role === 'teacher')) {
 			this.navCtrl.push(ManageBoardPage, {boardImages: board});
 		} else {
 			this.navCtrl.push(CurrentBoardPage, {boardImages: board});
@@ -42,8 +44,15 @@ export class HomePage implements AfterViewInit {
 
 
 	private getBoardImages() {
+		let loading: any = this.loadingService.createLoadingPage("Aguarde...");
+		loading.present();
+
 		this.boardService.getBoardImages().subscribe(boards => {
 			this.boardImages = boards;
+			loading.dismiss();
+		}, (e) => {
+			console.log(e);
+			loading.dismiss();
 		})
 	}
 }

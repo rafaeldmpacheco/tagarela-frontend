@@ -16,6 +16,11 @@ export class BoardService {
 		return this.httpClient.post(url, board);
 	}
 
+	public updateBoardImages(board: any): Observable<any> {
+		let url: string = `https://tagarela-backend.herokuapp.com/api/board/update/` + board._id;
+		return this.httpClient.put(url, board);
+	}
+
 	public getBoardImages(): Observable<any> {
 		let url: string = `https://tagarela-backend.herokuapp.com/api/board/boards`;
 		return this.httpClient.get(url);

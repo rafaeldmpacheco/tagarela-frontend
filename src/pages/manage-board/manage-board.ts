@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {BoardService} from "../../providers/board.service";
+import {LoadingService} from "../../providers/loading.service";
 
 @Component({
 	selector: 'manage-board',
@@ -14,6 +15,7 @@ export class ManageBoardPage implements OnInit {
 	constructor(private navCtrl: NavController,
 				private boardService: BoardService,
 				private camera: Camera,
+				private loadingService: LoadingService,
 				private navParams: NavParams) {
 		this.board.images.push(this.mockImage);
 		this.board.images.push(this.mockImage);
@@ -33,6 +35,9 @@ export class ManageBoardPage implements OnInit {
 	}
 
 	newImage(index): void {
+		let loading: any = this.loadingService.createLoadingPage("Aguarde...");
+		loading.present();
+
 		const options: CameraOptions = {
 			destinationType: this.camera.DestinationType.DATA_URL,
 			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -44,26 +49,52 @@ export class ManageBoardPage implements OnInit {
 		};
 		this.camera.getPicture(options).then((imageData) => {
 			this.board.images[index] = 'data:image/jpeg;base64,' + imageData;
+			loading.dismiss();
 		}).catch((error) => {
 			console.log(error);
+			loading.dismiss();
 		});
 	}
 
 	saveBoard(): void {
+		let loading: any = this.loadingService.createLoadingPage("Aguarde...");
+		loading.present();
+
 		this.boardService.saveBoardImages(this.board).subscribe(() => {
 			this.boardService.haveNewBoard.next();
 			this.navCtrl.pop();
+			loading.dismiss();
 		}, (err) => {
-			console.log(err)
+			console.log(err);
+			loading.dismiss();
+		});
+	}
+
+	updateBoard(): void {
+		let loading: any = this.loadingService.createLoadingPage("Aguarde...");
+		loading.present();
+
+		this.boardService.updateBoardImages(this.board).subscribe(() => {
+			this.boardService.haveNewBoard.next();
+			this.navCtrl.pop();
+			loading.dismiss();
+		}, (err) => {
+			console.log(err);
+			loading.dismiss();
 		});
 	}
 
 	deleteBoard(): void {
+		let loading: any = this.loadingService.createLoadingPage("Aguarde...");
+		loading.present();
+
 		this.boardService.deleteBoardImages(this.board._id).subscribe(() => {
 			this.boardService.haveNewBoard.next();
 			this.navCtrl.pop();
+			loading.dismiss();
 		}, (err) => {
-			console.log(err)
+			console.log(err);
+			loading.dismiss();
 		});
 	}
 

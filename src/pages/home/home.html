@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding class="card-background-page">
-	<ion-grid *ngIf="user?.role === 'TEACHER'">
+	<ion-grid *ngIf="user?.role === 'TEACHER' || user?.role === 'teacher'">
 		<ion-row>
 			<ion-col col-12>
 				<button ion-button (click)="cadastrarPrancha()">Cadastrar prancha</button>
