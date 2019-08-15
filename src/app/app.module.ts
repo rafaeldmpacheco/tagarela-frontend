@@ -9,19 +9,18 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {Camera} from "@ionic-native/camera";
 
 import {MyApp} from './app.component';
+import { ProfilePage, ProfileModal } from './pages/profile/profile';
+import { HomePage } from './pages/home/home';
+import { TabsPage } from './pages/tabs/tabs';
+import { LoginPage } from './pages/login/login';
+import { WelcomePage } from './pages/welcome/welcome';
+import { RegisterPage } from './pages/register/register';
+import { ManageBoardPage } from './pages/manage-board/manage-board';
+import { CurrentBoardPage } from './pages/current-board/current-board';
+import { LoginService } from './providers/login.service';
+import { BoardService } from './providers/board.service';
+import { LoadingService } from './providers/loading.service';
 
-import {ProfileModal, ProfilePage} from '../pages/profile/profile';
-import {HomePage} from '../pages/home/home';
-import {TabsPage} from '../pages/tabs/tabs';
-import {LoginPage} from '../pages/login/login';
-
-import {LoginService} from "../providers/login.service";
-import {WelcomePage} from "../pages/welcome/welcome";
-import {RegisterPage} from "../pages/register/register";
-import {ManageBoardPage} from "../pages/manage-board/manage-board";
-import {BoardService} from "../providers/board.service";
-import {CurrentBoardPage} from "../pages/current-board/current-board";
-import {LoadingService} from "../providers/loading.service";
 
 @NgModule({
 	imports: [
