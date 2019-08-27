@@ -30,7 +30,7 @@ export class ManageBoardPage implements OnInit {
 
 	ngOnInit(): void {
 		if (this.navParams.get('boardImages')) {
-			this.board = this.navParams.get('boardImages');
+			// this.board = this.navParams.get('boardImages');
 		}
 	}
 

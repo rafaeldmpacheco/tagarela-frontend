@@ -25,7 +25,7 @@ export class LoginPage {
 
 		if (this.email && this.password) {
 			this.loginService.authenticate(this.email, this.password).subscribe(response => {
-				if (response && response.success) {
+				if (response) {
 					this.loginService.setUser(response.user);
 					this.navController.push(TabsPage);
 					loading.dismiss();
