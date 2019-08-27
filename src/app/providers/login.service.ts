@@ -31,7 +31,7 @@ export class LoginService {
 				name: email,
 				password: password
 			};
-			let url: string = `https://tagarela-backend.herokuapp.com/api/login/authenticate`;
+			let url: string = `https://tagarela-backend.herokuapp.com/authenticate`;
 			return this.httpClient.post(url, user);
 		}
 		catch (e) {
@@ -39,14 +39,9 @@ export class LoginService {
 		}
 	}
 
-	public newUser(email: string, password: string, role: string): Observable<any> {
+	public newUser(user: any): Observable<any> {
 		try {
-			let user = {
-				name: email,
-				password: password,
-				role: role
-			};
-			let url: string = `https://tagarela-backend.herokuapp.com/api/login/newUser`;
+			let url: string = `https://tagarela-backend.herokuapp.com/register`;
 			return this.httpClient.post(url, user);
 		}
 		catch (e) {

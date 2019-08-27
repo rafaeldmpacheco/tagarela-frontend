@@ -28,9 +28,13 @@ export class RegisterPage {
 	public register() {
 		let loading: any = this.loadingService.createLoadingPage("Aguarde...");
 		loading.present();
-
-		this.loginService.newUser(this.email, this.password, this.role).subscribe(response => {
-			if (response && response.success) {
+		const user = {
+			email: this.email,
+			password: this.password,
+			role: this.role
+		};
+		this.loginService.newUser(user).subscribe(response => {
+			if (response) {
 				this.loginService.setUser(response.user);
 				this.navController.push(TabsPage);
 			} else {
