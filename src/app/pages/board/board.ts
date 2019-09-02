@@ -7,10 +7,10 @@ import {LoginService} from "../../providers/login.service";
 import {LoadingService} from "../../providers/loading.service";
 
 @Component({
-	selector: 'page-home',
-	templateUrl: 'home.html'
+	selector: 'page-board',
+	templateUrl: 'board.html'
 })
-export class HomePage implements AfterViewInit {
+export class BoardPage implements AfterViewInit {
 
 	public boardImages: any[] = [];
 	public user: any;

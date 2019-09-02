@@ -1,0 +1,38 @@
+grid-menu {
+	background-color: #f7f7f8;
+
+	.menu-grid {
+		padding: 0;
+	}
+
+	.menu-item {
+		border-right: 1px solid #ebebec;
+		border-bottom: 1px solid #ebebec;
+		display: flex;
+	}
+
+	.menu-item-content {
+		align-self: center;
+		width: 100%;
+		text-align: center;
+	}
+
+	.square {
+		height: 50vw;
+
+		@media screen and (min-width: #{map-get($grid-breakpoints, md)}) {
+			height: 25vw;
+		}
+	}
+
+	.menu-icon {
+		color: #4b4b4b;
+		font-size: 85px;
+	}
+
+	.menu-text {
+		font-size: 13px;
+		padding-top: 20px;
+		color: #4b4b4b;
+	}
+}

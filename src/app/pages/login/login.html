@@ -12,10 +12,14 @@
 	</div>
 
 	<div margin-left margin-right *ngIf="exceptionMessage">
-		<p class="alert alert-warning" text-center>{{exceptionMessage}}</p>
+		<p class="alert alert-warning" text-center>{{ exceptionMessage }}</p>
 	</div>
 
 	<div margin-right margin-left>
 		<button ion-button block class="login-button" (click)="login()">Entrar</button>
+	</div>
+
+	<div margin-right margin-left>
+		<button ion-button block class="login-button" (click)="register()">Criar uma conta</button>
 	</div>
 </ion-content>

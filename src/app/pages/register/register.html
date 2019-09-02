@@ -1,3 +1,11 @@
+<ion-header style="background-color: #333">
+	<ion-toolbar>
+		<button (click)="backToLogin()">
+      Voltar
+    </button>
+	</ion-toolbar>
+</ion-header>
+
 <ion-content style="background-color: #333">
 	<div class="login-input-area">
 		<ion-list center>
@@ -12,8 +20,8 @@
 			<ion-item>
 				<ion-label>papel</ion-label>
 				<ion-select [(ngModel)]="role">
-					<ion-option value="teacher">Professor</ion-option>
-					<ion-option value="student">Aluno</ion-option>
+					<ion-option value="TEACHER">Professor</ion-option>
+					<ion-option value="STUDENT">Aluno</ion-option>
 				</ion-select>
 			</ion-item>
 		</ion-list>
@@ -24,7 +32,7 @@
 	</div>
 
 	<ion-buttons start margin-left margin-right style="text-align: center">
-		<button ion-button style="background-color: white; color: black" (click)="backToWelcome()">Cancelar</button>
+		<button ion-button style="background-color: white; color: black" (click)="backToLogin()">Cancelar</button>
 		<button ion-button (click)="register()">Concluído</button>
 	</ion-buttons>
 </ion-content>

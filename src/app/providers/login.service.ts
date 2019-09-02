@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class LoginService {
@@ -27,7 +27,11 @@ export class LoginService {
 			this.email = email;
 			let user = { email, password };
 			let url: string = `https://tagarela-backend.herokuapp.com/authenticate`;
-			return this.httpClient.post(url, user);
+			return this.httpClient.post(url, user).map((response: any) => {
+				this.setUser(response.user);
+				localStorage.setItem('token', response.token);
+				return response;
+			});
 		} catch (e) {
 			return Observable.throw(e);
 		}
@@ -44,8 +48,7 @@ export class LoginService {
 
 	public updateUser(user): Observable<any> {
 		try {
-			let url: string =
-				"https://tagarela-backend.herokuapp.com/api/login/user/" + user._id;
+			let url: string = 'https://tagarela-backend.herokuapp.com/api/login/user/' + user._id;
 			return this.httpClient.put(url, {
 				name: user.name,
 				password: user.password

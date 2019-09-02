@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {App, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {LoginService} from "../../providers/login.service";
-import {WelcomePage} from "../welcome/welcome";
 import {LoadingService} from "../../providers/loading.service";
+import { LoginPage } from '../login/login';
 
 @Component({
 	selector: 'page-profile',
@@ -28,7 +28,7 @@ export class ProfilePage implements OnInit {
 	}
 
 	logout() {
-		this.app.getRootNav().push(WelcomePage);
+		this.app.getRootNav().push(LoginPage);
 	}
 }
 
