@@ -1,18 +1,15 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
-import {NavParams} from 'ionic-angular';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { NavParams } from 'ionic-angular';
 
 @Component({
 	selector: 'current-board',
 	templateUrl: 'current-board.html'
 })
 export class CurrentBoardPage implements OnInit {
-
 	public board: any;
 	public selectedImages: any[] = [];
 
-	constructor(private renderer: Renderer2,
-				private navParams: NavParams) {
-	}
+	constructor(private renderer: Renderer2, private navParams: NavParams) {}
 
 	ngOnInit(): void {
 		this.board = this.navParams.get('boardImages');
@@ -34,6 +31,5 @@ export class CurrentBoardPage implements OnInit {
 			this.renderer.removeClass(elemento, 'selected');
 			this.renderer.addClass(elemento, 'unselected');
 		}
-
 	}
 }

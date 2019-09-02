@@ -1,8 +1,8 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {ManageBoardPage} from "../manage-board/manage-board";
+import {ManageBoardPage} from "./manage-board/manage-board";
 import {BoardService} from "../../providers/board.service";
-import {CurrentBoardPage} from "../current-board/current-board";
+import {CurrentBoardPage} from "./current-board/current-board";
 import {LoginService} from "../../providers/login.service";
 import {LoadingService} from "../../providers/loading.service";
 
