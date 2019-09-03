@@ -1,11 +1,4 @@
-import {
-	HttpErrorResponse,
-	HttpEvent,
-	HttpHandler,
-	HttpInterceptor,
-	HttpRequest,
-	HttpResponse
-} from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { App } from 'ionic-angular';
 import { Observable } from 'rxjs';
