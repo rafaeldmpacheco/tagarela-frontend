@@ -7,17 +7,20 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { GridMenuComponent } from './components/grid-menu/grid-menu.component';
-import { CurrentBoardPage } from './pages/board/current-board/current-board';
 import { BoardPage } from './pages/board/board';
-import { LoginPage } from './pages/login/login';
+import { CurrentBoardPage } from './pages/board/current-board/current-board';
 import { ManageBoardPage } from './pages/board/manage-board/manage-board';
+import { LoginPage } from './pages/login/login';
 import { MenuPage } from './pages/menu/menu';
+import { ModulesPage } from './pages/modules/modules';
+import { ModuleRegisterModal } from './pages/modules/modules-register-modal/modules-register-modal';
 import { ProfileModal, ProfilePage } from './pages/profile/profile';
 import { RegisterPage } from './pages/register/register';
 import { BoardService } from './providers/board.service';
 import { TokenInterceptor } from './providers/intercept-http.service';
 import { LoadingService } from './providers/loading.service';
 import { LoginService } from './providers/login.service';
+import { ModulesService } from './providers/modules.service';
 
 const PAGES = [
 	MyApp,
@@ -29,7 +32,9 @@ const PAGES = [
 	RegisterPage,
 	ManageBoardPage,
 	CurrentBoardPage,
-	GridMenuComponent
+	GridMenuComponent,
+	ModulesPage,
+	ModuleRegisterModal
 ];
 @NgModule({
 	imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule],
@@ -43,6 +48,7 @@ const PAGES = [
 		LoginService,
 		BoardService,
 		LoadingService,
+		ModulesService,
 		{
 			provide: ErrorHandler,
 			useClass: IonicErrorHandler
