@@ -40,7 +40,11 @@ export class LoginService {
 	public newUser(user: any): Observable<any> {
 		try {
 			let url: string = `https://tagarela-backend.herokuapp.com/register`;
-			return this.httpClient.post(url, user);
+			return this.httpClient.post(url, user).map((response: any) => {
+				this.setUser(response.user);
+				localStorage.setItem('token', response.token);
+				return response;
+			});
 		} catch (e) {
 			return Observable.throw(e);
 		}
@@ -48,11 +52,8 @@ export class LoginService {
 
 	public updateUser(user): Observable<any> {
 		try {
-			let url: string = 'https://tagarela-backend.herokuapp.com/api/login/user/' + user._id;
-			return this.httpClient.put(url, {
-				name: user.name,
-				password: user.password
-			});
+			let url: string = 'https://tagarela-backend.herokuapp.com/user/' + user._id;
+			return this.httpClient.put(url, user);
 		} catch (e) {
 			return Observable.throw(e);
 		}

@@ -1,8 +1,8 @@
 <ion-header style="background-color: #333">
 	<ion-toolbar>
 		<button (click)="backToLogin()">
-      Voltar
-    </button>
+			Voltar
+		</button>
 	</ion-toolbar>
 </ion-header>
 
@@ -19,20 +19,28 @@
 
 			<ion-item>
 				<ion-label>papel</ion-label>
-				<ion-select [(ngModel)]="role">
-					<ion-option value="TEACHER">Professor</ion-option>
-					<ion-option value="STUDENT">Aluno</ion-option>
+				<ion-select
+					[(ngModel)]="roles"
+					multiple="true"
+					cancelText="Cancelar"
+					okText="Salvar"
+				>
+					<ion-option value="TEACHER">Tutor</ion-option>
+					<ion-option value="STUDENT">Paciente</ion-option>
+					<ion-option value="SPECIALIST">Especialista</ion-option>
 				</ion-select>
 			</ion-item>
 		</ion-list>
 	</div>
 
 	<div margin-left margin-right *ngIf="exceptionMessage">
-		<p class="alert alert-warning" text-center>{{exceptionMessage}}</p>
+		<p class="alert alert-warning" text-center>{{ exceptionMessage }}</p>
 	</div>
 
 	<ion-buttons start margin-left margin-right style="text-align: center">
-		<button ion-button style="background-color: white; color: black" (click)="backToLogin()">Cancelar</button>
+		<button ion-button style="background-color: white; color: black" (click)="backToLogin()">
+			Cancelar
+		</button>
 		<button ion-button (click)="register()">Concluído</button>
 	</ion-buttons>
 </ion-content>

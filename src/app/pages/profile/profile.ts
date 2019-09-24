@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {App, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
-import {LoginService} from "../../providers/login.service";
-import {LoadingService} from "../../providers/loading.service";
+import { Component, OnInit } from '@angular/core';
+import { App, ModalController, NavController, NavParams, ViewController } from 'ionic-angular';
+import { LoginService } from '../../providers/login.service';
+import { LoadingService } from '../../providers/loading.service';
 import { LoginPage } from '../login/login';
 
 @Component({
@@ -9,21 +9,21 @@ import { LoginPage } from '../login/login';
 	templateUrl: 'profile.html'
 })
 export class ProfilePage implements OnInit {
-
 	public user: any;
 
-	constructor(public navCtrl: NavController,
-				public modalCtrl: ModalController,
-				private app: App,
-				private loginService: LoginService) {
-	}
+	constructor(
+		public navCtrl: NavController,
+		public modalCtrl: ModalController,
+		private app: App,
+		private loginService: LoginService
+	) {}
 
 	ngOnInit(): void {
 		this.user = this.loginService.getUser();
 	}
 
 	atualizarUsuario() {
-		let profileModal = this.modalCtrl.create(ProfileModal, {user: this.user});
+		let profileModal = this.modalCtrl.create(ProfileModal, { user: this.user });
 		profileModal.present();
 	}
 
@@ -52,16 +52,36 @@ export class ProfilePage implements OnInit {
 			<div>
 				<ion-list center *ngIf="user">
 					<ion-item>
-						<ion-input type="text" [(ngModel)]="user.name" placeholder="usuário"></ion-input>
+						<ion-input
+							type="text"
+							[(ngModel)]="user.name"
+							placeholder="usuário"
+						></ion-input>
 					</ion-item>
 					<ion-item>
-						<ion-input type="password" [(ngModel)]="user.password" placeholder="senha"></ion-input>
+						<ion-input
+							type="password"
+							[(ngModel)]="user.password"
+							placeholder="senha"
+						></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label>papel</ion-label>
+						<ion-select
+							[(ngModel)]="user.roles"
+							multiple="true"
+							cancelText="Cancelar"
+							okText="Salvar"
+						>
+							<ion-option value="TEACHER">Tutor</ion-option>
+							<ion-option value="STUDENT">Paciente</ion-option>
+							<ion-option value="SPECIALIST">Especialista</ion-option>
+						</ion-select>
 					</ion-item>
 				</ion-list>
 			</div>
 			<ion-buttons start margin-left margin-right style="text-align: center">
-				<button ion-button (click)="updateUser()">Atualizar
-				</button>
+				<button ion-button (click)="updateUser()">Atualizar</button>
 			</ion-buttons>
 		</ion-content>
 	`
@@ -69,11 +89,12 @@ export class ProfilePage implements OnInit {
 export class ProfileModal {
 	public user: any;
 
-	constructor(private navParams: NavParams,
-				private viewCtrl: ViewController,
-				private loadingService: LoadingService,
-				private loginService: LoginService) {
-		this.user = this.navParams.get('user');
+	constructor(
+		private viewCtrl: ViewController,
+		private loadingService: LoadingService,
+		private loginService: LoginService
+	) {
+		this.user = this.loginService.getUser();
 	}
 
 	viewDismiss() {
@@ -81,15 +102,17 @@ export class ProfileModal {
 	}
 
 	updateUser() {
-		let loading: any = this.loadingService.createLoadingPage("Aguarde...");
-		loading.present();
-		this.loginService.updateUser(this.user).subscribe(response => {
-			this.loginService.setUser(response.user);
-			this.viewDismiss();
-			loading.dismiss();
-		}, (e) => {
-			loading.dismiss();
-			console.log(e)
-		});
+		// let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+		// loading.present();
+		this.loginService.updateUser(this.user).subscribe(
+			() => {
+				this.viewDismiss();
+				// loading.dismiss();
+			},
+			e => {
+				// loading.dismiss();
+				console.log(e);
+			}
+		);
 	}
 }

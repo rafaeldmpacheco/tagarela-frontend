@@ -10,14 +10,14 @@ export class ModulesService {
 			id: '0',
 			title: 'Perfil',
 			icon: 'contact',
-			roles: ['TEACHER', 'STUDENT', 'SPECIALIST', 'ADMIN'],
+			roles: ['TEACHER', 'STUDENT', 'SPECIALIST'],
 			name: 'profile'
 		},
 		{
 			id: '1',
 			title: 'Pranchas',
 			icon: 'clipboard',
-			roles: ['TEACHER', 'STUDENT', 'SPECIALIST', 'ADMIN'],
+			roles: ['TEACHER', 'STUDENT', 'SPECIALIST'],
 			name: 'board'
 		}
 	];

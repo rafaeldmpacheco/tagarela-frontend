@@ -4,6 +4,7 @@ import { BoardPage } from '../board/board';
 import { ProfilePage } from '../profile/profile';
 import { ModulesService } from '../../providers/modules.service';
 import { ModulesPage } from '../modules/modules';
+import { LoginService } from '../../providers/login.service';
 
 @Component({
 	templateUrl: 'menu.html'
@@ -11,7 +12,11 @@ import { ModulesPage } from '../modules/modules';
 export class MenuPage {
 	allMenuItems: any;
 
-	constructor(private navController: NavController, private modulesService: ModulesService) {
+	constructor(
+		private navController: NavController,
+		private modulesService: ModulesService,
+		private loginService: LoginService
+	) {
 		const moduleRegister = {
 			title: 'Modulos',
 			action: () => this.navController.push(ModulesPage),
@@ -32,7 +37,7 @@ export class MenuPage {
 					element.action = () => this.navController.push(ProfilePage);
 				}
 
-				element.hidden = false;
+				element.hidden = false
 			});
 		});
 	}
