@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { BoardPage } from '../board/board';
-import { ProfilePage } from '../profile/profile';
+import { LoginService } from '../../providers/login.service';
 import { ModulesService } from '../../providers/modules.service';
 import { ModulesPage } from '../modules/modules';
-import { LoginService } from '../../providers/login.service';
+import { PlanPage } from '../plan/plan';
+import { ProfilePage } from '../profile/profile';
 
 @Component({
 	templateUrl: 'menu.html'
@@ -30,8 +30,8 @@ export class MenuPage {
 			this.allMenuItems = [...modules, moduleRegister];
 
 			this.allMenuItems.forEach(element => {
-				if (element.name === 'board') {
-					element.action = () => this.navController.push(BoardPage);
+				if (element.name === 'plan') {
+					element.action = () => this.navController.push(PlanPage);
 				}
 				if (element.name === 'profile') {
 					element.action = () => this.navController.push(ProfilePage);

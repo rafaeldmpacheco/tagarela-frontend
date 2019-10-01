@@ -1,0 +1,21 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Planos</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding class="card-background-page">
+	<ion-grid *ngIf="canEdit">
+		<ion-row>
+			<ion-col col-12>
+				<button ion-button (click)="cadastrarPlano()">Cadastrar plano</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<ion-card *ngFor="let plan of plans; let i = index" (click)="goToBoard(plan[i])">
+		<ion-card-header>
+			{{ plan?.name }} - {{ plan?.description }}
+		</ion-card-header>
+	</ion-card>
+</ion-content>

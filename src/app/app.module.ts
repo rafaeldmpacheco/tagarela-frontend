@@ -21,6 +21,8 @@ import { TokenInterceptor } from './providers/intercept-http.service';
 import { LoadingService } from './providers/loading.service';
 import { LoginService } from './providers/login.service';
 import { ModulesService } from './providers/modules.service';
+import { PlanPage } from './pages/plan/plan';
+import { PlanModal } from './pages/plan/plan-modal/plan-modal';
 
 const PAGES = [
 	MyApp,
@@ -34,7 +36,9 @@ const PAGES = [
 	CurrentBoardPage,
 	GridMenuComponent,
 	ModulesPage,
-	ModuleRegisterModal
+	ModuleRegisterModal,
+	PlanPage,
+	PlanModal
 ];
 @NgModule({
 	imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule],

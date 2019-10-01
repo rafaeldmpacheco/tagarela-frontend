@@ -31,4 +31,35 @@ export class BoardService {
 		return this.httpClient.delete(url);
 	}
 
+	public getPlans(): Observable<any> {
+		// let url: string = `https://tagarela-backend.herokuapp.com/plans`;
+		// return this.httpClient.get(url);
+		const mockPlans = [{
+			id: 1,
+			name: 'name 1',
+			description: 'description 1'
+		},{
+			id: 2,
+			name: 'name 2',
+			description: 'description 2'
+		}]
+		return Observable.of(mockPlans);
+	}
+
+	public newPlan(plan): Observable<any> {
+		// let url: string = `https://tagarela-backend.herokuapp.com/plans`;
+		// return this.httpClient.get(url);
+		const mockPlans = [{
+			name: 'name 1',
+			description: 'description 1',
+			type: "tipo"
+		},{
+			name: 'name 2',
+			description: 'description 2',
+			type: "tipo"
+		}]
+		mockPlans.push(plan)
+		return Observable.of(mockPlans);
+	}
+
 }

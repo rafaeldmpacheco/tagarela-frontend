@@ -15,10 +15,10 @@ export class ModulesService {
 		},
 		{
 			id: '1',
-			title: 'Pranchas',
+			title: 'Planos',
 			icon: 'clipboard',
 			roles: ['TEACHER', 'STUDENT', 'SPECIALIST'],
-			name: 'board'
+			name: 'plan'
 		}
 	];
 
