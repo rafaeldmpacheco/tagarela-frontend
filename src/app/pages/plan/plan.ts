@@ -35,7 +35,7 @@ export class PlanPage  {
 	}
 
 	goToBoard(plan) {
-		this.navCtrl.push(BoardPage)
+		this.navCtrl.push(BoardPage, plan._id);
 	}
 
 }

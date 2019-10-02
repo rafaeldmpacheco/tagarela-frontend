@@ -9,7 +9,7 @@ import { LoadingService } from '../../../providers/loading.service';
 	templateUrl: 'manage-board.html'
 })
 export class ManageBoardPage implements OnInit {
-	public board: any = { name: '', images: [] };
+	public board: any = { name: '', images: ['', '', '', '', '', '', '', '', ''] };
 
 	constructor(
 		private navCtrl: NavController,
@@ -17,17 +17,7 @@ export class ManageBoardPage implements OnInit {
 		private camera: Camera,
 		private loadingService: LoadingService,
 		private navParams: NavParams
-	) {
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(this.mockImage);
-		this.board.images.push(null);
-	}
+	) {}
 
 	ngOnInit(): void {
 		if (this.navParams.get('boardImages')) {
@@ -81,34 +71,36 @@ export class ManageBoardPage implements OnInit {
 		let loading: any = this.loadingService.createLoadingPage('Aguarde...');
 		loading.present();
 
-		this.boardService.updateBoardImages(this.board).subscribe(
-			() => {
-				this.boardService.haveNewBoard.next();
-				this.navCtrl.pop();
-				loading.dismiss();
-			},
-			err => {
-				console.log(err);
-				loading.dismiss();
-			}
-		);
+		if (this.board.images.some(image => image != '')) {
+			this.boardService.updateBoardImages(this.board).subscribe(
+				() => {
+					this.boardService.haveNewBoard.next();
+					this.navCtrl.pop();
+					loading.dismiss();
+				},
+				err => {
+					console.log(err);
+					loading.dismiss();
+				}
+			);
+		}
 	}
 
 	deleteBoard(): void {
 		let loading: any = this.loadingService.createLoadingPage('Aguarde...');
 		loading.present();
 
-		this.boardService.deleteBoardImages(this.board._id).subscribe(
-			() => {
-				this.boardService.haveNewBoard.next();
-				this.navCtrl.pop();
-				loading.dismiss();
-			},
-			err => {
-				console.log(err);
-				loading.dismiss();
-			}
-		);
+		// this.boardService.deleteBoardImages(this.board._id).subscribe(
+		// 	() => {
+		// 		this.boardService.haveNewBoard.next();
+		// 		this.navCtrl.pop();
+		// 		loading.dismiss();
+		// 	},
+		// 	err => {
+		// 		console.log(err);
+		// 		loading.dismiss();
+		// 	}
+		// );
 	}
 
 	private mockImage =

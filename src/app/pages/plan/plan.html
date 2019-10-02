@@ -13,7 +13,7 @@
 		</ion-row>
 	</ion-grid>
 
-	<ion-card *ngFor="let plan of plans; let i = index" (click)="goToBoard(plan[i])">
+	<ion-card *ngFor="let plan of plans; let i = index" (click)="goToBoard(plan)">
 		<ion-card-header>
 			{{ plan?.name }} - {{ plan?.description }}
 		</ion-card-header>

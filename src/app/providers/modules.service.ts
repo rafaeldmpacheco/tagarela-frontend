@@ -5,52 +5,20 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ModulesService {
-	private mockModules = [
-		{
-			id: '0',
-			title: 'Perfil',
-			icon: 'contact',
-			roles: ['TEACHER', 'STUDENT', 'SPECIALIST'],
-			name: 'profile'
-		},
-		{
-			id: '1',
-			title: 'Planos',
-			icon: 'clipboard',
-			roles: ['TEACHER', 'STUDENT', 'SPECIALIST'],
-			name: 'plan'
-		}
-	];
-
 	constructor(private httpClient: HttpClient) {}
 
 	public getModules(): Observable<any> {
-		try {
-			return Observable.of(this.mockModules);
-		} catch (e) {
-			return Observable.throw(e);
-		}
+		let url: string = `https://tagarela-backend.herokuapp.com/modules`;
+		return this.httpClient.get(url);
 	}
 
 	public newModule(module: any): Observable<any> {
-		try {
-			this.mockModules = [...this.mockModules, module];
-			return Observable.of(this.mockModules);
-		} catch (e) {
-			return Observable.throw(e);
-		}
+		let url: string = `https://tagarela-backend.herokuapp.com/module`;
+		return this.httpClient.post(url, module);
 	}
 
 	public updateModule(module: any): Observable<any> {
-		try {
-			this.mockModules.forEach(item => {
-				if (item.id === module.id) {
-					item = module;
-				}
-			});
-			return Observable.of(this.mockModules);
-		} catch (e) {
-			return Observable.throw(e);
-		}
+		let url: string = `https://tagarela-backend.herokuapp.com/module/` + module._id;
+		return this.httpClient.put(url, module);
 	}
 }
