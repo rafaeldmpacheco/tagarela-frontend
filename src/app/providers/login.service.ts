@@ -49,13 +49,4 @@ export class LoginService {
 			return Observable.throw(e);
 		}
 	}
-
-	public updateUser(user): Observable<any> {
-		try {
-			let url: string = 'https://tagarela-backend.herokuapp.com/user/' + user._id;
-			return this.httpClient.put(url, user);
-		} catch (e) {
-			return Observable.throw(e);
-		}
-	}
 }

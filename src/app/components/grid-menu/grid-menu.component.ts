@@ -6,7 +6,7 @@ export interface GridMenuItem {
 	icon: string;
 	params?: any;
 	roles: string[];
-	hidden: boolean;
+	isVisible: boolean;
 }
 
 @Component({

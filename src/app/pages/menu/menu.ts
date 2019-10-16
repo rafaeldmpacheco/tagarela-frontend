@@ -22,23 +22,31 @@ export class MenuPage {
 			action: () => this.navController.push(ModulesPage),
 			icon: 'cog',
 			roles: ['ADMIN'],
-			hidden: false,
+			isVisible: true,
 			name: 'modules'
 		};
 
-		this.modulesService.getModules().subscribe(modules => {
-			this.allMenuItems = [...modules, moduleRegister];
+		this.allMenuItems = JSON.parse(localStorage.getItem('modules'));
 
-			this.allMenuItems.forEach(element => {
-				if (element.name === 'plan') {
-					element.action = () => this.navController.push(PlanPage);
-				}
-				if (element.name === 'profile') {
-					element.action = () => this.navController.push(ProfilePage);
-				}
+		if (!this.allMenuItems) {
+			this.modulesService.getModules().subscribe(modules => {
+				this.allMenuItems = [...modules, moduleRegister];
 
-				element.hidden = false
+				this.allMenuItems.forEach(element => {
+					if (element.name === 'plan') {
+						element.action = () => this.navController.push(PlanPage);
+					}
+					if (element.name === 'profile') {
+						element.action = () => this.navController.push(ProfilePage);
+					}
+
+					element.isVisible = true;
+				});
+
+				localStorage.setItem('modules', JSON.stringify(modules));
 			});
-		});
+		} else {
+			this.allMenuItems = [...this.allMenuItems, moduleRegister];
+		}
 	}
 }
