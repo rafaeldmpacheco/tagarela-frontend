@@ -3,16 +3,17 @@ import { ModalController, NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../providers/board.service';
 import { LoginService } from '../../providers/login.service';
 import { ManageBoardPage } from '../board/manage-board/manage-board';
-import { SymbolModal } from './symbol-modal/symbol-modal';
+import { CategoryModal } from './category-modal/category-modal';
 
 @Component({
-	selector: 'page-symbol',
-	templateUrl: 'symbol.html'
+	selector: 'page-category',
+	templateUrl: 'category.html'
 })
-export class SymbolPage {
-	public symbols: any[] = [];
+export class CategoryPage {
+	public categories: any[] = [];
 	public user: any;
 	private boardIndex: number;
+	private newSymbol: any;
 
 	constructor(
 		private navCtrl: NavController,
@@ -23,21 +24,26 @@ export class SymbolPage {
 	) {
 		this.user = this.loginService.getUser();
 
-		this.boardService.getSymbols().subscribe(response => {
-			this.symbols = response;
+		this.boardService.getCategories().subscribe(response => {
+			this.categories = response;
 		});
 
 		if (this.navParams.get('boardIndex')) {
 			this.boardIndex = this.navParams.get('boardIndex');
+			this.newSymbol = this.navParams.get('newSymbol');
 		}
 	}
 
 	registerSymbol() {
-		let symbolModal = this.modalCtrl.create(SymbolModal, { boardIndex: this.boardIndex });
-		symbolModal.present();
+		let categoryModal = this.modalCtrl.create(CategoryModal, {
+			newSymbol: this.newSymbol,
+			boardIndex: this.boardIndex
+		});
+		categoryModal.present();
 	}
 
-	goToBoard(newSymbol) {
-		this.navCtrl.push(ManageBoardPage, { newSymbol: newSymbol, boardIndex: this.boardIndex });
+	goToBoard(category) {
+		this.newSymbol.category = category;
+		this.navCtrl.push(ManageBoardPage, { newSymbol: this.newSymbol, boardIndex: this.boardIndex });
 	}
 }

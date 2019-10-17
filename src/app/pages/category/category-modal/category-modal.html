@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-toolbar>
 		<ion-title>
-			Cadatrar Símbolo
+			Cadatrar Categoria
 		</ion-title>
 		<ion-buttons left>
 			<button ion-button (click)="viewDismiss()">
@@ -24,6 +24,10 @@
 					[(ngModel)]="description"
 					placeholder="Descrição"
 				></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="color" placeholder="Cor"></ion-input>
 			</ion-item>
 		</ion-list>
 	</div>

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController, NavController } from 'ionic-angular';
 import { BoardService } from '../../../providers/board.service';
 import { Camera } from '@ionic-native/camera';
+import { CategoryPage } from '../../category/category';
 
 @Component({
 	selector: 'symbol-modal',
@@ -11,13 +12,18 @@ export class SymbolModal {
 	public name: any;
 	public description: any;
 	public type: any;
+	private boardIndex: any;
 
 	constructor(
 		private navParams: NavParams,
 		private viewCtrl: ViewController,
 		private camera: Camera,
-		private boardService: BoardService
+		private boardService: BoardService,
+		private navCtrl: NavController
 	) {
+		if (this.navParams.get('boardIndex')) {
+			this.boardIndex = this.navParams.get('boardIndex');
+		}
 	}
 
 	viewDismiss() {
@@ -27,7 +33,6 @@ export class SymbolModal {
 	newImage(index): void {
 		// let loading: any = this.loadingService.createLoadingPage('Aguarde...');
 		// loading.present();
-
 		// const options: CameraOptions = {
 		// 	destinationType: this.camera.DestinationType.DATA_URL,
 		// 	sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -52,9 +57,17 @@ export class SymbolModal {
 	register() {
 		// let loading: any = this.loadingService.createLoadingPage('Aguarde...');
 		// loading.present();
-		this.boardService.newPlan({name:this.name, description: this.description, type:this.type}).subscribe(
+		const newSymbol = {
+			name: this.name,
+			description: this.description
+		};
+		
+		this.boardService.newSymbol(newSymbol).subscribe(
 			() => {
-				this.viewDismiss();
+				this.navCtrl.push(CategoryPage, {
+					newSymbol: newSymbol,
+					boardIndex: this.boardIndex
+				});
 				// loading.dismiss();
 			},
 			e => {

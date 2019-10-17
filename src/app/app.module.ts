@@ -24,6 +24,8 @@ import { TokenInterceptor } from './providers/intercept-http.service';
 import { LoadingService } from './providers/loading.service';
 import { LoginService } from './providers/login.service';
 import { ModulesService } from './providers/modules.service';
+import { CategoryPage } from './pages/category/category';
+import { CategoryModal } from './pages/category/category-modal/category-modal';
 
 const PAGES = [
 	MyApp,
@@ -40,7 +42,9 @@ const PAGES = [
 	PlanPage,
 	PlanModal,
 	SymbolPage,
-	SymbolModal
+	SymbolModal,
+	CategoryPage,
+	CategoryModal
 ];
 @NgModule({
 	imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule],

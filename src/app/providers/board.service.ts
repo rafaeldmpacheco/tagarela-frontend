@@ -39,7 +39,13 @@ export class BoardService {
 			{
 				id: 1,
 				name: 'name 1',
-				description: 'description 1'
+				description: 'description 1',
+				category: {
+					id: 1,
+					name: 'name 1',
+					description: 'description 1',
+					color: '#333'
+				}
 			},
 			{
 				id: 2,
@@ -48,5 +54,31 @@ export class BoardService {
 			}
 		];
 		return Observable.of(mockSymbols);
+	}
+
+	public newSymbol(newSymbol): Observable<any> {
+		return Observable.of(newSymbol);
+	}
+
+	public getCategories(): Observable<any> {
+		const mockSymbols = [
+			{
+				id: 1,
+				name: 'name 1',
+				description: 'description 1',
+				color: '#333'
+			},
+			{
+				id: 2,
+				name: 'name 2',
+				description: 'description 2',
+				color: '#333'
+			}
+		];
+		return Observable.of(mockSymbols);
+	}
+
+	public newCategory(newCategory): Observable<any> {
+		return Observable.of(newCategory);
 	}
 }

@@ -1,0 +1,19 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Categorias</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding class="card-background-page">
+	<ion-grid>
+		<ion-row>
+			<ion-col col-12>
+				<button ion-button (click)="registerSymbol()">Cadastrar categoria</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<ion-card *ngFor="let category of categories; let i = index" (click)="goToBoard(category)">
+		<ion-card-header> {{ category?.name }} - {{ category?.description }} </ion-card-header>
+	</ion-card>
+</ion-content>
