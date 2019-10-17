@@ -3,7 +3,6 @@ import { NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../providers/board.service';
 import { LoadingService } from '../../providers/loading.service';
 import { LoginService } from '../../providers/login.service';
-import { CurrentBoardPage } from './current-board/current-board';
 import { ManageBoardPage } from './manage-board/manage-board';
 
 @Component({
@@ -34,11 +33,7 @@ export class BoardPage {
 	}
 
 	getBoard(board) {
-		if (this.canEdit) {
-			this.navCtrl.push(ManageBoardPage, { boardImages: board });
-		} else {
-			this.navCtrl.push(CurrentBoardPage, { boardImages: board });
-		}
+		this.navCtrl.push(ManageBoardPage, { boardImages: board });
 	}
 
 	private getBoards() {

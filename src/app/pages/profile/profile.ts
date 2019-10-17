@@ -101,18 +101,5 @@ export class ProfileModal {
 		this.viewCtrl.dismiss();
 	}
 
-	updateUser() {
-		// let loading: any = this.loadingService.createLoadingPage('Aguarde...');
-		// loading.present();
-		this.loginService.updateUser(this.user).subscribe(
-			() => {
-				this.viewDismiss();
-				// loading.dismiss();
-			},
-			e => {
-				// loading.dismiss();
-				console.log(e);
-			}
-		);
-	}
+	updateUser() {}
 }

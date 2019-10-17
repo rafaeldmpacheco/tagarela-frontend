@@ -8,21 +8,22 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { GridMenuComponent } from './components/grid-menu/grid-menu.component';
 import { BoardPage } from './pages/board/board';
-import { CurrentBoardPage } from './pages/board/current-board/current-board';
 import { ManageBoardPage } from './pages/board/manage-board/manage-board';
 import { LoginPage } from './pages/login/login';
 import { MenuPage } from './pages/menu/menu';
 import { ModulesPage } from './pages/modules/modules';
 import { ModuleRegisterModal } from './pages/modules/modules-register-modal/modules-register-modal';
+import { PlanPage } from './pages/plan/plan';
+import { PlanModal } from './pages/plan/plan-modal/plan-modal';
 import { ProfileModal, ProfilePage } from './pages/profile/profile';
 import { RegisterPage } from './pages/register/register';
+import { SymbolPage } from './pages/symbol/symbol';
+import { SymbolModal } from './pages/symbol/symbol-modal/symbol-modal';
 import { BoardService } from './providers/board.service';
 import { TokenInterceptor } from './providers/intercept-http.service';
 import { LoadingService } from './providers/loading.service';
 import { LoginService } from './providers/login.service';
 import { ModulesService } from './providers/modules.service';
-import { PlanPage } from './pages/plan/plan';
-import { PlanModal } from './pages/plan/plan-modal/plan-modal';
 
 const PAGES = [
 	MyApp,
@@ -33,12 +34,13 @@ const PAGES = [
 	LoginPage,
 	RegisterPage,
 	ManageBoardPage,
-	CurrentBoardPage,
 	GridMenuComponent,
 	ModulesPage,
 	ModuleRegisterModal,
 	PlanPage,
-	PlanModal
+	PlanModal,
+	SymbolPage,
+	SymbolModal
 ];
 @NgModule({
 	imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule],

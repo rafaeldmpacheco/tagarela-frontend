@@ -14,8 +14,8 @@
 		</ion-row>
 		<ion-row>
 			<ion-col col-4 *ngFor="let image of board?.images; let i = index" class="board-space">
-				<ion-card class="no-margin width-100 height-100" *ngIf="image">
-					<img (click)="newImage(i)" src="{{image}}"/>
+				<ion-card *ngIf="image" class="no-margin width-100" id="card-{{i}}"  (click)="selectedImage(i)">
+					<img (click)="newImage(i)" [src]="image"/>
 				</ion-card>
 				<ion-card *ngIf="!image" class="no-margin width-100 height-100 new-image-button" (click)="newImage(i)">
 					Adicionar

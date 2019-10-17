@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 import { NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
+import { SymbolPage } from '../../symbol/symbol';
 
 @Component({
 	selector: 'manage-board',
@@ -14,40 +14,21 @@ export class ManageBoardPage implements OnInit {
 	constructor(
 		private navCtrl: NavController,
 		private boardService: BoardService,
-		private camera: Camera,
 		private loadingService: LoadingService,
 		private navParams: NavParams
 	) {}
 
 	ngOnInit(): void {
-		if (this.navParams.get('boardImages')) {
-			// this.board = this.navParams.get('boardImages');
+		if (this.navParams) {
+			const index = this.navParams.get('boardIndex');
+			const symbol = this.navParams.get('newSymbol');
+
+			this.board.images[index] = symbol;
 		}
 	}
 
 	newImage(index): void {
-		let loading: any = this.loadingService.createLoadingPage('Aguarde...');
-		loading.present();
-
-		const options: CameraOptions = {
-			destinationType: this.camera.DestinationType.DATA_URL,
-			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-			allowEdit: true,
-			saveToPhotoAlbum: true,
-			targetWidth: 2210,
-			targetHeight: 2210,
-			quality: 100
-		};
-		this.camera
-			.getPicture(options)
-			.then(imageData => {
-				this.board.images[index] = 'data:image/jpeg;base64,' + imageData;
-				loading.dismiss();
-			})
-			.catch(error => {
-				console.log(error);
-				loading.dismiss();
-			});
+		this.navCtrl.push(SymbolPage, { boardIndex: index });
 	}
 
 	saveBoard(): void {
@@ -86,21 +67,8 @@ export class ManageBoardPage implements OnInit {
 		}
 	}
 
-	deleteBoard(): void {
-		let loading: any = this.loadingService.createLoadingPage('Aguarde...');
-		loading.present();
-
-		// this.boardService.deleteBoardImages(this.board._id).subscribe(
-		// 	() => {
-		// 		this.boardService.haveNewBoard.next();
-		// 		this.navCtrl.pop();
-		// 		loading.dismiss();
-		// 	},
-		// 	err => {
-		// 		console.log(err);
-		// 		loading.dismiss();
-		// 	}
-		// );
+	selectedImage(index) {
+		console.log('play sound');
 	}
 
 	private mockImage =

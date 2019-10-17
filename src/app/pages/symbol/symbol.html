@@ -1,0 +1,19 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Símbolos</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding class="card-background-page">
+	<ion-grid>
+		<ion-row>
+			<ion-col col-12>
+				<button ion-button (click)="cadastrarPlano()">Cadastrar símbolo</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<ion-card *ngFor="let symbol of symbols; let i = index" (click)="goToBoard(symbol)">
+		<ion-card-header> {{ symbol?.name }} - {{ symbol?.description }} </ion-card-header>
+	</ion-card>
+</ion-content>

@@ -33,12 +33,7 @@ export class MenuPage {
 				this.allMenuItems = [...modules, moduleRegister];
 
 				this.allMenuItems.forEach(element => {
-					if (element.name === 'plan') {
-						element.action = () => this.navController.push(PlanPage);
-					}
-					if (element.name === 'profile') {
-						element.action = () => this.navController.push(ProfilePage);
-					}
+					this.setActions(element);
 
 					element.isVisible = true;
 				});
@@ -47,6 +42,19 @@ export class MenuPage {
 			});
 		} else {
 			this.allMenuItems = [...this.allMenuItems, moduleRegister];
+
+			this.allMenuItems.forEach(element => {
+				this.setActions(element);
+			});
+		}
+	}
+
+	private setActions(element) {
+		if (element.name === 'plan') {
+			element.action = () => this.navController.push(PlanPage);
+		}
+		if (element.name === 'profile') {
+			element.action = () => this.navController.push(ProfilePage);
 		}
 	}
 }

@@ -1,0 +1,33 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>
+			Cadatrar Plano
+		</ion-title>
+		<ion-buttons left>
+			<button ion-button (click)="viewDismiss()">
+				<ion-icon name="md-close" id="icon-close"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div>
+		<ion-list center>
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="name" placeholder="Nome"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="description" placeholder="Descrição"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="type" placeholder="Tipo"></ion-input>
+			</ion-item>
+		</ion-list>
+	</div>
+	<ion-buttons start margin-left margin-right style="text-align: center">
+		<button ion-button (click)="register()">Salvar</button>
+	</ion-buttons>
+</ion-content>
