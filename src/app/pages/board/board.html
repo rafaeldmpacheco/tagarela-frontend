@@ -13,7 +13,7 @@
 		</ion-row>
 	</ion-grid>
 
-	<ion-card *ngFor="let board of boardImages; let i = index" (click)="getBoard(boardImages[i])">
+	<ion-card *ngFor="let board of boards; let i = index" (click)="getBoard(boards[i])">
 		<ion-card-header>
 			{{ board?.name }}
 		</ion-card-header>

@@ -11,7 +11,7 @@ import { MenuPage } from '../menu/menu';
 export class RegisterPage {
 	public email: string;
 	public password: string;
-	public role: string;
+	public roles: string[];
 	public exceptionMessage: string;
 
 	constructor(
@@ -30,7 +30,7 @@ export class RegisterPage {
 		const user = {
 			email: this.email,
 			password: this.password,
-			role: this.role
+			roles: this.roles
 		};
 		this.loginService.newUser(user).subscribe(
 			response => {

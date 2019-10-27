@@ -60,6 +60,15 @@ export class LoginService {
     }
   }
 
+  public linkUser(body): Observable<any> {
+    try {
+      let url: string = `https://tagarela-backend.herokuapp.com/linkUser`;
+      return this.httpClient.post(url, body);
+    } catch (e) {
+      return Observable.throw(e);
+    }
+  }
+
   private setStorage(response) {
     this.setUser(response.user);
     localStorage.setItem('user', JSON.stringify(response.user));

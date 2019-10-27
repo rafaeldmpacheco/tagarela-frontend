@@ -15,6 +15,9 @@ export class SymbolModal {
   public name: any;
   public description: any;
   public type: any;
+  public isPrivate: boolean;
+  public image: any;
+  private board: any;
   private boardIndex: any;
 
   recording: boolean = false;
@@ -34,8 +37,9 @@ export class SymbolModal {
     private loadingService: LoadingService,
     private platform: Platform
   ) {
-    if (this.navParams.get('boardIndex')) {
+    if (this.navParams) {
       this.boardIndex = this.navParams.get('boardIndex');
+      this.board = this.navParams.get('board');
     }
   }
 
@@ -105,7 +109,7 @@ export class SymbolModal {
     this.audio.setVolume(0.8);
   }
 
-  newImage(index): void {
+  newImage(): void {
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
     const options: CameraOptions = {
@@ -120,7 +124,7 @@ export class SymbolModal {
     this.camera
       .getPicture(options)
       .then(imageData => {
-        // this.board.images[index] = 'data:image/jpeg;base64,' + imageData;
+        this.image = this.boardService.b64toBlob('data:image/jpeg;base64,' + imageData);
         loading.dismiss();
       })
       .catch(error => {
@@ -130,25 +134,31 @@ export class SymbolModal {
   }
 
   register() {
-    // let loading: any = this.loadingService.createLoadingPage('Aguarde...');
-    // loading.present();
-    const newSymbol = {
-      name: this.name,
-      description: this.description
-    };
+    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+    loading.present();
 
-    this.boardService.newSymbol(newSymbol).subscribe(
-      () => {
-        this.navCtrl.push(CategoryPage, {
-          newSymbol: newSymbol,
-          boardIndex: this.boardIndex
-        });
-        // loading.dismiss();
-      },
-      e => {
-        // loading.dismiss();
-        console.log(e);
-      }
-    );
+    this.boardService.uploadImage(this.board._id, this.image).subscribe(response => {
+      console.log(response);
+
+      const newSymbol = {
+        name: this.name,
+        description: this.description,
+        isPrivate: this.isPrivate
+      };
+
+      this.boardService.newSymbol(newSymbol).subscribe(
+        () => {
+          this.navCtrl.push(CategoryPage, {
+            newSymbol: newSymbol,
+            boardIndex: this.boardIndex
+          });
+          loading.dismiss();
+        },
+        e => {
+          loading.dismiss();
+          console.log(e);
+        }
+      );
+    });
   }
 }

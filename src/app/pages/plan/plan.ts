@@ -1,41 +1,50 @@
-import {AfterViewInit, Component} from '@angular/core';
-import {NavController, ModalController} from 'ionic-angular';
-import {LoginService} from "../../providers/login.service";
-import {LoadingService} from "../../providers/loading.service";
+import { Component, OnInit } from '@angular/core';
+import { ModalController, NavController } from 'ionic-angular';
 import { BoardService } from '../../providers/board.service';
+import { LoadingService } from '../../providers/loading.service';
+import { LoginService } from '../../providers/login.service';
 import { BoardPage } from '../board/board';
 import { PlanModal } from './plan-modal/plan-modal';
 
 @Component({
-	selector: 'page-plan',
-	templateUrl: 'plan.html'
+  selector: 'page-plan',
+  templateUrl: 'plan.html'
 })
-export class PlanPage  {
+export class PlanPage implements OnInit {
+  public plans: any[] = [];
+  public user: any;
+  public canEdit: any;
 
-	public plans: any[] = [];
-	public user: any;
-	public canEdit: any;
+  constructor(
+    private navCtrl: NavController,
+    private loginService: LoginService,
+    private loadingService: LoadingService,
+    private modalCtrl: ModalController,
+    private boardService: BoardService
+  ) {
+    this.user = this.loginService.getUser();
+    this.canEdit = this.user.roles.find(role => role === 'TEACHER');
+  }
 
-	constructor(private navCtrl: NavController,
-				private loginService: LoginService,
-				private loadingService: LoadingService,
-				public modalCtrl: ModalController,
-				private boardService: BoardService) {
-		this.user = this.loginService.getUser()
-		this.canEdit = this.user.roles.find(role => role === 'TEACHER' || role === 'SPECIALIST');
+  ngOnInit(): void {
+    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+    loading.present();
 
-		this.boardService.getPlans().subscribe(response => {
-			this.plans = response
-		})
-	}
+    this.boardService.getPlans().subscribe(
+      response => {
+        this.plans = response;
+        loading.dismiss();
+      },
+      () => loading.dismiss()
+    );
+  }
 
-	cadastrarPlano() {
-		let planModal = this.modalCtrl.create(PlanModal);
-		planModal.present();
-	}
+  cadastrarPlano() {
+    let planModal = this.modalCtrl.create(PlanModal);
+    planModal.present();
+  }
 
-	goToBoard(plan) {
-		this.navCtrl.push(BoardPage, plan._id);
-	}
-
+  goToBoard(plan) {
+    this.navCtrl.push(BoardPage, { planId: plan._id });
+  }
 }

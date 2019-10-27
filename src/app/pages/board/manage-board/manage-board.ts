@@ -5,72 +5,65 @@ import { LoadingService } from '../../../providers/loading.service';
 import { SymbolPage } from '../../symbol/symbol';
 
 @Component({
-	selector: 'manage-board',
-	templateUrl: 'manage-board.html'
+  selector: 'manage-board',
+  templateUrl: 'manage-board.html'
 })
 export class ManageBoardPage implements OnInit {
-	public board: any = { name: '', images: ['', '', '', '', '', '', '', '', ''] };
+  public board: any = { name: '', images: [] };
+  boardArray = Array(9);
 
-	constructor(
-		private navCtrl: NavController,
-		private boardService: BoardService,
-		private loadingService: LoadingService,
-		private navParams: NavParams
-	) {}
+  constructor(
+    private navCtrl: NavController,
+    private boardService: BoardService,
+    private loadingService: LoadingService,
+    private navParams: NavParams
+  ) {}
 
-	ngOnInit(): void {
-		if (this.navParams) {
-			const index = this.navParams.get('boardIndex');
-			const symbol = this.navParams.get('newSymbol');
+  ngOnInit(): void {
+    if (this.navParams) {
+      let { boardIndex, newSymbol, board, planId } = this.navParams.data;
 
-			this.board.images[index] = symbol;
-		}
-	}
+      if (board) {
+        this.board = this.navParams.data.board;
+      }
 
-	newImage(index): void {
-		this.navCtrl.push(SymbolPage, { boardIndex: index });
-	}
+      if (newSymbol) {
+        this.board.images[boardIndex] = newSymbol;
+      }
 
-	saveBoard(): void {
-		let loading: any = this.loadingService.createLoadingPage('Aguarde...');
-		loading.present();
+      this.board.planId = planId;
+    }
+  }
 
-		this.boardService.saveBoardImages(this.board).subscribe(
-			() => {
-				this.boardService.haveNewBoard.next();
-				this.navCtrl.pop();
-				loading.dismiss();
-			},
-			err => {
-				console.log(err);
-				loading.dismiss();
-			}
-		);
-	}
+  saveBoard(index?: number): void {
+    this.board.name = this.board.name ? this.board.name : 'Prancha';
 
-	updateBoard(): void {
-		let loading: any = this.loadingService.createLoadingPage('Aguarde...');
-		loading.present();
+    let observable = this.boardService.saveBoard(this.board);
+    if (this.board._id) {
+      observable = this.boardService.updateBoard(this.board);
+    }
 
-		if (this.board.images.some(image => image != '')) {
-			this.boardService.updateBoardImages(this.board).subscribe(
-				() => {
-					this.boardService.haveNewBoard.next();
-					this.navCtrl.pop();
-					loading.dismiss();
-				},
-				err => {
-					console.log(err);
-					loading.dismiss();
-				}
-			);
-		}
-	}
+    if (!index && this.board.images.length < 9) {
+      return;
+    }
 
-	selectedImage(index) {
-		console.log('play sound');
-	}
+    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+    loading.present();
 
-	private mockImage =
-		'https://static1.squarespace.com/static/55fc0004e4b069a519961e2d/t/55fc301ae4b01342ae9212a1/1442590746805/';
+    observable.subscribe(
+      board => {
+        if (index) {
+          this.navCtrl.push(SymbolPage, { boardIndex: index, board: board });
+        } else {
+          this.navCtrl.pop();
+        }
+        loading.dismiss();
+      },
+      () => loading.dismiss()
+    );
+  }
+
+  selectedImage(index) {
+    console.log('play sound');
+  }
 }

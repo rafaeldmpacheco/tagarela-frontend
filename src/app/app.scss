@@ -55,3 +55,13 @@ img {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
+
+.alert {
+	padding: 15px;
+	margin-bottom: 20px;
+	border-radius: 4px;
+}
+.alert-warning {
+	color: #8a6d3b;
+	background-color: #fcf8e3;
+}

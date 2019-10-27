@@ -1,24 +1,24 @@
 <ion-header>
-	<ion-navbar>
-		<ion-title>
-			Perfil
-		</ion-title>
-	</ion-navbar>
+  <ion-navbar>
+    <ion-title>
+      Perfil
+    </ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-	<ion-grid>
-		<ion-row>
-			<ion-col col-12>
-				<button ion-button (click)="atualizarUsuario()">Atualizar informações</button>
-			</ion-col>
-		</ion-row>
-		<ion-row>
-			<ion-col col-12>
-				<button ion-button style="background-color: white; color: black" (click)="logout()">
-					Sair
-				</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button (click)="invite()">Convitar {{ role() }}</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button style="background-color: white; color: black" (click)="logout()">
+          Sair
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

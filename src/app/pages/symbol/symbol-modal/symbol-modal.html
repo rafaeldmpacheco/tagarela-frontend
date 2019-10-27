@@ -21,16 +21,36 @@
       <ion-item>
         <ion-input type="text" [(ngModel)]="description" placeholder="Descrição"></ion-input>
       </ion-item>
+
+      <ion-item>
+        <ion-label>Privado</ion-label>
+        <ion-toggle [(ngModel)]="isPrivate" placeholder="Privado"></ion-toggle>
+      </ion-item>
+      <div margin-left margin-right>
+        <p class="alert alert-warning" text-center>
+          Atenção! Caso este simbolo seja uma informação confidencial, habilite está opção
+        </p>
+      </div>
     </ion-list>
   </div>
+  <ion-card>
+      <ion-card-content>
+        <ion-card-title>
+          <button ion-button primary (click)="newImage()" *ngIf="!image">
+            <ion-icon name="camera"></ion-icon>&nbsp;&nbsp;Adicionar símbolo
+          </button>
+        </ion-card-title>
+      </ion-card-content>
+    </ion-card>
+
   <ion-card>
     <ion-card-content>
       <ion-card-title>
         <button ion-button primary (click)="stopRecord()" *ngIf="recording">
-          <ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Stop Record
+          Parar gravação
         </button>
         <button ion-button primary (click)="startRecord()" *ngIf="!recording">
-          <ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Start Record
+          <ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Gravar aúdio
         </button>
       </ion-card-title>
     </ion-card-content>

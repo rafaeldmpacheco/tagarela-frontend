@@ -1,36 +1,45 @@
 <ion-header>
-	<ion-navbar>
-		<ion-title *ngIf="!board?.name">Nova Prancha</ion-title>
-		<ion-title *ngIf="board?.name">{{board?.name}}</ion-title>
-	</ion-navbar>
+  <ion-navbar>
+    <ion-title *ngIf="!board?.name">Nova Prancha</ion-title>
+    <ion-title *ngIf="board?.name">{{ board?.name }}</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-	<ion-grid>
-		<ion-row style="padding-bottom: 10%">
-			<ion-item>
-				<ion-input type="text" value="" placeholder="Nome da prancha" [(ngModel)]="board.name"></ion-input>
-			</ion-item>
-		</ion-row>
-		<ion-row>
-			<ion-col col-4 *ngFor="let image of board?.images; let i = index" class="board-space">
-				<ion-card *ngIf="image" class="no-margin width-100" id="card-{{i}}"  (click)="selectedImage(i)">
-					<img (click)="newImage(i)" [src]="image"/>
-				</ion-card>
-				<ion-card *ngIf="!image" class="no-margin width-100 height-100 new-image-button" (click)="newImage(i)">
-					Adicionar
-				</ion-card>
-			</ion-col>
-		</ion-row>
-		<ion-row>
-			<ion-col col-6>
-				<button ion-button (click)="updateBoard()" *ngIf="board?._id">Atualizar prancha</button>
+  <ion-grid>
+    <ion-row style="padding-bottom: 10%">
+      <ion-item>
+        <ion-input
+          type="text"
+          value=""
+          placeholder="Nome da prancha"
+          [(ngModel)]="board.name"
+        ></ion-input>
+      </ion-item>
+    </ion-row>
 
-				<button ion-button (click)="saveBoard()" *ngIf="!board?._id">Salvar prancha</button>
-			</ion-col>
-			<ion-col col-6 *ngIf="board?._id">
-				<button ion-button (click)="deleteBoard()">Deletar prancha</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
+    <ion-row>
+      <ion-col col-4 *ngFor="let number of boardArray; let i = index" class="board-space">
+        <ion-card *ngIf="(board?.images)[i]" class="no-margin width-100" (click)="selectedImage(i)">
+          <img [src]="(board?.images)[i]" />
+        </ion-card>
+
+        <ion-card
+          *ngIf="!(board?.images)[i]"
+          class="no-margin width-100 height-100 new-image-button"
+          (click)="saveBoard(i)"
+        >
+          Adicionar
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-6>
+        <button ion-button (click)="updateBoard()" *ngIf="board?._id">Salvar prancha</button>
+
+        <button ion-button (click)="saveBoard()" *ngIf="!board?._id">Salvar prancha</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
