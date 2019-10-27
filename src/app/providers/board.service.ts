@@ -9,7 +9,7 @@ export class BoardService {
 
   public uploadImage(id: string, file: any): Observable<any> {
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append('file', file);
     let url: string = `https://tagarela-backend.herokuapp.com/boards/${id}/files`;
     return this.httpClient.post(url, formData);
   }
@@ -31,6 +31,11 @@ export class BoardService {
 
   public getPlans(): Observable<any> {
     let url: string = `https://tagarela-backend.herokuapp.com/plans`;
+    return this.httpClient.get(url);
+  }
+
+  public getPlansByUser(owner: string): Observable<any> {
+    let url: string = `https://tagarela-backend.herokuapp.com/plan/${owner}`;
     return this.httpClient.get(url);
   }
 

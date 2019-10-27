@@ -5,6 +5,7 @@ import { NavController, Platform, App } from 'ionic-angular';
 import { LoginPage } from './pages/login/login';
 import { MenuPage } from './pages/menu/menu';
 import { LoginService } from './providers/login.service';
+import { LoadingService } from './providers/loading.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,6 +18,7 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     loginService: LoginService,
+    loadingService: LoadingService,
     app: App
   ) {
     platform.ready().then(() => {
@@ -25,13 +27,20 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
+      let loading: any = loadingService.createLoadingPage('Aguarde...');
+      loading.present();
+
       const user = JSON.parse(localStorage.getItem('user'));
       if (user) {
-        loginService.me(user._id).subscribe(response => {
-          if (response) {
-            app.getRootNav().push(MenuPage);
-          }
-        });
+        loginService.me(user._id).subscribe(
+          response => {
+            if (response) {
+              app.getRootNav().push(MenuPage);
+              loading.dismiss();
+            }
+          },
+          () => loading.dismiss()
+        );
       }
     });
   }

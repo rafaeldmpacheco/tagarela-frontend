@@ -14,6 +14,7 @@ export class PlanPage implements OnInit {
   public plans: any[] = [];
   public user: any;
   public canEdit: any;
+  public userFiltered: string;
 
   constructor(
     private navCtrl: NavController,
@@ -46,5 +47,25 @@ export class PlanPage implements OnInit {
 
   goToBoard(plan) {
     this.navCtrl.push(BoardPage, { planId: plan._id });
+  }
+
+  filter() {
+    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+    loading.present();
+
+    this.boardService.getPlansByUser(this.userFiltered).subscribe(
+      response => {
+        this.plans = response;
+        loading.dismiss();
+      },
+      () => loading.dismiss()
+    );
+  }
+
+  role() {
+    if (this.canEdit) {
+      return 'Paciente';
+    }
+    return 'Tutor';
   }
 }

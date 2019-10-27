@@ -1,21 +1,28 @@
 <ion-header>
-	<ion-navbar>
-		<ion-title>Planos</ion-title>
-	</ion-navbar>
+  <ion-navbar>
+    <ion-title>Planos</ion-title>
+
+    <ion-buttons end>
+      <ion-label>Filtrar usuario</ion-label>
+      <ion-select [(ngModel)]="userFiltered" (ngModelChange)="filter()">
+        <ion-option *ngFor="let user of user?.linkedUsers" [value]="user">
+          {{ user }}
+        </ion-option>
+      </ion-select>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding class="card-background-page">
-	<ion-grid *ngIf="canEdit">
-		<ion-row>
-			<ion-col col-12>
-				<button ion-button (click)="cadastrarPlano()">Cadastrar plano</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
+  <ion-grid *ngIf="canEdit">
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button (click)="cadastrarPlano()">Cadastrar plano</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-	<ion-card *ngFor="let plan of plans; let i = index" (click)="goToBoard(plan)">
-		<ion-card-header>
-			{{ plan?.name }} - {{ plan?.description }}
-		</ion-card-header>
-	</ion-card>
+  <ion-card *ngFor="let plan of plans; let i = index" (click)="goToBoard(plan)">
+    <ion-card-header> {{ plan?.name }} - {{ plan?.description }} </ion-card-header>
+  </ion-card>
 </ion-content>
