@@ -12,57 +12,68 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <ion-list center>
-      <ion-item>
-        <ion-input type="text" [(ngModel)]="name" placeholder="Nome"></ion-input>
-      </ion-item>
+  <ion-list center>
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="name" placeholder="Nome"></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-input type="text" [(ngModel)]="description" placeholder="Descrição"></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="description" placeholder="Descrição"></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-label>Privado</ion-label>
-        <ion-toggle [(ngModel)]="isPrivate" placeholder="Privado"></ion-toggle>
-      </ion-item>
-      <div margin-left margin-right>
-        <p class="alert alert-warning" text-center>
-          Atenção! Caso este simbolo seja uma informação confidencial, habilite está opção
-        </p>
-      </div>
-    </ion-list>
-  </div>
-  <ion-card>
-      <ion-card-content>
-        <ion-card-title>
-          <button ion-button primary (click)="newImage()" *ngIf="!image">
-            <ion-icon name="camera"></ion-icon>&nbsp;&nbsp;Adicionar símbolo
-          </button>
-        </ion-card-title>
-      </ion-card-content>
-    </ion-card>
+    <ion-item>
+      <ion-label>Privado</ion-label>
+      <ion-toggle [(ngModel)]="isPrivate" placeholder="Privado"></ion-toggle>
+    </ion-item>
+    <div margin-left margin-right>
+      <p class="alert alert-warning" text-center>
+        Atenção! Caso este simbolo seja uma informação confidencial, habilite está opção
+      </p>
+    </div>
+  </ion-list>
 
-  <ion-card>
+  <ion-card *ngIf="recording">
     <ion-card-content>
       <ion-card-title>
-        <button ion-button primary (click)="stopRecord()" *ngIf="recording">
+        <button ion-button primary (click)="stopRecord()">
           Parar gravação
         </button>
-        <button ion-button primary (click)="startRecord()" *ngIf="!recording">
+      </ion-card-title>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="!recording && !audioFileName">
+    <ion-card-content>
+      <ion-card-title>
+        <button ion-button primary (click)="startRecord()">
           <ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Gravar aúdio
         </button>
       </ion-card-title>
     </ion-card-content>
   </ion-card>
-  <ion-list>
-    <ion-item *ngFor="let audio of audioList; index as i">
-      <p>{{ audio.filename }}</p>
-      <button ion-button clear item-end large (click)="playAudio(audio.filename, i)">
-        <ion-icon name="play"></ion-icon>
-      </button>
-    </ion-item>
-  </ion-list>
+
+  <ion-item *ngIf="!recording && audioFileName">
+    <p>{{ audioFileName }}</p>
+    <button ion-button clear item-end large (click)="playAudio(audioFileName)">
+      <ion-icon name="play"></ion-icon>
+    </button>
+  </ion-item>
+
+  <ion-card *ngIf="!image">
+    <ion-card-content>
+      <ion-card-title>
+        <button ion-button primary (click)="newImage()">
+          <ion-icon name="camera"></ion-icon>
+          &nbsp;&nbsp;Adicionar símbolo
+        </button>
+      </ion-card-title>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item *ngIf="image">
+    <img [src]="image" />
+  </ion-item>
+
   <ion-buttons start margin-left margin-right style="text-align: center">
     <button ion-button (click)="register()">Salvar</button>
   </ion-buttons>

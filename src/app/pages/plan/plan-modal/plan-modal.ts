@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, NavController } from 'ionic-angular';
 import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
 import { LoginService } from '../../../providers/login.service';
+import { PlanPage } from '../plan';
 
 @Component({
   selector: 'plan-modal',
@@ -18,7 +19,8 @@ export class PlanModal {
     private loadingService: LoadingService,
     private viewCtrl: ViewController,
     private boardService: BoardService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private navCtrl: NavController
   ) {
     this.user = this.loginService.getUser();
   }
@@ -39,7 +41,7 @@ export class PlanModal {
       })
       .subscribe(
         () => {
-          this.viewDismiss();
+          this.navCtrl.push(PlanPage);
           loading.dismiss();
         },
         () => loading.dismiss()

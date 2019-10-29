@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import { Media, MediaObject } from '@ionic-native/media';
 import { NavController, NavParams, Platform, ViewController } from 'ionic-angular';
 import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
 import { CategoryPage } from '../../category/category';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'symbol-modal',
@@ -17,14 +18,15 @@ export class SymbolModal {
   public type: any;
   public isPrivate: boolean;
   public image: any;
+  public audio: any;
+
   private board: any;
   private boardIndex: any;
 
   recording: boolean = false;
-  filePath: string;
-  fileName: string;
-  audio: MediaObject;
-  audioList: any[] = [];
+  audioFilePath: string;
+  audioFileName: string;
+  audioMediaObject: MediaObject;
 
   constructor(
     private navParams: NavParams,
@@ -32,9 +34,9 @@ export class SymbolModal {
     private camera: Camera,
     private boardService: BoardService,
     private media: Media,
-    private file: File,
     private navCtrl: NavController,
     private loadingService: LoadingService,
+    private file: File,
     private platform: Platform
   ) {
     if (this.navParams) {
@@ -47,71 +49,52 @@ export class SymbolModal {
     this.viewCtrl.dismiss();
   }
 
-  getAudioList() {
-    if (localStorage.getItem('audiolist')) {
-      this.audioList = JSON.parse(localStorage.getItem('audiolist'));
-      console.log(this.audioList);
-    }
-  }
-
-  ionViewWillEnter() {
-    this.getAudioList();
-  }
-
   startRecord() {
-    if (this.platform.is('ios')) {
-      this.fileName =
-        'record' +
-        new Date().getDate() +
-        new Date().getMonth() +
-        new Date().getFullYear() +
-        new Date().getHours() +
-        new Date().getMinutes() +
-        new Date().getSeconds() +
-        '.3gp';
-      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
-      this.audio = this.media.create(this.filePath);
-    } else if (this.platform.is('android')) {
-      this.fileName =
-        'record' +
-        new Date().getDate() +
-        new Date().getMonth() +
-        new Date().getFullYear() +
-        new Date().getHours() +
-        new Date().getMinutes() +
-        new Date().getSeconds() +
-        '.3gp';
-      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
-      this.audio = this.media.create(this.filePath);
-    }
-    this.audio.startRecord();
+    this.audioFileName = `record${Date.now()}.3gp`;
+
+    this.getFilePath(this.audioFileName);
+    this.audioMediaObject = this.media.create(this.audioFilePath);
+
+    this.audioMediaObject.startRecord();
     this.recording = true;
   }
 
   stopRecord() {
-    this.audio.stopRecord();
-    let data = { filename: this.fileName };
-    this.audioList.push(data);
-    localStorage.setItem('audiolist', JSON.stringify(this.audioList));
-    this.recording = false;
-    this.getAudioList();
+    this.audioMediaObject.stopRecord();
+
+    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+    loading.present();
+
+    this.boardService
+      .mediaObjectToBlob(this.audioFilePath, this.audioFileName)
+      .then(response => {
+        this.audio = response;
+        this.recording = false;
+        loading.dismiss();
+      })
+      .catch(() => loading.dismiss());
   }
 
-  playAudio(file, idx) {
+  playAudio(file) {
+    this.getFilePath(file);
+
+    this.audioMediaObject = this.media.create(this.audioFilePath);
+    this.audioMediaObject.play();
+    this.audioMediaObject.setVolume(0.8);
+  }
+
+  getFilePath(file) {
     if (this.platform.is('ios')) {
-      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
-      this.audio = this.media.create(this.filePath);
+      this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
     } else if (this.platform.is('android')) {
-      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
-      this.audio = this.media.create(this.filePath);
+      this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
     }
-    this.audio.play();
-    this.audio.setVolume(0.8);
   }
 
   newImage(): void {
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
+
     const options: CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -121,32 +104,38 @@ export class SymbolModal {
       targetHeight: 2210,
       quality: 100
     };
+
     this.camera
       .getPicture(options)
       .then(imageData => {
-        this.image = this.boardService.b64toBlob('data:image/jpeg;base64,' + imageData);
+        this.image = 'data:image/jpeg;base64,' + imageData;
         loading.dismiss();
       })
-      .catch(error => {
-        console.log(error);
-        loading.dismiss();
-      });
+      .catch(() => loading.dismiss());
   }
 
   register() {
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
 
-    this.boardService.uploadImage(this.board._id, this.image).subscribe(response => {
-      console.log(response);
+    const image = this.boardService.b64toBlob(this.image);
 
-      const newSymbol = {
-        name: this.name,
-        description: this.description,
-        isPrivate: this.isPrivate
-      };
+    let newSymbol = {
+      name: this.name,
+      description: this.description,
+      isPrivate: this.isPrivate
+    };
 
-      this.boardService.newSymbol(newSymbol).subscribe(
+    this.boardService
+      .newSymbol(newSymbol)
+      .pipe(
+        mergeMap((response: any) => {
+          newSymbol = response;
+
+          return this.boardService.uploadSymbol(response._id, this.audio, image);
+        })
+      )
+      .subscribe(
         () => {
           this.navCtrl.push(CategoryPage, {
             newSymbol: newSymbol,
@@ -154,11 +143,11 @@ export class SymbolModal {
           });
           loading.dismiss();
         },
-        e => {
-          loading.dismiss();
-          console.log(e);
-        }
+        () => loading.dismiss()
       );
+
+    this.boardService.uploadImage(this.board._id, this.image).subscribe(response => {
+      console.log(response);
     });
   }
 }
