@@ -37,6 +37,7 @@ export class ProfilePage implements OnInit {
   }
 
   logout() {
+    localStorage.clear();
     this.app.getRootNav().push(LoginPage);
   }
 }

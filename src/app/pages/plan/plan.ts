@@ -31,7 +31,17 @@ export class PlanPage implements OnInit {
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
 
-    this.boardService.getPlans().subscribe(
+    this.userFiltered = localStorage.getItem('userFiltered');
+
+    let observable = this.boardService.getPlansByUser(this.user.email);
+
+    if (this.userFiltered && this.user.linkedUsers.some(user => this.userFiltered === user)) {
+      observable = this.boardService.getPlansByUser(this.userFiltered);
+    } else {
+      localStorage.setItem('userFiltered', null);
+    }
+
+    observable.subscribe(
       response => {
         this.plans = response;
         loading.dismiss();
@@ -52,6 +62,8 @@ export class PlanPage implements OnInit {
   filter() {
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
+
+    localStorage.setItem('userFiltered', this.userFiltered);
 
     this.boardService.getPlansByUser(this.userFiltered).subscribe(
       response => {

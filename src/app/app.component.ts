@@ -27,11 +27,11 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      let loading: any = loadingService.createLoadingPage('Aguarde...');
-      loading.present();
-
       const user = JSON.parse(localStorage.getItem('user'));
       if (user) {
+        let loading: any = loadingService.createLoadingPage('Aguarde...');
+        loading.present();
+
         loginService.me(user._id).subscribe(
           response => {
             if (response) {
@@ -39,8 +39,13 @@ export class MyApp {
               loading.dismiss();
             }
           },
-          () => loading.dismiss()
+          () => {
+            loading.dismiss();
+            app.getRootNav().push(LoginPage);
+          }
         );
+      } else {
+        app.getRootNav().push(LoginPage);
       }
     });
   }

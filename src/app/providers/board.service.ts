@@ -7,11 +7,41 @@ import { Subject } from 'rxjs/Subject';
 export class BoardService {
   constructor(private httpClient: HttpClient) {}
 
-  public uploadImage(id: string, file: any): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-    let url: string = `https://tagarela-backend.herokuapp.com/boards/${id}/files`;
-    return this.httpClient.post(url, formData);
+  public uploadImage(boardId: string, file: any): Observable<any> {
+    return Observable.create(observer => {
+      const token = localStorage.getItem('token');
+      const url: string = `https://tagarela-backend.herokuapp.com/saveFile/${boardId}`;
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      var xhr: XMLHttpRequest = new XMLHttpRequest();
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            observer.next(JSON.parse(xhr.response));
+            observer.complete();
+          } else {
+            observer.error(xhr.response);
+          }
+        }
+      };
+
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+      xhr.send(formData);
+    });
+  }
+
+  public getImage(fileId: string): Observable<any> {
+    let url: string = `https://tagarela-backend.herokuapp.com/file/${fileId}`;
+    return this.httpClient.get(url);
+  }
+
+  public getMultipleFiles(images: string): Observable<any> {
+    let url: string = `https://tagarela-backend.herokuapp.com/files`;
+    return this.httpClient.post(url, images);
   }
 
   public saveBoard(board: any): Observable<any> {

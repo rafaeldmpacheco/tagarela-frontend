@@ -10,6 +10,7 @@ import { SymbolPage } from '../../symbol/symbol';
 })
 export class ManageBoardPage implements OnInit {
   public board: any = { name: '', images: [] };
+  boardImagesUrl = [];
   boardArray = Array(9);
 
   constructor(
@@ -24,7 +25,32 @@ export class ManageBoardPage implements OnInit {
       let { boardIndex, newSymbol, board, planId } = this.navParams.data;
 
       if (board) {
-        this.board = this.navParams.data.board;
+        let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+        loading.present();
+
+        this.boardService.getMultipleFiles(board.images).subscribe(
+          response => {
+            this.board = this.navParams.data.board;
+            this.board.images = response;
+
+            for (let index = 0; index < response.length; index++) {
+              const element = response[index];
+              const xhr = new XMLHttpRequest();
+
+              xhr.open('GET', element.url, true);
+              xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+
+              xhr.onload = function(e: any) {
+                this.boardImagesUrl[index] = e.srcElement.responseURL;
+              }.bind(this);
+
+              xhr.send();
+            }
+
+            loading.dismiss();
+          },
+          () => loading.dismiss()
+        );
       }
 
       if (newSymbol) {

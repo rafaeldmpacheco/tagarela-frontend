@@ -28,6 +28,7 @@ import { TokenInterceptor } from './providers/intercept-http.service';
 import { LoadingService } from './providers/loading.service';
 import { LoginService } from './providers/login.service';
 import { ModulesService } from './providers/modules.service';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 
 const PAGES = [
   MyApp,
@@ -56,13 +57,15 @@ const PAGES = [
   providers: [
     StatusBar,
     SplashScreen,
-    Camera,
     LoginService,
     BoardService,
     LoadingService,
     ModulesService,
     Media,
+    FileTransfer,
+    FileTransferObject,
     File,
+    Camera,
     {
       provide: ErrorHandler,
       useClass: IonicErrorHandler
