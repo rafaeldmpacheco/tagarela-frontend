@@ -7,6 +7,7 @@ import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
 import { CategoryPage } from '../../category/category';
 import { mergeMap } from 'rxjs/operators';
+import { ManageBoardPage } from '../../board/manage-board/manage-board';
 
 @Component({
   selector: 'symbol-modal',
@@ -20,6 +21,7 @@ export class SymbolModal {
   public image: any;
   public audio: any;
 
+  private category: any;
   private board: any;
   private boardIndex: any;
 
@@ -40,8 +42,9 @@ export class SymbolModal {
     private platform: Platform
   ) {
     if (this.navParams) {
-      this.boardIndex = this.navParams.get('boardIndex');
-      this.board = this.navParams.get('board');
+      this.category = this.navParams.data.category;
+      this.board = localStorage.getItem('board');
+      this.boardIndex = localStorage.getItem('boardIndex');
     }
   }
 
@@ -123,7 +126,8 @@ export class SymbolModal {
     let newSymbol = {
       name: this.name,
       description: this.description,
-      isPrivate: this.isPrivate
+      isPrivate: this.isPrivate,
+      categoryId: this.category._id
     };
 
     this.boardService
@@ -136,7 +140,7 @@ export class SymbolModal {
       )
       .subscribe(
         () => {
-          this.navCtrl.push(CategoryPage, {
+          this.navCtrl.push(ManageBoardPage, {
             newSymbol: newSymbol,
             boardIndex: this.boardIndex
           });

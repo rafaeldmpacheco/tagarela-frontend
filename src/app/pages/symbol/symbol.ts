@@ -12,16 +12,21 @@ import { LoadingService } from '../../providers/loading.service';
 })
 export class SymbolPage implements OnInit {
   public symbols: any[] = [];
-  public user: any;
+
+  private category: any;
+  private boardIndex: any;
 
   constructor(
     private navCtrl: NavController,
-    private loginService: LoginService,
     private modalCtrl: ModalController,
     private boardService: BoardService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private navParams: NavParams
   ) {
-    this.user = this.loginService.getUser();
+    if (this.navParams) {
+      this.category = this.navParams.data.category;
+      this.boardIndex = localStorage.getItem('boardIndex');
+    }
   }
 
   ngOnInit(): void {
@@ -38,11 +43,11 @@ export class SymbolPage implements OnInit {
   }
 
   registerSymbol() {
-    let symbolModal = this.modalCtrl.create(SymbolModal);
+    let symbolModal = this.modalCtrl.create(SymbolModal, { category: this.category });
     symbolModal.present();
   }
 
   goToBoard(newSymbol) {
-    this.navCtrl.push(ManageBoardPage, { newSymbol: newSymbol });
+    this.navCtrl.push(ManageBoardPage, { newSymbol: newSymbol, boardIndex: this.boardIndex });
   }
 }

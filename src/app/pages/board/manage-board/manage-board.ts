@@ -9,9 +9,7 @@ import { CategoryPage } from '../../category/category';
   templateUrl: 'manage-board.html'
 })
 export class ManageBoardPage implements OnInit {
-  public board: any = { name: '', images: [] };
-  boardImagesUrl = [];
-  boardArray = Array(9);
+  public board: any = { name: '', images: Array(9) };
 
   constructor(
     private navCtrl: NavController,
@@ -41,7 +39,7 @@ export class ManageBoardPage implements OnInit {
               xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
               xhr.onload = function(e: any) {
-                this.boardImagesUrl[index] = e.srcElement.responseURL;
+                this.board.images[index] = e.srcElement.responseURL;
               }.bind(this);
 
               xhr.send();
@@ -62,8 +60,8 @@ export class ManageBoardPage implements OnInit {
   }
 
   addSymbol(index: number) {
-    localStorage.setItem('board', JSON.stringify(this.board));
     localStorage.setItem('boardIndex', JSON.stringify(index));
+    localStorage.setItem('board', JSON.stringify(this.board));
 
     this.navCtrl.push(CategoryPage);
   }

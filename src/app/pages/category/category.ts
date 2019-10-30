@@ -12,17 +12,13 @@ import { CategoryModal } from './category-modal/category-modal';
 })
 export class CategoryPage {
   public categories: any[] = [];
-  public user: any;
 
   constructor(
     private navCtrl: NavController,
-    private loginService: LoginService,
     private modalCtrl: ModalController,
     private boardService: BoardService,
     private loadingService: LoadingService
   ) {
-    this.user = this.loginService.getUser();
-
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
 
