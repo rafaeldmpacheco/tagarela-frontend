@@ -131,7 +131,6 @@ export class SymbolModal {
       .pipe(
         mergeMap((response: any) => {
           newSymbol = response;
-
           return this.boardService.uploadSymbol(response._id, this.audio, image);
         })
       )
@@ -145,9 +144,5 @@ export class SymbolModal {
         },
         () => loading.dismiss()
       );
-
-    this.boardService.uploadImage(this.board._id, this.image).subscribe(response => {
-      console.log(response);
-    });
   }
 }

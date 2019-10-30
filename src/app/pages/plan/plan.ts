@@ -51,7 +51,7 @@ export class PlanPage implements OnInit {
   }
 
   cadastrarPlano() {
-    let planModal = this.modalCtrl.create(PlanModal);
+    let planModal = this.modalCtrl.create(PlanModal, { userFiltered: this.userFiltered });
     planModal.present();
   }
 

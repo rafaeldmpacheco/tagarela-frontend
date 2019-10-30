@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
-import { SymbolPage } from '../../symbol/symbol';
+import { CategoryPage } from '../../category/category';
 
 @Component({
   selector: 'manage-board',
@@ -61,7 +61,14 @@ export class ManageBoardPage implements OnInit {
     }
   }
 
-  saveBoard(index?: number): void {
+  addSymbol(index: number) {
+    localStorage.setItem('board', JSON.stringify(this.board));
+    localStorage.setItem('boardIndex', JSON.stringify(index));
+
+    this.navCtrl.push(CategoryPage);
+  }
+
+  saveBoard(): void {
     this.board.name = this.board.name ? this.board.name : 'Prancha';
 
     let observable = this.boardService.saveBoard(this.board);
@@ -69,20 +76,12 @@ export class ManageBoardPage implements OnInit {
       observable = this.boardService.updateBoard(this.board);
     }
 
-    if (!index && this.board.images.length < 9) {
-      return;
-    }
-
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
 
     observable.subscribe(
-      board => {
-        if (index) {
-          this.navCtrl.push(SymbolPage, { boardIndex: index, board: board });
-        } else {
-          this.navCtrl.pop();
-        }
+      () => {
+        this.navCtrl.pop();
         loading.dismiss();
       },
       () => loading.dismiss()

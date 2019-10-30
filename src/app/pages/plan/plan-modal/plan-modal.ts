@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, NavController } from 'ionic-angular';
+import { ViewController, NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
 import { LoginService } from '../../../providers/login.service';
@@ -14,15 +14,20 @@ export class PlanModal {
   public description: any;
   public type: any;
   public user: any;
+  private owner: string;
 
   constructor(
     private loadingService: LoadingService,
     private viewCtrl: ViewController,
     private boardService: BoardService,
     private loginService: LoginService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private navParams: NavParams
   ) {
     this.user = this.loginService.getUser();
+    if (this.navParams.get('userFiltered')) {
+      this.owner = this.navParams.data.userFiltered;
+    }
   }
 
   viewDismiss() {
@@ -37,7 +42,7 @@ export class PlanModal {
         name: this.name,
         description: this.description,
         type: this.type,
-        owner: this.user.email
+        owner: this.owner ? this.owner : this.user.email
       })
       .subscribe(
         () => {

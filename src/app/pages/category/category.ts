@@ -1,49 +1,46 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, NavParams } from 'ionic-angular';
+import { ModalController, NavController } from 'ionic-angular';
 import { BoardService } from '../../providers/board.service';
+import { LoadingService } from '../../providers/loading.service';
 import { LoginService } from '../../providers/login.service';
-import { ManageBoardPage } from '../board/manage-board/manage-board';
+import { SymbolPage } from '../symbol/symbol';
 import { CategoryModal } from './category-modal/category-modal';
 
 @Component({
-	selector: 'page-category',
-	templateUrl: 'category.html'
+  selector: 'page-category',
+  templateUrl: 'category.html'
 })
 export class CategoryPage {
-	public categories: any[] = [];
-	public user: any;
-	private boardIndex: number;
-	private newSymbol: any;
+  public categories: any[] = [];
+  public user: any;
 
-	constructor(
-		private navCtrl: NavController,
-		private loginService: LoginService,
-		public modalCtrl: ModalController,
-		private boardService: BoardService,
-		private navParams: NavParams
-	) {
-		this.user = this.loginService.getUser();
+  constructor(
+    private navCtrl: NavController,
+    private loginService: LoginService,
+    private modalCtrl: ModalController,
+    private boardService: BoardService,
+    private loadingService: LoadingService
+  ) {
+    this.user = this.loginService.getUser();
 
-		this.boardService.getCategories().subscribe(response => {
-			this.categories = response;
-		});
+    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+    loading.present();
 
-		if (this.navParams.get('boardIndex')) {
-			this.boardIndex = this.navParams.get('boardIndex');
-			this.newSymbol = this.navParams.get('newSymbol');
-		}
-	}
+    this.boardService.getCategories().subscribe(
+      response => {
+        this.categories = response;
+        loading.dismiss();
+      },
+      () => loading.dismiss()
+    );
+  }
 
-	registerSymbol() {
-		let categoryModal = this.modalCtrl.create(CategoryModal, {
-			newSymbol: this.newSymbol,
-			boardIndex: this.boardIndex
-		});
-		categoryModal.present();
-	}
+  registerCategory() {
+    let categoryModal = this.modalCtrl.create(CategoryModal);
+    categoryModal.present();
+  }
 
-	goToBoard(category) {
-		this.newSymbol.category = category;
-		this.navCtrl.push(ManageBoardPage, { newSymbol: this.newSymbol, boardIndex: this.boardIndex });
-	}
+  goToSymbol(category) {
+    this.navCtrl.push(SymbolPage, { category });
+  }
 }

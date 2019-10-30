@@ -114,25 +114,13 @@ export class BoardService {
   }
 
   public getCategories(): Observable<any> {
-    const mockSymbols = [
-      {
-        id: 1,
-        name: 'name 1',
-        description: 'description 1',
-        color: '#333'
-      },
-      {
-        id: 2,
-        name: 'name 2',
-        description: 'description 2',
-        color: '#333'
-      }
-    ];
-    return Observable.of(mockSymbols);
+    let url: string = `https://tagarela-backend.herokuapp.com/categories`;
+    return this.httpClient.get(url);
   }
 
   public newCategory(newCategory): Observable<any> {
-    return Observable.of(newCategory);
+    let url: string = `https://tagarela-backend.herokuapp.com/category`;
+    return this.httpClient.post(url, newCategory);
   }
 
   /**
