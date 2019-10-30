@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file';
 import { Platform } from 'ionic-angular';
 import { Observable } from 'rxjs';
+import { API } from '../../config/config';
 
 @Injectable()
 export class BoardService {
@@ -74,12 +75,12 @@ export class BoardService {
   }
 
   public saveBoard(board: any): Observable<any> {
-    let url: string = `https://tagarela-backend.herokuapp.com/board`;
+    let url = `${API.URL}/board`;
     return this.httpClient.post(url, board);
   }
 
   public updateBoard(board: any): Observable<any> {
-    let url: string = `https://tagarela-backend.herokuapp.com/board/` + board._id;
+    let url = `${API.URL}/board/` + board._id;
     return this.httpClient.put(url, board);
   }
 

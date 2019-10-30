@@ -6,8 +6,10 @@ import { NavController, NavParams, Platform, ViewController } from 'ionic-angula
 import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
 import { CategoryPage } from '../../category/category';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, map } from 'rxjs/operators';
 import { ManageBoardPage } from '../../board/manage-board/manage-board';
+import { BoardPage } from '../../board/board';
+import { PlanPage } from '../../plan/plan';
 
 @Component({
   selector: 'symbol-modal',
@@ -43,8 +45,8 @@ export class SymbolModal {
   ) {
     if (this.navParams) {
       this.category = this.navParams.data.category;
-      this.board = localStorage.getItem('board');
-      this.boardIndex = localStorage.getItem('boardIndex');
+      this.board = JSON.parse(localStorage.getItem('board'));
+      this.boardIndex = JSON.parse(localStorage.getItem('boardIndex'));
     }
   }
 
@@ -133,17 +135,26 @@ export class SymbolModal {
     this.boardService
       .newSymbol(newSymbol)
       .pipe(
+        mergeMap((response: any) =>
+          this.boardService.uploadSymbol(response._id, this.audio, image)
+        ),
+        map((response: any) => {
+          this.board.symbols.push({ symbolId: response._id, boardIndex: this.boardIndex });
+          return this.board;
+        }),
         mergeMap((response: any) => {
-          newSymbol = response;
-          return this.boardService.uploadSymbol(response._id, this.audio, image);
+          let observable = this.boardService.saveBoard(response);
+
+          if (response._id) {
+            observable = this.boardService.updateBoard(response);
+          }
+
+          return observable;
         })
       )
       .subscribe(
         () => {
-          this.navCtrl.push(ManageBoardPage, {
-            newSymbol: newSymbol,
-            boardIndex: this.boardIndex
-          });
+          this.navCtrl.push(PlanPage);
           loading.dismiss();
         },
         () => loading.dismiss()

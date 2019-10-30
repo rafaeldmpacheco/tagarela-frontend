@@ -9,7 +9,7 @@ import { CategoryPage } from '../../category/category';
   templateUrl: 'manage-board.html'
 })
 export class ManageBoardPage implements OnInit {
-  public board: any = { name: '', images: Array(9) };
+  public board: any = { name: '', images: Array(9), symbols: [] };
 
   constructor(
     private navCtrl: NavController,

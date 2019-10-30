@@ -5,6 +5,8 @@ import { LoginService } from '../../providers/login.service';
 import { ManageBoardPage } from '../board/manage-board/manage-board';
 import { SymbolModal } from './symbol-modal/symbol-modal';
 import { LoadingService } from '../../providers/loading.service';
+import { BoardPage } from '../board/board';
+import { PlanPage } from '../plan/plan';
 
 @Component({
   selector: 'page-symbol',
@@ -14,6 +16,7 @@ export class SymbolPage implements OnInit {
   public symbols: any[] = [];
 
   private category: any;
+  private board: any;
   private boardIndex: any;
 
   constructor(
@@ -25,7 +28,8 @@ export class SymbolPage implements OnInit {
   ) {
     if (this.navParams) {
       this.category = this.navParams.data.category;
-      this.boardIndex = localStorage.getItem('boardIndex');
+      this.board = JSON.parse(localStorage.getItem('board'));
+      this.boardIndex = JSON.parse(localStorage.getItem('boardIndex'));
     }
   }
 
@@ -48,6 +52,21 @@ export class SymbolPage implements OnInit {
   }
 
   goToBoard(newSymbol) {
-    this.navCtrl.push(ManageBoardPage, { newSymbol: newSymbol, boardIndex: this.boardIndex });
+    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+    loading.present();
+
+    this.board.symbols.push({ symbolId: newSymbol._id, boardIndex: this.boardIndex });
+
+    let observable = this.boardService.saveBoard(this.board);
+    if (this.board._id) {
+      observable = this.boardService.updateBoard(this.board);
+    }
+    observable.subscribe(
+      () => {
+        this.navCtrl.push(PlanPage);
+        loading.dismiss();
+      },
+      () => loading.dismiss()
+    );
   }
 }
