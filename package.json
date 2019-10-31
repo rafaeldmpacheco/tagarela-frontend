@@ -8,6 +8,7 @@
     "start": "ionic-app-scripts serve",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
+    "device": "ionic cordova run android  --l",
     "lint": "ionic-app-scripts lint"
   },
   "dependencies": {

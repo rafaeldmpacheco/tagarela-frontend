@@ -3,13 +3,17 @@ import { NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
 import { CategoryPage } from '../../category/category';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'manage-board',
   templateUrl: 'manage-board.html'
 })
 export class ManageBoardPage implements OnInit {
-  public board: any = { name: '', images: Array(9), symbols: [] };
+  public board: any = { name: '', symbols: [] };
+  boardImagesUrl = ['', '', '', '', '', '', '', '', ''];
+  boardAudios = ['', '', '', '', '', '', '', '', ''];
+  boardArray = Array(9);
 
   constructor(
     private navCtrl: NavController,
@@ -20,39 +24,62 @@ export class ManageBoardPage implements OnInit {
 
   ngOnInit(): void {
     if (this.navParams) {
-      let { boardIndex, newSymbol, board, planId } = this.navParams.data;
+      let { board, planId } = this.navParams.data;
 
       if (board) {
+        this.board = board;
+
+        const symbolIds = [];
+        board.symbols.forEach(element => {
+          symbolIds.push(element.symbolId);
+        });
+
         let loading: any = this.loadingService.createLoadingPage('Aguarde...');
         loading.present();
 
-        this.boardService.getMultipleFiles(board.images).subscribe(
-          response => {
-            this.board = this.navParams.data.board;
-            this.board.images = response;
+        this.boardService
+          .getMultipleSymbols(symbolIds)
+          .pipe(
+            map(symbols => {
+              for (let index = 0; index < this.board.symbols.length; index++) {
+                const element = this.board.symbols[index];
 
-            for (let index = 0; index < response.length; index++) {
-              const element = response[index];
-              const xhr = new XMLHttpRequest();
+                for (let index = 0; index < symbols.length; index++) {
+                  const symbol = symbols[index];
 
-              xhr.open('GET', element.url, true);
-              xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+                  if (element.symbolId === symbol._id) {
+                    this.boardImagesUrl[element.boardIndex] = symbol.image[0].url;
+                    this.boardAudios[element.boardIndex] = symbol.audio[0].url;
+                  }
+                }
+              }
 
-              xhr.onload = function(e: any) {
-                this.board.images[index] = e.srcElement.responseURL;
-              }.bind(this);
+              return symbols;
+            })
+          )
+          .subscribe(
+            () => {
+              for (let index = 0; index < this.boardImagesUrl.length; index++) {
+                const element = this.boardImagesUrl[index];
 
-              xhr.send();
-            }
+                if (element) {
+                  const xhr = new XMLHttpRequest();
 
-            loading.dismiss();
-          },
-          () => loading.dismiss()
-        );
-      }
+                  xhr.open('GET', element, true);
+                  xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
-      if (newSymbol) {
-        this.board.images[boardIndex] = newSymbol;
+                  xhr.onload = function(e: any) {
+                    this.boardImagesUrl[index] = e.srcElement.responseURL;
+                  }.bind(this);
+
+                  xhr.send();
+                }
+              }
+
+              loading.dismiss();
+            },
+            () => loading.dismiss()
+          );
       }
 
       this.board.planId = planId;

@@ -9,33 +9,6 @@ import { API } from '../../config/config';
 export class BoardService {
   constructor(private httpClient: HttpClient, private file: File, private platform: Platform) {}
 
-  public uploadImage(boardId: string, file: any): Observable<any> {
-    return Observable.create(observer => {
-      const token = localStorage.getItem('token');
-      const url: string = `https://tagarela-backend.herokuapp.com/saveFile/${boardId}`;
-
-      const formData = new FormData();
-      formData.append('file', file);
-
-      var xhr: XMLHttpRequest = new XMLHttpRequest();
-
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            observer.next(JSON.parse(xhr.response));
-            observer.complete();
-          } else {
-            observer.error(xhr.response);
-          }
-        }
-      };
-
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-      xhr.send(formData);
-    });
-  }
-
   public uploadSymbol(symbolId: string, audioFile: any, imageFile: any): Observable<any> {
     return Observable.create(observer => {
       const token = localStorage.getItem('token');
@@ -65,13 +38,18 @@ export class BoardService {
   }
 
   public getImage(fileId: string): Observable<any> {
-    let url: string = `https://tagarela-backend.herokuapp.com/file/${fileId}`;
+    let url = `${API.URL}/file/${fileId}`;
     return this.httpClient.get(url);
   }
 
-  public getMultipleFiles(images: string): Observable<any> {
+  public getMultipleSymbols(symbols: string[]): Observable<any> {
+    let url = `${API.URL}/symbolsById`;
+    return this.httpClient.post(url, symbols);
+  }
+
+  public getMultipleFiles(ids: string[]): Observable<any> {
     let url: string = `https://tagarela-backend.herokuapp.com/files`;
-    return this.httpClient.post(url, images);
+    return this.httpClient.post(url, ids);
   }
 
   public saveBoard(board: any): Observable<any> {
@@ -85,42 +63,42 @@ export class BoardService {
   }
 
   public getBoardsByPlan(planId): Observable<any> {
-    let url: string = `https://tagarela-backend.herokuapp.com/boards/${planId}/plan`;
+    let url = `${API.URL}/board/${planId}`;
     return this.httpClient.get(url);
   }
 
   public getPlans(): Observable<any> {
-    let url: string = `https://tagarela-backend.herokuapp.com/plans`;
+    let url = `${API.URL}/plans`;
     return this.httpClient.get(url);
   }
 
   public getPlansByUser(owner: string): Observable<any> {
-    let url: string = `https://tagarela-backend.herokuapp.com/plan/${owner}`;
+    let url = `${API.URL}/plan/${owner}`;
     return this.httpClient.get(url);
   }
 
   public newPlan(plan): Observable<any> {
-    let url: string = `https://tagarela-backend.herokuapp.com/plan`;
+    let url = `${API.URL}/plan`;
     return this.httpClient.post(url, plan);
   }
 
   public getSymbols(): Observable<any> {
-    let url: string = `https://tagarela-backend.herokuapp.com/symbols`;
+    let url = `${API.URL}/symbols`;
     return this.httpClient.get(url);
   }
 
   public newSymbol(newSymbol): Observable<any> {
-    let url: string = `https://tagarela-backend.herokuapp.com/symbol`;
+    let url = `${API.URL}/symbol`;
     return this.httpClient.post(url, newSymbol);
   }
 
   public getCategories(): Observable<any> {
-    let url: string = `https://tagarela-backend.herokuapp.com/categories`;
+    let url = `${API.URL}/categories`;
     return this.httpClient.get(url);
   }
 
   public newCategory(newCategory): Observable<any> {
-    let url: string = `https://tagarela-backend.herokuapp.com/category`;
+    let url = `${API.URL}/category`;
     return this.httpClient.post(url, newCategory);
   }
 
