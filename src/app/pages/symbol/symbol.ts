@@ -31,16 +31,18 @@ export class SymbolPage implements OnInit {
   }
 
   ngOnInit(): void {
-    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
-    loading.present();
+    if (this.category) {
+      let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+      loading.present();
 
-    this.boardService.getSymbols().subscribe(
-      response => {
-        this.symbols = response;
-        loading.dismiss();
-      },
-      () => loading.dismiss()
-    );
+      this.boardService.getSymbols(this.category._id).subscribe(
+        response => {
+          this.symbols = response;
+          loading.dismiss();
+        },
+        () => loading.dismiss()
+      );
+    }
   }
 
   registerSymbol() {

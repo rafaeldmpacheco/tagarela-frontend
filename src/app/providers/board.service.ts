@@ -82,8 +82,8 @@ export class BoardService {
     return this.httpClient.post(url, plan);
   }
 
-  public getSymbols(): Observable<any> {
-    let url = `${API.URL}/symbols`;
+  public getSymbols(categoryId: string): Observable<any> {
+    let url = `${API.URL}/symbol/${categoryId}`;
     return this.httpClient.get(url);
   }
 
