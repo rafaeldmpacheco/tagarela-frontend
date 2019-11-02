@@ -1,0 +1,32 @@
+register {
+  .scroll-content {
+    padding-bottom: 0 !important; //Impede que os campos subam na tela ao realizar tabulação
+  }
+
+  .login-input-area {
+    margin-top: 30%;
+
+    ion-item {
+      padding-left: 10px;
+      border: none;
+    }
+
+    ion-input {
+      font-size: 95%;
+    }
+
+    ion-label {
+      padding-left: 9px;
+      font-size: 15.2px;
+    }
+
+    ion-list,
+    .toolbar .toolbar-background {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    ion-list {
+      margin: 16px;
+    }
+  }
+}

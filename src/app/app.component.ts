@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { NavController, Platform, App } from 'ionic-angular';
-import { LoginPage } from './pages/login/login';
-import { MenuPage } from './pages/menu/menu';
-import { LoginService } from './providers/login.service';
-import { LoadingService } from './providers/loading.service';
+import { App, Platform } from 'ionic-angular';
+import { LoginPage } from './modules/auth/login/login';
+import { LoadingService } from './shared/providers/loading.service';
+import { MenuPage } from './core/menu/menu';
+import { LoginService } from './shared/providers/login.service';
 
 @Component({
   templateUrl: 'app.html'

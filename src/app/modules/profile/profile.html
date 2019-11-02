@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-title>
+      Perfil
+    </ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goToMenu()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      Modulos visiveis
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item *ngFor="let module of modules">
+        <ion-label>{{ module.title }}</ion-label>
+        <ion-toggle [(ngModel)]="module.isVisible"></ion-toggle>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button (click)="invite()">Convitar {{ role() }}</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button style="background-color: white; color: black" (click)="logout()">
+          Sair
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

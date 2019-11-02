@@ -1,0 +1,16 @@
+<ion-header>
+  <header-modal title="Convidar"></header-modal>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-list center>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="linkedUser" placeholder="E-mail"></ion-input>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-buttons start margin-left margin-right style="text-align: center">
+    <button ion-button (click)="updateUser()">Convidar</button>
+  </ion-buttons>
+</ion-content>

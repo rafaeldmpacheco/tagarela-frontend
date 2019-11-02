@@ -1,0 +1,53 @@
+login {
+  .scroll-content {
+    padding-bottom: 0 !important; //Impede que os campos subam na tela ao realizar tabulação
+  }
+
+  .login-input-area {
+    ion-item {
+      padding-left: 0;
+      border: none;
+    }
+
+    ion-input {
+      font-size: 95%;
+      padding-left: 16px;
+    }
+
+    .text-input {
+      border: 0;
+      margin: 12px 8px 13px 0;
+    }
+
+    .text-input::-webkit-input-placeholder {
+      color: #fff;
+      font-size: 90%;
+    }
+
+    ion-list,
+    .toolbar .toolbar-background {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    ion-list {
+      margin: 16px;
+    }
+  }
+
+  .logo-area {
+    height: 35%;
+    margin: auto;
+
+    .logo {
+      margin: auto;
+      height: 100%;
+      min-height: 60px;
+      max-height: 85px;
+      top: 50%;
+      position: relative;
+      text-align: center;
+      font-size: 50px;
+      color: white;
+    }
+  }
+}
