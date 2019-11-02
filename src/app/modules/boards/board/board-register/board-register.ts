@@ -10,10 +10,11 @@ import { MessageService } from '../../../../shared/providers/message.service';
   selector: 'manage-board',
   templateUrl: 'manage-board.html'
 })
-export class ManageBoardPage implements OnInit {
-  public board: any = { name: '', symbols: [] };
+export class BoardRegisterPage implements OnInit {
+  board: any = { name: '', symbols: [] };
   categories: any[];
   symbols: any[];
+
   boardImagesUrl = ['', '', '', '', '', '', '', '', ''];
   boardAudios = ['', '', '', '', '', '', '', '', ''];
   boardColors = ['', '', '', '', '', '', '', '', ''];

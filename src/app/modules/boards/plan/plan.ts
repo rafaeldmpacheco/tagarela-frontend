@@ -4,7 +4,7 @@ import { BoardService } from '../../../shared/providers/board.service';
 import { LoadingService } from '../../../shared/providers/loading.service';
 import { LoginService } from '../../../shared/providers/login.service';
 import { BoardPage } from '../board/board';
-import { PlanModal } from './plan-modal/plan-modal';
+import { PlanRegister } from './plan-register/plan-register';
 
 @Component({
   selector: 'page-plan',
@@ -51,7 +51,7 @@ export class PlanPage implements OnInit {
   }
 
   cadastrarPlano() {
-    let planModal = this.modalCtrl.create(PlanModal, { userFiltered: this.userFiltered });
+    let planModal = this.modalCtrl.create(PlanRegister, { userFiltered: this.userFiltered });
     planModal.present();
   }
 

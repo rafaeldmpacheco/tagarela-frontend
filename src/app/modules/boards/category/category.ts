@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ModalController, NavController } from 'ionic-angular';
 import { BoardService } from '../../../shared/providers/board.service';
 import { SymbolPage } from '../symbol/symbol';
-import { CategoryModal } from './category-modal/category-modal';
+import { CategoryRegister } from './category-register/category-register';
 import { LoadingService } from '../../../shared/providers/loading.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class CategoryPage {
   }
 
   registerCategory() {
-    let categoryModal = this.modalCtrl.create(CategoryModal);
+    let categoryModal = this.modalCtrl.create(CategoryRegister);
     categoryModal.present();
   }
 

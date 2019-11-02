@@ -6,10 +6,10 @@ import { LoginService } from '../../../../shared/providers/login.service';
 import { PlanPage } from '../plan';
 
 @Component({
-  selector: 'plan-modal',
-  templateUrl: 'plan-modal.html'
+  selector: 'plan-register',
+  templateUrl: 'plan-register.html'
 })
-export class PlanModal {
+export class PlanRegister {
   public name: any;
   public description: any;
   public type: any;

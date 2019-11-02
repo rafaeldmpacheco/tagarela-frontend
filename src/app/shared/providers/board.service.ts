@@ -1,41 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { File } from '@ionic-native/file';
-import { Platform } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { API } from '../../../config/config';
 
 @Injectable()
 export class BoardService {
-  constructor(private httpClient: HttpClient, private file: File, private platform: Platform) {}
-
-  public uploadSymbol(symbolId: string, audioFile: any, imageFile: any): Observable<any> {
-    return Observable.create(observer => {
-      const token = localStorage.getItem('token');
-      const url = `${API.URL}/saveSymbol/${symbolId}`;
-
-      const formData = new FormData();
-      formData.append('audioFile', audioFile, 'record.3gp');
-      formData.append('imageFile', imageFile, 'img.jpg');
-
-      var xhr: XMLHttpRequest = new XMLHttpRequest();
-
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            observer.next(JSON.parse(xhr.response));
-            observer.complete();
-          } else {
-            observer.error(xhr.response);
-          }
-        }
-      };
-
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-      xhr.send(formData);
-    });
-  }
+  constructor(private httpClient: HttpClient) {}
 
   public getImage(fileId: string): Observable<any> {
     let url = `${API.URL}/file/${fileId}`;
@@ -100,42 +70,5 @@ export class BoardService {
   public newCategory(newCategory): Observable<any> {
     let url = `${API.URL}/category`;
     return this.httpClient.post(url, newCategory);
-  }
-
-  mediaObjectToBlob(filePath, fileName?, isImage = false): Promise<any> {
-    if (!isImage) {
-      if (this.platform.is('ios')) {
-        filePath = this.file.documentsDirectory + fileName;
-      } else if (this.platform.is('android')) {
-        filePath = this.file.externalDataDirectory + fileName;
-      }
-    }
-
-    let mime = isImage ? 'image/' : 'audio/';
-
-    return new Promise((resolve, reject) => {
-      let fileName: string;
-
-      this.file
-        .resolveLocalFilesystemUrl(filePath)
-        .then(fileEntry => {
-          let { name, nativeURL } = fileEntry;
-
-          let path = nativeURL.substring(0, nativeURL.lastIndexOf('/'));
-          fileName = name;
-
-          mime += fileName.match(/\.[A-z0-9]+$/i)[0].slice(1);
-
-          return this.file.readAsArrayBuffer(path, name);
-        })
-        .then(buffer => {
-          let blob = new Blob([buffer], {
-            type: mime
-          });
-
-          resolve(blob);
-        })
-        .catch(e => reject(e));
-    });
   }
 }

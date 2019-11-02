@@ -6,10 +6,10 @@ import { LoadingService } from '../../../../shared/providers/loading.service';
 import { MessageService } from '../../../../shared/providers/message.service';
 
 @Component({
-  selector: 'category-modal',
-  templateUrl: 'category-modal.html'
+  selector: 'category-register',
+  templateUrl: 'category-register.html'
 })
-export class CategoryModal {
+export class CategoryRegister {
   public name: any;
   public description: any;
   public color: any;

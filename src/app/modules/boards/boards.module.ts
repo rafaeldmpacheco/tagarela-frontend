@@ -3,23 +3,23 @@ import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 import { SharedModule } from '../../shared/shared.module';
 import { BoardPage } from './board/board';
-import { ManageBoardPage } from './board/manage-board/manage-board';
+import { BoardRegisterPage } from './board/manage-board/manage-board';
 import { CategoryPage } from './category/category';
-import { CategoryModal } from './category/category-modal/category-modal';
+import { CategoryRegister } from './category/category-register/category-register';
 import { PlanPage } from './plan/plan';
-import { PlanModal } from './plan/plan-modal/plan-modal';
+import { PlanRegister } from './plan/plan-register/plan-register';
 import { SymbolPage } from './symbol/symbol';
-import { SymbolModal } from './symbol/symbol-modal/symbol-modal';
+import { SymbolModal } from './symbol/symbol-register/symbol-register';
 
 const COMPONENTS = [
   BoardPage,
-  ManageBoardPage,
+  BoardRegisterPage,
   PlanPage,
-  PlanModal,
+  PlanRegister,
   SymbolPage,
   SymbolModal,
   CategoryPage,
-  CategoryModal
+  CategoryRegister
 ];
 
 @NgModule({

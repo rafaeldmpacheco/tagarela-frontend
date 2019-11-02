@@ -16,6 +16,7 @@ import { LoadingService } from './providers/loading.service';
 import { LoginService } from './providers/login.service';
 import { MessageService } from './providers/message.service';
 import { ModulesService } from './providers/modules.service';
+import { FileService } from './providers/file.service';
 
 const COMPONENTS = [GridMenuComponent, ColorPickerComponent, HeaderModalComponent];
 
@@ -37,7 +38,8 @@ const COMPONENTS = [GridMenuComponent, ColorPickerComponent, HeaderModalComponen
     FileTransfer,
     FileTransferObject,
     File,
-    Camera
+    Camera,
+    FileService
   ]
 })
 export class SharedModule {}

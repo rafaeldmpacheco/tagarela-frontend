@@ -8,10 +8,11 @@ import { LoadingService } from '../../../../shared/providers/loading.service';
 import { MessageService } from '../../../../shared/providers/message.service';
 import { BoardService } from '../../../../shared/providers/board.service';
 import { PlanPage } from '../../plan/plan';
+import { FileService } from '../../../../shared/providers/file.service';
 
 @Component({
-  selector: 'symbol-modal',
-  templateUrl: 'symbol-modal.html'
+  selector: 'symbol-register',
+  templateUrl: 'symbol-register.html'
 })
 export class SymbolModal {
   public name: any;
@@ -42,7 +43,8 @@ export class SymbolModal {
     private loadingService: LoadingService,
     private file: File,
     private platform: Platform,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private fileService: FileService,
   ) {
     if (this.navParams) {
       this.category = this.navParams.data.category;
@@ -71,7 +73,7 @@ export class SymbolModal {
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
 
-    this.boardService
+    this.fileService
       .mediaObjectToBlob(this.audioFilePath, this.audioFileName)
       .then(response => {
         this.audio = response;
@@ -114,7 +116,7 @@ export class SymbolModal {
     this.camera
       .getPicture(options)
       .then(imagePath => {
-        return this.boardService
+        return this.fileService
           .mediaObjectToBlob(imagePath, '', true)
           .then(response => (this.image = response));
       })
@@ -152,7 +154,7 @@ export class SymbolModal {
       .newSymbol(newSymbol)
       .pipe(
         mergeMap((response: any) =>
-          this.boardService.uploadSymbol(response._id, this.audio, this.image)
+          this.fileService.uploadSymbol(response._id, this.audio, this.image)
         ),
         map((response: any) => {
           this.board.symbols.push({ symbolId: response._id, boardIndex: this.boardIndex });

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../../shared/providers/board.service';
 import { LoginService } from '../../../shared/providers/login.service';
-import { ManageBoardPage } from './manage-board/manage-board';
+import { BoardRegisterPage } from './manage-board/manage-board';
 import { LoadingService } from '../../../shared/providers/loading.service';
 
 @Component({
@@ -39,10 +39,10 @@ export class BoardPage implements OnInit {
   }
 
   cadastrarPrancha() {
-    this.navCtrl.push(ManageBoardPage, { planId: this.planId });
+    this.navCtrl.push(BoardRegisterPage, { planId: this.planId });
   }
 
   getBoard(board) {
-    this.navCtrl.push(ManageBoardPage, { board: board, planId: this.planId });
+    this.navCtrl.push(BoardRegisterPage, { board: board, planId: this.planId });
   }
 }
