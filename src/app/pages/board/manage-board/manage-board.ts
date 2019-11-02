@@ -81,7 +81,7 @@ export class ManageBoardPage implements OnInit {
   }
 
   getBorderColor(i) {
-    return this.boardColors && this.boardColors[i] ? this.boardColors[i] + ' 10px solid' : '';
+    return this.boardColors && this.boardColors[i] ? this.boardColors[i] + ' 6px solid' : '';
   }
 
   addSymbol(index: number) {

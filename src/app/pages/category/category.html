@@ -14,7 +14,7 @@
   </ion-grid>
 
   <ion-card *ngFor="let category of categories; let i = index" (click)="goToSymbol(category)">
-    <ion-card-header [ngStyle]="{ border: category?.color + ' 10px solid' }">
+    <ion-card-header [ngStyle]="{ border: category?.color + ' 6px solid' }">
       {{ category?.name }} - {{ category?.description }}
     </ion-card-header>
   </ion-card>

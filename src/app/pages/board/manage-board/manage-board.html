@@ -19,18 +19,19 @@
     </ion-row>
 
     <ion-row>
-      <ion-col
-        col-4
-        *ngFor="let number of boardArray; let i = index"
-        [ngStyle]="{ border: getBorderColor(i) }"
-      >
-        <ion-card *ngIf="boardImagesUrl[i]" class="no-margin width-100" (click)="selectedImage(i)">
-          <img [src]="boardImagesUrl[i]" />
+      <ion-col col-4 *ngFor="let number of boardArray; let i = index">
+        <ion-card
+          *ngIf="boardImagesUrl[i]"
+          class="no-margin width-100"
+          [ngStyle]="{ border: getBorderColor(i) }"
+          (click)="selectedImage(i)"
+        >
+          <img class="no-padding" [src]="boardImagesUrl[i]" />
         </ion-card>
 
         <ion-card
           *ngIf="!boardImagesUrl[i]"
-          class="no-margin width-100 height-100 new-image-button"
+          class="no-margin width-100 new-image-button"
           (click)="addSymbol(i)"
         >
           Adicionar

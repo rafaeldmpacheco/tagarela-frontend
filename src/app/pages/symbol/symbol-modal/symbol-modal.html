@@ -59,7 +59,7 @@
     </button>
   </ion-item>
 
-  <ion-card *ngIf="!image">
+  <ion-card *ngIf="!imageB64">
     <ion-card-content>
       <ion-card-title>
         <button ion-button primary (click)="newImage()">
@@ -70,8 +70,8 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-item *ngIf="image">
-    <img [src]="image" />
+  <ion-item *ngIf="imageB64">
+    <img [src]="imageB64" />
   </ion-item>
 
   <ion-buttons start margin-left margin-right style="text-align: center">

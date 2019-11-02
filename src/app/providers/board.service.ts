@@ -102,43 +102,19 @@ export class BoardService {
     return this.httpClient.post(url, newCategory);
   }
 
-  /**
-   * Convert a base64 string in a Blob according to the data and contentType.
-   *
-   * @param b64Data {String} Pure base64 string without contentType
-   * @param sliceSize {Int} SliceSize to process the byteCharacters
-   * @return Blob
-   */
-  public b64toBlob(b64Data, sliceSize = 512) {
-    var byteArrays = [];
-
-    for (var offset = 0; offset < b64Data.length; offset += sliceSize) {
-      var slice = b64Data.slice(offset, offset + sliceSize);
-
-      var byteNumbers = new Array(slice.length);
-      for (var i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
+  mediaObjectToBlob(filePath, fileName?, isImage = false): Promise<any> {
+    if (!isImage) {
+      if (this.platform.is('ios')) {
+        filePath = this.file.documentsDirectory + fileName;
+      } else if (this.platform.is('android')) {
+        filePath = this.file.externalDataDirectory + fileName;
       }
-
-      var byteArray = new Uint8Array(byteNumbers);
-
-      byteArrays.push(byteArray);
     }
 
-    var blob = new Blob(byteArrays, { type: 'image/jpeg' });
-    return blob;
-  }
-
-  mediaObjectToBlob(filePath, fileName): Promise<any> {
-    if (this.platform.is('ios')) {
-      filePath = this.file.documentsDirectory + fileName;
-    } else if (this.platform.is('android')) {
-      filePath = this.file.externalDataDirectory + fileName;
-    }
+    let mime = isImage ? 'image/' : 'audio/';
 
     return new Promise((resolve, reject) => {
-      let fileName,
-        fileExtension = '';
+      let fileName: string;
 
       this.file
         .resolveLocalFilesystemUrl(filePath)
@@ -148,13 +124,13 @@ export class BoardService {
           let path = nativeURL.substring(0, nativeURL.lastIndexOf('/'));
           fileName = name;
 
-          fileExtension = fileName.match(/\.[A-z0-9]+$/i)[0].slice(1);
+          mime += fileName.match(/\.[A-z0-9]+$/i)[0].slice(1);
 
           return this.file.readAsArrayBuffer(path, name);
         })
         .then(buffer => {
           let blob = new Blob([buffer], {
-            type: `audio/${fileExtension}`
+            type: mime
           });
 
           resolve(blob);

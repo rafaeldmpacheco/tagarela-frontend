@@ -1,12 +1,13 @@
 manage-board {
-	.new-image-button {
-		text-align: center;
-		background-color: #32db64;
-		font-size: 1.4rem;
-		font-weight: 500;
-		text-transform: uppercase;
-		color: #fff;
-		padding-top: 40%;
-	}
-
+  .new-image-button {
+    background-color: #32db64;
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #fff;
+		height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

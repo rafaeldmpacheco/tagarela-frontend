@@ -20,7 +20,9 @@ export class SymbolModal {
   public description: any;
   public type: any;
   public isPrivate = false;
+
   public image: any;
+  public imageB64: string;
   public audio: any;
 
   private category: any;
@@ -101,7 +103,7 @@ export class SymbolModal {
     loading.present();
 
     const options: CameraOptions = {
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       allowEdit: true,
       saveToPhotoAlbum: true,
@@ -112,9 +114,21 @@ export class SymbolModal {
 
     this.camera
       .getPicture(options)
-      .then(imageData => {
-        this.image = 'data:image/jpeg;base64,' + imageData;
-        loading.dismiss();
+      .then(imagePath => {
+        return this.boardService
+          .mediaObjectToBlob(imagePath, '', true)
+          .then(response => (this.image = response));
+      })
+      .then((imageBlob: any) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(imageBlob);
+
+        reader.onloadend = function() {
+          var base64data = reader.result;
+          this.imageB64 = base64data;
+
+          loading.dismiss();
+        }.bind(this);
       })
       .catch(() => loading.dismiss());
   }
@@ -122,8 +136,6 @@ export class SymbolModal {
   register() {
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
-
-    const image = this.boardService.b64toBlob(this.image);
 
     let newSymbol = {
       name: this.name,
@@ -136,7 +148,7 @@ export class SymbolModal {
       .newSymbol(newSymbol)
       .pipe(
         mergeMap((response: any) =>
-          this.boardService.uploadSymbol(response._id, this.audio, image)
+          this.boardService.uploadSymbol(response._id, this.audio, this.image)
         ),
         map((response: any) => {
           this.board.symbols.push({ symbolId: response._id, boardIndex: this.boardIndex });

@@ -1,25 +1,21 @@
 <ion-header>
-	<ion-navbar>
-		<ion-title>Pranchas</ion-title>
-	</ion-navbar>
+  <ion-navbar>
+    <ion-title>Pranchas</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding class="card-background-page">
-	<ion-grid *ngIf="canEdit">
-		<ion-row>
-			<ion-col col-12>
-				<button ion-button (click)="cadastrarPrancha()">Cadastrar prancha</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
+  <ion-grid *ngIf="canEdit">
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button (click)="cadastrarPrancha()">Cadastrar prancha</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-	<ion-card *ngFor="let board of boards; let i = index" (click)="getBoard(boards[i])">
-		<ion-card-header>
-			{{ board?.name }}
-		</ion-card-header>
-
-		<ion-card-content>
-			<!-- Add card content here! -->
-		</ion-card-content>
-	</ion-card>
+  <ion-card *ngFor="let board of boards; let i = index" (click)="getBoard(boards[i])">
+    <ion-card-header>
+      {{ board?.name }}
+    </ion-card-header>
+  </ion-card>
 </ion-content>

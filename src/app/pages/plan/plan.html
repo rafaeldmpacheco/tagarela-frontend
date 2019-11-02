@@ -2,9 +2,9 @@
   <ion-navbar>
     <ion-title>Planos</ion-title>
 
-    <ion-buttons end>
+    <ion-buttons end style="color: white;">
       <ion-label>Filtrar usuario</ion-label>
-      <ion-select [(ngModel)]="userFiltered" (ngModelChange)="filter()">
+      <ion-select [(ngModel)]="userFiltered" (ngModelChange)="filter()" style="max-width: 100%;">
         <ion-option *ngFor="let user of user?.linkedUsers" [value]="user">
           {{ user }}
         </ion-option>
