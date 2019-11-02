@@ -3,14 +3,11 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Media, MediaObject } from '@ionic-native/media';
 import { NavController, NavParams, Platform, ViewController } from 'ionic-angular';
+import { map, mergeMap } from 'rxjs/operators';
 import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
-import { CategoryPage } from '../../category/category';
-import { mergeMap, map } from 'rxjs/operators';
-import { ManageBoardPage } from '../../board/manage-board/manage-board';
-import { BoardPage } from '../../board/board';
-import { PlanPage } from '../../plan/plan';
 import { MessageService } from '../../../providers/message.service';
+import { PlanPage } from '../../plan/plan';
 
 @Component({
   selector: 'symbol-modal',

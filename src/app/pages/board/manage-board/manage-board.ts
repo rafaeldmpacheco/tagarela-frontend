@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { map, switchMap } from 'rxjs/operators';
 import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
-import { CategoryPage } from '../../category/category';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { MessageService } from '../../../providers/message.service';
+import { CategoryPage } from '../../category/category';
 
 @Component({
   selector: 'manage-board',

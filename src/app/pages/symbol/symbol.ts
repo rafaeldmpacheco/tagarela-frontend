@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../providers/board.service';
-import { LoginService } from '../../providers/login.service';
-import { ManageBoardPage } from '../board/manage-board/manage-board';
-import { SymbolModal } from './symbol-modal/symbol-modal';
 import { LoadingService } from '../../providers/loading.service';
-import { BoardPage } from '../board/board';
 import { PlanPage } from '../plan/plan';
+import { SymbolModal } from './symbol-modal/symbol-modal';
 
 @Component({
   selector: 'page-symbol',

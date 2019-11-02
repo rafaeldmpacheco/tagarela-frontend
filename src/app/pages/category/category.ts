@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ModalController, NavController } from 'ionic-angular';
 import { BoardService } from '../../providers/board.service';
 import { LoadingService } from '../../providers/loading.service';
-import { LoginService } from '../../providers/login.service';
 import { SymbolPage } from '../symbol/symbol';
 import { CategoryModal } from './category-modal/category-modal';
 
