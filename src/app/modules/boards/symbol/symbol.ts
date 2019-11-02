@@ -3,7 +3,7 @@ import { ModalController, NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../../shared/providers/board.service';
 import { LoadingService } from '../../../shared/providers/loading.service';
 import { PlanPage } from '../plan/plan';
-import { SymbolModal } from './symbol-register/symbol-register';
+import { SymbolRegister } from './symbol-register/symbol-register';
 
 @Component({
   selector: 'page-symbol',
@@ -46,7 +46,7 @@ export class SymbolPage implements OnInit {
   }
 
   registerSymbol() {
-    let symbolModal = this.modalCtrl.create(SymbolModal, { category: this.category });
+    let symbolModal = this.modalCtrl.create(SymbolRegister, { category: this.category });
     symbolModal.present();
   }
 

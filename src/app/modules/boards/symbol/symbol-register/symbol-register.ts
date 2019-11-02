@@ -14,7 +14,7 @@ import { FileService } from '../../../../shared/providers/file.service';
   selector: 'symbol-register',
   templateUrl: 'symbol-register.html'
 })
-export class SymbolModal {
+export class SymbolRegister {
   public name: any;
   public description: any;
   public type: any;

@@ -7,8 +7,8 @@ import { LoadingService } from '../../../../shared/providers/loading.service';
 import { MessageService } from '../../../../shared/providers/message.service';
 
 @Component({
-  selector: 'manage-board',
-  templateUrl: 'manage-board.html'
+  selector: 'board-register',
+  templateUrl: 'board-register.html'
 })
 export class BoardRegisterPage implements OnInit {
   board: any = { name: '', symbols: [] };

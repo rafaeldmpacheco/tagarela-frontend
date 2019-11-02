@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../../shared/providers/board.service';
 import { LoginService } from '../../../shared/providers/login.service';
-import { BoardRegisterPage } from './manage-board/manage-board';
+import { BoardRegisterPage } from './board-register/board-register';
 import { LoadingService } from '../../../shared/providers/loading.service';
 
 @Component({
