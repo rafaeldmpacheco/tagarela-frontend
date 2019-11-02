@@ -1,45 +1,38 @@
-<ion-header style="background-color: #333">
-	<ion-toolbar>
-		<button (click)="backToLogin()">
-			Voltar
-		</button>
-	</ion-toolbar>
+<ion-header>
+  <ion-navbar>
+    <ion-title>Cadastro</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content style="background-color: #333">
-	<div class="login-input-area">
-		<ion-list center>
-			<ion-item>
-				<ion-input type="text" [(ngModel)]="email" placeholder="usuário"></ion-input>
-			</ion-item>
+  <div class="login-input-area">
+    <ion-list center>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="email" placeholder="usuário"></ion-input>
+      </ion-item>
 
-			<ion-item>
-				<ion-input type="password" [(ngModel)]="password" placeholder="senha"></ion-input>
-			</ion-item>
+      <ion-item>
+        <ion-input type="password" [(ngModel)]="password" placeholder="senha"></ion-input>
+      </ion-item>
 
-			<ion-item>
-				<ion-label>papel</ion-label>
-				<ion-select
-					[(ngModel)]="roles"
-					multiple="true"
-					cancelText="Cancelar"
-					okText="Salvar"
-				>
-					<ion-option value="TEACHER">Tutor</ion-option>
-					<ion-option value="STUDENT">Paciente</ion-option>
-				</ion-select>
-			</ion-item>
-		</ion-list>
-	</div>
+      <ion-item>
+        <ion-label>papel</ion-label>
+        <ion-select [(ngModel)]="roles" multiple="true" cancelText="Cancelar" okText="Salvar">
+          <ion-option value="TEACHER">Tutor</ion-option>
+          <ion-option value="STUDENT">Paciente</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
 
-	<div margin-left margin-right *ngIf="exceptionMessage">
-		<p class="alert alert-warning" text-center>{{ exceptionMessage }}</p>
-	</div>
+  <div margin-left margin-right *ngIf="exceptionMessage">
+    <p class="alert alert-warning" text-center>{{ exceptionMessage }}</p>
+  </div>
 
-	<ion-buttons start margin-left margin-right style="text-align: center">
-		<button ion-button style="background-color: white; color: black" (click)="backToLogin()">
-			Cancelar
-		</button>
-		<button ion-button (click)="register()">Concluído</button>
-	</ion-buttons>
+  <ion-buttons start margin-left margin-right style="text-align: center">
+    <button ion-button style="background-color: white; color: black" (click)="backToLogin()">
+      Cancelar
+    </button>
+    <button ion-button (click)="register()">Concluído</button>
+  </ion-buttons>
 </ion-content>

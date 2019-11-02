@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
 import { CategoryPage } from '../../category/category';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'manage-board',
@@ -11,8 +11,11 @@ import { map, mergeMap } from 'rxjs/operators';
 })
 export class ManageBoardPage implements OnInit {
   public board: any = { name: '', symbols: [] };
+  categories: any[];
+  symbols: any[];
   boardImagesUrl = ['', '', '', '', '', '', '', '', ''];
   boardAudios = ['', '', '', '', '', '', '', '', ''];
+  boardColors = ['', '', '', '', '', '', '', '', ''];
   boardArray = Array(9);
 
   constructor(
@@ -40,39 +43,30 @@ export class ManageBoardPage implements OnInit {
         this.boardService
           .getMultipleSymbols(symbolIds)
           .pipe(
-            map(symbols => {
+            map(response => (this.symbols = response)),
+            switchMap(() => this.boardService.getCategories()),
+            map(response => (this.categories = response))
+          )
+          .subscribe(
+            () => {
               for (let index = 0; index < this.board.symbols.length; index++) {
                 const element = this.board.symbols[index];
 
-                for (let index = 0; index < symbols.length; index++) {
-                  const symbol = symbols[index];
+                for (let index = 0; index < this.symbols.length; index++) {
+                  const symbol = this.symbols[index];
 
                   if (element.symbolId === symbol._id) {
                     this.boardImagesUrl[element.boardIndex] = symbol.image[0].url;
                     this.boardAudios[element.boardIndex] = symbol.audio[0].url;
+
+                    for (let index = 0; index < this.categories.length; index++) {
+                      const category = this.categories[index];
+
+                      if (category._id === symbol.categoryId) {
+                        this.boardColors[element.boardIndex] = category.color;
+                      }
+                    }
                   }
-                }
-              }
-
-              return symbols;
-            })
-          )
-          .subscribe(
-            () => {
-              for (let index = 0; index < this.boardImagesUrl.length; index++) {
-                const element = this.boardImagesUrl[index];
-
-                if (element) {
-                  const xhr = new XMLHttpRequest();
-
-                  xhr.open('GET', element, true);
-                  xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
-
-                  xhr.onload = function(e: any) {
-                    this.boardImagesUrl[index] = e.srcElement.responseURL;
-                  }.bind(this);
-
-                  xhr.send();
                 }
               }
 
@@ -84,6 +78,10 @@ export class ManageBoardPage implements OnInit {
 
       this.board.planId = planId;
     }
+  }
+
+  getBorderColor(i) {
+    return this.boardColors && this.boardColors[i] ? this.boardColors[i] + ' 10px solid' : '';
   }
 
   addSymbol(index: number) {
@@ -114,6 +112,9 @@ export class ManageBoardPage implements OnInit {
   }
 
   selectedImage(index) {
-    console.log('play sound');
+    let audio = new Audio();
+    audio.src = this.boardAudios[index];
+    audio.load();
+    audio.play();
   }
 }

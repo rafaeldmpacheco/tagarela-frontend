@@ -19,9 +19,13 @@
     </ion-row>
 
     <ion-row>
-      <ion-col col-4 *ngFor="let number of boardArray; let i = index" class="board-space">
+      <ion-col
+        col-4
+        *ngFor="let number of boardArray; let i = index"
+        [ngStyle]="{ border: getBorderColor(i) }"
+      >
         <ion-card *ngIf="boardImagesUrl[i]" class="no-margin width-100" (click)="selectedImage(i)">
-          <!-- <img [src]="boardImagesUrl[i]" /> -->
+          <img [src]="boardImagesUrl[i]" />
         </ion-card>
 
         <ion-card

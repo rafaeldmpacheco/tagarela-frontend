@@ -19,7 +19,7 @@ export class SymbolModal {
   public name: any;
   public description: any;
   public type: any;
-  public isPrivate: boolean;
+  public isPrivate = false;
   public image: any;
   public audio: any;
 

@@ -15,8 +15,8 @@ export class BoardService {
       const url: string = `https://tagarela-backend.herokuapp.com/saveSymbol/${symbolId}`;
 
       const formData = new FormData();
-      formData.append('audioFile', audioFile);
-      formData.append('imageFile', imageFile);
+      formData.append('audioFile', audioFile, 'record.3gp');
+      formData.append('imageFile', imageFile, 'img.jpg');
 
       var xhr: XMLHttpRequest = new XMLHttpRequest();
 
