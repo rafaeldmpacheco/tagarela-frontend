@@ -54,7 +54,6 @@ export class SymbolPage implements OnInit {
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
 
-    this.board.name = this.board.name ? this.board.name : 'Prancha';
     this.board.symbols.push({ symbolId: newSymbol._id, boardIndex: this.boardIndex });
 
     let observable = this.boardService.saveBoard(this.board);
