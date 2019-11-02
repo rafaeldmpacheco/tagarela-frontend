@@ -3,6 +3,7 @@ import { NavController, ViewController } from 'ionic-angular';
 import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
 import { SymbolPage } from '../../symbol/symbol';
+import { MessageService } from '../../../providers/message.service';
 
 @Component({
   selector: 'category-modal',
@@ -17,25 +18,34 @@ export class CategoryModal {
     private viewCtrl: ViewController,
     private navCtrl: NavController,
     private boardService: BoardService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private messageService: MessageService
   ) {}
 
   viewDismiss() {
     this.viewCtrl.dismiss();
   }
 
+  setColor(event) {
+    this.color = event;
+  }
+
   register() {
-    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
-    loading.present();
+    if (!this.name || !this.description || !this.color) {
+      this.messageService.showMessage('É necessario informar todas as informações para prosseguir');
+    } else {
+      let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+      loading.present();
 
-    const newCategory = { name: this.name, description: this.description, color: this.color };
+      const newCategory = { name: this.name, description: this.description, color: this.color };
 
-    this.boardService.newCategory(newCategory).subscribe(
-      response => {
-        this.navCtrl.push(SymbolPage, response);
-        loading.dismiss();
-      },
-      () => loading.dismiss()
-    );
+      this.boardService.newCategory(newCategory).subscribe(
+        response => {
+          this.navCtrl.push(SymbolPage, response);
+          loading.dismiss();
+        },
+        () => loading.dismiss()
+      );
+    }
   }
 }

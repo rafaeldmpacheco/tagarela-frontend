@@ -29,6 +29,9 @@ import { LoadingService } from './providers/loading.service';
 import { LoginService } from './providers/login.service';
 import { ModulesService } from './providers/modules.service';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { MessageService } from './providers/message.service';
+import { ExceptionService } from './providers/exception.service';
+import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 
 const PAGES = [
   MyApp,
@@ -47,7 +50,8 @@ const PAGES = [
   SymbolPage,
   SymbolModal,
   CategoryPage,
-  CategoryModal
+  CategoryModal,
+  ColorPickerComponent
 ];
 @NgModule({
   imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule],
@@ -66,6 +70,8 @@ const PAGES = [
     FileTransferObject,
     File,
     Camera,
+    MessageService,
+    ExceptionService,
     {
       provide: ErrorHandler,
       useClass: IonicErrorHandler

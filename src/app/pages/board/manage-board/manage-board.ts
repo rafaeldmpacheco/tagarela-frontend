@@ -4,6 +4,7 @@ import { BoardService } from '../../../providers/board.service';
 import { LoadingService } from '../../../providers/loading.service';
 import { CategoryPage } from '../../category/category';
 import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { MessageService } from '../../../providers/message.service';
 
 @Component({
   selector: 'manage-board',
@@ -22,7 +23,8 @@ export class ManageBoardPage implements OnInit {
     private navCtrl: NavController,
     private boardService: BoardService,
     private loadingService: LoadingService,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -85,30 +87,36 @@ export class ManageBoardPage implements OnInit {
   }
 
   addSymbol(index: number) {
-    localStorage.setItem('boardIndex', JSON.stringify(index));
-    localStorage.setItem('board', JSON.stringify(this.board));
+    if (!this.board.name) {
+      this.messageService.showMessage('É necessario informar um nome à prancha');
+    } else {
+      localStorage.setItem('boardIndex', JSON.stringify(index));
+      localStorage.setItem('board', JSON.stringify(this.board));
 
-    this.navCtrl.push(CategoryPage);
+      this.navCtrl.push(CategoryPage);
+    }
   }
 
   saveBoard(): void {
-    this.board.name = this.board.name ? this.board.name : 'Prancha';
+    if (!this.board.name) {
+      this.messageService.showMessage('É necessario informar um nome à prancha');
+    } else {
+      let observable = this.boardService.saveBoard(this.board);
+      if (this.board._id) {
+        observable = this.boardService.updateBoard(this.board);
+      }
 
-    let observable = this.boardService.saveBoard(this.board);
-    if (this.board._id) {
-      observable = this.boardService.updateBoard(this.board);
+      let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+      loading.present();
+
+      observable.subscribe(
+        () => {
+          this.navCtrl.pop();
+          loading.dismiss();
+        },
+        () => loading.dismiss()
+      );
     }
-
-    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
-    loading.present();
-
-    observable.subscribe(
-      () => {
-        this.navCtrl.pop();
-        loading.dismiss();
-      },
-      () => loading.dismiss()
-    );
   }
 
   selectedImage(index) {

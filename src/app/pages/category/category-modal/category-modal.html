@@ -23,7 +23,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-input type="text" [(ngModel)]="color" placeholder="Cor"></ion-input>
+        <color-picker (colorChange)="setColor($event)"></color-picker>
       </ion-item>
     </ion-list>
   </div>

@@ -10,6 +10,7 @@ import { mergeMap, map } from 'rxjs/operators';
 import { ManageBoardPage } from '../../board/manage-board/manage-board';
 import { BoardPage } from '../../board/board';
 import { PlanPage } from '../../plan/plan';
+import { MessageService } from '../../../providers/message.service';
 
 @Component({
   selector: 'symbol-modal',
@@ -43,7 +44,8 @@ export class SymbolModal {
     private navCtrl: NavController,
     private loadingService: LoadingService,
     private file: File,
-    private platform: Platform
+    private platform: Platform,
+    private messageService: MessageService
   ) {
     if (this.navParams) {
       this.category = this.navParams.data.category;
@@ -134,6 +136,11 @@ export class SymbolModal {
   }
 
   register() {
+    if (!this.name || !this.description || !this.audio || !this.image) {
+      this.messageService.showMessage('É necessario informar todas as informações para prosseguir');
+      return;
+    }
+
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
 
