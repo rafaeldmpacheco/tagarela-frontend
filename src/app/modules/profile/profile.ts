@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { App, ModalController, NavController } from 'ionic-angular';
-import { LoginPage } from '../auth/login/login';
-import { MenuPage } from '../../core/menu/menu';
+import { LoadingService } from '../../shared/providers/loading.service';
 import { LoginService } from '../../shared/providers/login.service';
-import { InviteUserPage } from './invite-user/invite-user';
 import { ModulesService } from '../../shared/providers/modules.service';
+import { LoginPage } from '../auth/login/login';
+import { InviteUserPage } from './invite-user/invite-user';
 
 @Component({
   selector: 'profile',
@@ -17,10 +17,10 @@ export class ProfilePage implements OnInit {
 
   constructor(
     private app: App,
-    private navCtrl: NavController,
     private modalCtrl: ModalController,
     private loginService: LoginService,
-    private modulesService: ModulesService
+    private modulesService: ModulesService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -29,9 +29,16 @@ export class ProfilePage implements OnInit {
     this.modules = JSON.parse(localStorage.getItem('modules'));
 
     if (!this.modules) {
-      this.modulesService.getModules().subscribe(modules => {
-        this.modules = modules;
-      });
+      let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+      loading.present();
+
+      this.modulesService.getModules().subscribe(
+        modules => {
+          this.modules = modules;
+          loading.dismiss();
+        },
+        () => loading.dismiss()
+      );
     }
   }
 
@@ -43,8 +50,7 @@ export class ProfilePage implements OnInit {
   }
 
   goToMenu() {
-    localStorage.setItem('modules', JSON.stringify(this.modules));
-    this.navCtrl.push(MenuPage);
+    this.modulesService.goToMenu(this.modules);
   }
 
   invite() {

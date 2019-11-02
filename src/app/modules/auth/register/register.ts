@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoadingService } from '../../../shared/providers/loading.service';
 import { LoginService } from '../../../shared/providers/login.service';
-import { MenuPage } from '../../../core/menu/menu';
+import { GridMenuComponent } from '../../../shared/components/grid-menu/grid-menu.component';
 
 @Component({
   selector: 'register',
@@ -32,7 +32,7 @@ export class RegisterPage {
       response => {
         if (response) {
           this.loginService.setUser(response.user);
-          this.navController.push(MenuPage);
+          this.navController.push(GridMenuComponent);
         } else {
           this.exceptionMessage = response.message;
         }

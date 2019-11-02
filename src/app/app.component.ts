@@ -4,8 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { App, Platform } from 'ionic-angular';
 import { LoginPage } from './modules/auth/login/login';
 import { LoadingService } from './shared/providers/loading.service';
-import { MenuPage } from './core/menu/menu';
 import { LoginService } from './shared/providers/login.service';
+import { GridMenuComponent } from './shared/components/grid-menu/grid-menu.component';
 
 @Component({
   templateUrl: 'app.html'
@@ -35,7 +35,7 @@ export class MyApp {
         loginService.me(user._id).subscribe(
           response => {
             if (response) {
-              app.getRootNav().push(MenuPage);
+              app.getRootNav().push(GridMenuComponent);
               loading.dismiss();
             }
           },

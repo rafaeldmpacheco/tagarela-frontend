@@ -18,12 +18,14 @@ import { MessageService } from './providers/message.service';
 import { ModulesService } from './providers/modules.service';
 import { FileService } from './providers/file.service';
 
-const COMPONENTS = [GridMenuComponent, ColorPickerComponent, HeaderModalComponent];
+const COMPONENTS = [ColorPickerComponent, HeaderModalComponent];
+const PAGES = [GridMenuComponent];
 
 @NgModule({
   imports: [CommonModule, IonicModule],
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, ...PAGES],
   exports: [...COMPONENTS],
+  entryComponents: [...PAGES],
   providers: [
     LoadingService,
     MessageService,

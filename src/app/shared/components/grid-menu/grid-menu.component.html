@@ -1,18 +1,26 @@
-<ion-grid class="menu-grid">
-	<ion-row wrap>
-		<ion-col
-			class="menu-item square"
-			col-6
-			*ngFor="let page of pages"
-			(click)="page?.action()"
-			[hidden]="!page?.isVisible"
-		>
-			<div class="menu-item-content">
-				<ion-icon class="menu-icon" [name]="page?.icon"></ion-icon>
-				<div class="menu-text item-wraper">
-					{{ page.title | uppercase }}
-				</div>
-			</div>
-		</ion-col>
-	</ion-row>
-</ion-grid>
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Menu</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="background: #f7f7f8;">
+  <ion-grid class="menu-grid">
+    <ion-row wrap>
+      <ion-col
+        class="menu-item square"
+        col-6
+        *ngFor="let page of allMenuItems"
+        (click)="page?.action()"
+        [hidden]="!isVisible(page)"
+      >
+        <div class="menu-item-content">
+          <ion-icon class="menu-icon" [name]="page?.icon"></ion-icon>
+          <div class="menu-text item-wraper">
+            {{ page.title | uppercase }}
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

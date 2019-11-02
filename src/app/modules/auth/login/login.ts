@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoginService } from '../../../shared/providers/login.service';
-import { MenuPage } from '../../../core/menu/menu';
 import { RegisterPage } from '../register/register';
 import { LoadingService } from '../../../shared/providers/loading.service';
+import { GridMenuComponent } from '../../../shared/components/grid-menu/grid-menu.component';
 
 @Component({
 	selector: 'login',
@@ -32,7 +32,7 @@ export class LoginPage {
 			this.loginService.authenticate(this.email, this.password).subscribe(
 				response => {
 					if (response) {
-						this.navController.push(MenuPage);
+						this.navController.push(GridMenuComponent);
 						loading.dismiss();
 					} else {
 						this.exceptionMessage = 'Usuário ou senha incorretos';
