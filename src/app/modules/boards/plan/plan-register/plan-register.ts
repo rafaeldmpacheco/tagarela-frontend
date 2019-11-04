@@ -4,6 +4,7 @@ import { LoadingService } from '../../../../shared/providers/loading.service';
 import { BoardService } from '../../../../shared/providers/board.service';
 import { LoginService } from '../../../../shared/providers/login.service';
 import { PlanPage } from '../plan';
+import { MessageService } from '../../../../shared/providers/message.service';
 
 @Component({
   selector: 'plan-register',
@@ -13,7 +14,7 @@ export class PlanRegister {
   public name: any;
   public description: any;
   public type: any;
-  public user: any;
+  private user: any;
   private owner: string;
 
   constructor(
@@ -22,7 +23,8 @@ export class PlanRegister {
     private boardService: BoardService,
     private loginService: LoginService,
     private navCtrl: NavController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private messageService: MessageService
   ) {
     this.user = this.loginService.getUser();
     if (this.navParams.get('userFiltered')) {
@@ -35,6 +37,11 @@ export class PlanRegister {
   }
 
   register() {
+    if (!this.name || !this.description || !this.type) {
+      this.messageService.showMessageRequiredFields();
+      return;
+    }
+
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
     this.boardService

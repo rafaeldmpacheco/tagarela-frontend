@@ -4,46 +4,53 @@ import { LoginService } from '../../../shared/providers/login.service';
 import { RegisterPage } from '../register/register';
 import { LoadingService } from '../../../shared/providers/loading.service';
 import { GridMenuComponent } from '../../../shared/components/grid-menu/grid-menu.component';
+import { MessageService } from '../../../shared/providers/message.service';
 
 @Component({
-	selector: 'login',
-	templateUrl: 'login.html'
+  selector: 'login',
+  templateUrl: 'login.html'
 })
 export class LoginPage {
-	public email: string;
-	public password: string;
-	public exceptionMessage: string;
+  public email: string;
+  public password: string;
+  public exceptionMessage: string;
 
-	constructor(
-		private navController: NavController,
-		private loadingService: LoadingService,
-		private loginService: LoginService
-	) {}
+  constructor(
+    private navController: NavController,
+    private loadingService: LoadingService,
+    private loginService: LoginService,
+    private messageService: MessageService
+  ) {}
 
-	public register(): void {
-		this.navController.push(RegisterPage);
-	}
+  public register(): void {
+    this.navController.push(RegisterPage);
+  }
 
-	public login() {
-		let loading: any = this.loadingService.createLoadingPage('Aguarde...');
-		loading.present();
+  public login() {
+    if (!this.email || !this.password) {
+      this.messageService.showMessageRequiredFields();
+      return;
+    }
 
-		if (this.email && this.password) {
-			this.loginService.authenticate(this.email, this.password).subscribe(
-				response => {
-					if (response) {
-						this.navController.push(GridMenuComponent);
-						loading.dismiss();
-					} else {
-						this.exceptionMessage = 'Usuário ou senha incorretos';
-						loading.dismiss();
-					}
-				},
-				() => {
-					this.exceptionMessage = 'Não foi possível realizar o login';
-					loading.dismiss();
-				}
-			);
-		}
-	}
+    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+    loading.present();
+
+    if (this.email && this.password) {
+      this.loginService.authenticate(this.email, this.password).subscribe(
+        response => {
+          if (response) {
+            this.navController.push(GridMenuComponent);
+            loading.dismiss();
+          } else {
+            this.exceptionMessage = 'Usuário ou senha incorretos';
+            loading.dismiss();
+          }
+        },
+        () => {
+          this.exceptionMessage = 'Não foi possível realizar o login';
+          loading.dismiss();
+        }
+      );
+    }
+  }
 }

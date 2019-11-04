@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { map, switchMap } from 'rxjs/operators';
 import { BoardService } from '../../../../shared/providers/board.service';
-import { CategoryPage } from '../../category/category';
 import { LoadingService } from '../../../../shared/providers/loading.service';
 import { MessageService } from '../../../../shared/providers/message.service';
+import { CategoryPage } from '../../category/category';
+import { PlanPage } from '../../plan/plan';
 
 @Component({
   selector: 'board-register',
@@ -98,32 +99,55 @@ export class BoardRegisterPage implements OnInit {
     }
   }
 
-  saveBoard(): void {
-    if (!this.board.name) {
-      this.messageService.showMessage('É necessario informar um nome à prancha');
-    } else {
-      let observable = this.boardService.saveBoard(this.board);
-      if (this.board._id) {
-        observable = this.boardService.updateBoard(this.board);
-      }
-
-      let loading: any = this.loadingService.createLoadingPage('Aguarde...');
-      loading.present();
-
-      observable.subscribe(
-        () => {
-          this.navCtrl.pop();
-          loading.dismiss();
-        },
-        () => loading.dismiss()
-      );
-    }
-  }
-
   selectedImage(index) {
     let audio = new Audio();
     audio.src = this.boardAudios[index];
     audio.load();
     audio.play();
+  }
+
+  duplicateBoard() {
+    const newBoard = { ...this.board };
+
+    for (let index = 0; index < this.symbols.length; index++) {
+      const symbol = this.symbols[index];
+
+      for (let index = 0; index < newBoard.symbols.length; index++) {
+        const newBoardSymbol = newBoard.symbols[index];
+
+        if (symbol._id === newBoardSymbol.symbolId && symbol.isPrivate) {
+          newBoardSymbol.symbols = newBoard.symbols.splice(index, 1);
+        }
+      }
+    }
+    delete newBoard._id;
+    newBoard.name += ' - Duplicado';
+
+    this.saveBoard(newBoard);
+  }
+
+  saveBoard(newBoard?): void {
+    const board = newBoard ? newBoard : this.board;
+
+    if (!board.name) {
+      this.messageService.showMessage('É necessario informar um nome à prancha');
+      return;
+    }
+
+    let observable = this.boardService.saveBoard(board);
+    if (board._id) {
+      observable = this.boardService.updateBoard(board);
+    }
+
+    let loading: any = this.loadingService.createLoadingPage('Aguarde...');
+    loading.present();
+
+    observable.subscribe(
+      () => {
+        this.navCtrl.push(PlanPage);
+        loading.dismiss();
+      },
+      () => loading.dismiss()
+    );
   }
 }

@@ -161,8 +161,6 @@ export class SymbolRegister {
           return this.board;
         }),
         mergeMap((response: any) => {
-          response.name = response.name ? response.name : 'Prancha';
-
           let observable = this.boardService.saveBoard(response);
 
           if (response._id) {
