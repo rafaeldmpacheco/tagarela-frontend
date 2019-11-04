@@ -36,7 +36,9 @@ export class TokenInterceptor implements HttpInterceptor {
       if (error.status === 401) {
         this.app.getRootNav().push(LoginPage);
       }
-      this.exceptionService.throwException();
+      if (!error.error) {
+        this.exceptionService.throwException();
+      }
       return Observable.throw(error);
     }) as any;
   }

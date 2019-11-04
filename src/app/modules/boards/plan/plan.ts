@@ -24,21 +24,21 @@ export class PlanPage implements OnInit {
     private boardService: BoardService
   ) {
     this.user = this.loginService.getUser();
-    this.canEdit = this.loginService.isTeacher();;
+    this.canEdit = this.loginService.isTeacher();
   }
 
   ngOnInit(): void {
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
 
-    this.userFiltered = localStorage.getItem('userFiltered');
+    this.userFiltered = JSON.parse(localStorage.getItem('userFiltered'));
 
     let observable = this.boardService.getPlansByUser(this.user.email);
 
     if (this.userFiltered && this.user.linkedUsers.some(user => this.userFiltered === user)) {
       observable = this.boardService.getPlansByUser(this.userFiltered);
     } else {
-      localStorage.setItem('userFiltered', null);
+      localStorage.removeItem('userFiltered');
     }
 
     observable.subscribe(
@@ -63,7 +63,11 @@ export class PlanPage implements OnInit {
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
 
-    localStorage.setItem('userFiltered', this.userFiltered);
+    if (this.userFiltered && this.userFiltered !== this.user.email) {
+      localStorage.setItem('userFiltered', JSON.stringify(this.userFiltered));
+    } else {
+      localStorage.removeItem('userFiltered');
+    }
 
     this.boardService.getPlansByUser(this.userFiltered).subscribe(
       response => {

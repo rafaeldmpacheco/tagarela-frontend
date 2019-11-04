@@ -30,25 +30,27 @@ export class RegisterPage {
 
     let loading: any = this.loadingService.createLoadingPage('Aguarde...');
     loading.present();
+
     const user = {
       email: this.email,
       password: this.password,
       roles: this.roles
     };
+
     this.loginService.newUser(user).subscribe(
       response => {
-        if (response) {
-          this.loginService.setUser(response.user);
-          this.navController.push(GridMenuComponent);
-        } else {
-          this.exceptionMessage = response.message;
-        }
+        this.loginService.setUser(response.user);
+        this.navController.push(GridMenuComponent);
         loading.dismiss();
       },
-      () => {
-        this.exceptionMessage = 'Não foi possível realizar o cadastro';
+      err => {
+        this.exceptionMessage = err.error;
         loading.dismiss();
       }
     );
+  }
+
+  backToLogin() {
+    this.navController.pop();
   }
 }

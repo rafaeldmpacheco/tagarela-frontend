@@ -37,17 +37,12 @@ export class LoginPage {
 
     if (this.email && this.password) {
       this.loginService.authenticate(this.email, this.password).subscribe(
-        response => {
-          if (response) {
-            this.navController.push(GridMenuComponent);
-            loading.dismiss();
-          } else {
-            this.exceptionMessage = 'Usuário ou senha incorretos';
-            loading.dismiss();
-          }
-        },
         () => {
-          this.exceptionMessage = 'Não foi possível realizar o login';
+          this.navController.push(GridMenuComponent);
+          loading.dismiss();
+        },
+        err => {
+          this.exceptionMessage = err.error;
           loading.dismiss();
         }
       );

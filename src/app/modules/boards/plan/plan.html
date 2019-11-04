@@ -5,6 +5,9 @@
     <ion-buttons end style="color: white;" *ngIf="user?.linkedUsers?.length">
       <ion-label>Filtrar usuario</ion-label>
       <ion-select [(ngModel)]="userFiltered" (ngModelChange)="filter()" style="max-width: 100%;">
+        <ion-option [value]="user?.email">
+          Remover filtro
+        </ion-option>
         <ion-option *ngFor="let user of user?.linkedUsers" [value]="user">
           {{ user }}
         </ion-option>

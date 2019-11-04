@@ -24,6 +24,7 @@ export class ProfilePage implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.user = this.loginService.getUser();
     this.isTeacher = this.loginService.isTeacher();
 
     this.modules = JSON.parse(localStorage.getItem('modules'));
@@ -47,6 +48,16 @@ export class ProfilePage implements OnInit {
       return 'Tutor';
     }
     return 'Paciente';
+  }
+
+  translateRole(role) {
+    if (role === 'ADMIN') {
+      return 'Administrador';
+    } else if (role === 'TEACHER') {
+      return 'Tutor';
+    } else {
+      return 'Paciente';
+    }
   }
 
   goToMenu() {
