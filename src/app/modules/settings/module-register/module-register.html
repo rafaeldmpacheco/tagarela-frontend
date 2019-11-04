@@ -1,8 +1,4 @@
-<ion-header>
-  <header-modal title="Modulo"></header-modal>
-</ion-header>
-
-<ion-content>
+<template-modal-register title="Modulo" (register)="registerModule()">
   <div>
     <ion-list center *ngIf="module">
       <ion-item>
@@ -31,7 +27,4 @@
       </ion-item>
     </ion-list>
   </div>
-  <ion-buttons start margin-left margin-right style="text-align: center">
-    <button ion-button (click)="registerModule()">Salvar</button>
-  </ion-buttons>
-</ion-content>
+</template-modal-register>

@@ -1,6 +1,8 @@
 <div>
   <ion-list>
-    <ion-label> Cor: {{ color }} </ion-label>
+    <ion-label>
+      Cor: <span [ngStyle]="{ color: color }">{{ color }}</span>
+    </ion-label>
   </ion-list>
   <ion-grid style="border: 1px solid; padding: 0;">
     <ion-row>

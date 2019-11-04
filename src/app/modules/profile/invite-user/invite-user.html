@@ -1,8 +1,4 @@
-<ion-header>
-  <header-modal title="Convidar"></header-modal>
-</ion-header>
-
-<ion-content>
+<template-modal-register title="Convidar" (register)="updateUser()" actionTitle="Convidar">
   <div>
     <ion-list center>
       <ion-item>
@@ -10,7 +6,4 @@
       </ion-item>
     </ion-list>
   </div>
-  <ion-buttons start margin-left margin-right style="text-align: center">
-    <button ion-button (click)="updateUser()">Convidar</button>
-  </ion-buttons>
-</ion-content>
+</template-modal-register>

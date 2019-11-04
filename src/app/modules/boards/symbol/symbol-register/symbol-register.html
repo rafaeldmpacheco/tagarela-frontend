@@ -1,17 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Cadatrar Símbolo
-    </ion-title>
-    <ion-buttons left>
-      <button ion-button (click)="viewDismiss()">
-        <ion-icon name="md-close" id="icon-close"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+<template-modal-register title="Cadatrar Símbolo" (register)="register()">
   <ion-list center>
     <ion-item>
       <ion-input type="text" [(ngModel)]="name" placeholder="Nome"></ion-input>
@@ -25,56 +12,12 @@
       <ion-label>Privado</ion-label>
       <ion-toggle [(ngModel)]="isPrivate" placeholder="Privado"></ion-toggle>
     </ion-item>
-    <div margin-left margin-right>
-      <p class="alert alert-warning" text-center>
-        Atenção! Caso este simbolo seja uma informação confidencial, habilite está opção
-      </p>
-    </div>
+
+    <alert-message
+      exceptionMessage="Atenção! Caso este simbolo seja uma informação confidencial, habilite está opção"
+    ></alert-message>
   </ion-list>
 
-  <ion-card *ngIf="recording">
-    <ion-card-content>
-      <ion-card-title>
-        <button ion-button primary (click)="stopRecord()">
-          Parar gravação
-        </button>
-      </ion-card-title>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card *ngIf="!recording && !audioFileName">
-    <ion-card-content>
-      <ion-card-title>
-        <button ion-button primary (click)="startRecord()">
-          <ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Gravar aúdio
-        </button>
-      </ion-card-title>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-item *ngIf="!recording && audioFileName">
-    <p>{{ audioFileName }}</p>
-    <button ion-button clear item-end large (click)="playAudio(audioFileName)">
-      <ion-icon name="play"></ion-icon>
-    </button>
-  </ion-item>
-
-  <ion-card *ngIf="!imageB64">
-    <ion-card-content>
-      <ion-card-title>
-        <button ion-button primary (click)="newImage()">
-          <ion-icon name="camera"></ion-icon>
-          &nbsp;&nbsp;Adicionar símbolo
-        </button>
-      </ion-card-title>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-item *ngIf="imageB64">
-    <img [src]="imageB64" />
-  </ion-item>
-
-  <ion-buttons start margin-left margin-right style="text-align: center">
-    <button ion-button (click)="register()">Salvar</button>
-  </ion-buttons>
-</ion-content>
+  <audio-recorder [(audio)]="audio"></audio-recorder>
+  <image-gallery [(image)]="image"></image-gallery>
+</template-modal-register>

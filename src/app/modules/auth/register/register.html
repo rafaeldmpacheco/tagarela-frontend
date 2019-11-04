@@ -25,9 +25,7 @@
     </ion-list>
   </div>
 
-  <div margin-left margin-right *ngIf="exceptionMessage">
-    <p class="alert alert-warning" text-center>{{ exceptionMessage }}</p>
-  </div>
+  <alert-message [exceptionMessage]="exceptionMessage"></alert-message>
 
   <ion-buttons start margin-left margin-right style="text-align: center">
     <button ion-button style="background-color: white; color: black" (click)="backToLogin()">

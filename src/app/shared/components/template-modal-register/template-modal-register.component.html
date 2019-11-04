@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ title }}
+    </ion-title>
+    <ion-buttons left>
+      <button ion-button (click)="viewCtrl.dismiss()">
+        <ion-icon name="md-close" id="icon-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-content></ng-content>
+
+  <ion-buttons start margin-left margin-right style="text-align: center">
+    <button ion-button (click)="register.emit()">{{ actionTitle }}</button>
+  </ion-buttons>
+</ion-content>

@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'color-picker',
   templateUrl: 'color-picker.component.html'
 })
 export class ColorPickerComponent {
-  color: string;
+  @Input() color: string;
 
   @Output()
   public colorChange = new EventEmitter<string>();

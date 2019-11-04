@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { BoardService } from '../../../../shared/providers/board.service';
-import { SymbolPage } from '../../symbol/symbol';
 import { LoadingService } from '../../../../shared/providers/loading.service';
 import { MessageService } from '../../../../shared/providers/message.service';
+import { SymbolPage } from '../../symbol/symbol';
 
 @Component({
   selector: 'category-register',
@@ -15,20 +15,11 @@ export class CategoryRegister {
   public color: any;
 
   constructor(
-    private viewCtrl: ViewController,
     private navCtrl: NavController,
     private boardService: BoardService,
     private loadingService: LoadingService,
     private messageService: MessageService
   ) {}
-
-  viewDismiss() {
-    this.viewCtrl.dismiss();
-  }
-
-  setColor(event) {
-    this.color = event;
-  }
 
   register() {
     if (!this.name || !this.description || !this.color) {

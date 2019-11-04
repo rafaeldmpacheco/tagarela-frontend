@@ -1,0 +1,26 @@
+<ion-card *ngIf="recording">
+  <ion-card-content>
+    <ion-card-title>
+      <button ion-button primary (click)="stopRecord()">
+        Parar gravação
+      </button>
+    </ion-card-title>
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="!recording && !audioFileName">
+  <ion-card-content>
+    <ion-card-title>
+      <button ion-button primary (click)="startRecord()">
+        <ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Gravar aúdio
+      </button>
+    </ion-card-title>
+  </ion-card-content>
+</ion-card>
+
+<ion-item *ngIf="!recording && audioFileName">
+  <p>{{ audioFileName }}</p>
+  <button ion-button clear item-end large (click)="playAudio(audioFileName)">
+    <ion-icon name="play"></ion-icon>
+  </button>
+</ion-item>

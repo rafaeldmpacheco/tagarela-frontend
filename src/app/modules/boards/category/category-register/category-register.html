@@ -1,17 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Cadatrar Categoria
-    </ion-title>
-    <ion-buttons left>
-      <button ion-button (click)="viewDismiss()">
-        <ion-icon name="md-close" id="icon-close"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+<template-modal-register title="Cadatrar Categoria" (register)="register()">
   <div>
     <ion-list center>
       <ion-item>
@@ -23,11 +10,8 @@
       </ion-item>
 
       <ion-item>
-        <color-picker (colorChange)="setColor($event)"></color-picker>
+        <color-picker [(color)]="color"></color-picker>
       </ion-item>
     </ion-list>
   </div>
-  <ion-buttons start margin-left margin-right style="text-align: center">
-    <button ion-button (click)="register()">Salvar</button>
-  </ion-buttons>
-</ion-content>
+</template-modal-register>

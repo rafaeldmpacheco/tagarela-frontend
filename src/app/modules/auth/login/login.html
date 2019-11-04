@@ -1,8 +1,8 @@
 <ion-content style="background-color: #333">
   <div class="logo-area">
     <div class="logo">
-			Tagarela
-		</div>
+      Tagarela
+    </div>
   </div>
 
   <div class="login-input-area">
@@ -17,9 +17,7 @@
     </ion-list>
   </div>
 
-  <div margin-left margin-right *ngIf="exceptionMessage">
-    <p class="alert alert-warning" text-center>{{ exceptionMessage }}</p>
-  </div>
+  <alert-message [exceptionMessage]="exceptionMessage"></alert-message>
 
   <div margin-right margin-left>
     <button ion-button block class="login-button" (click)="login()">Entrar</button>

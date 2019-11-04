@@ -1,0 +1,14 @@
+<ion-card *ngIf="!imageB64">
+  <ion-card-content>
+    <ion-card-title>
+      <button ion-button primary (click)="newImage()">
+        <ion-icon name="camera"></ion-icon>
+        &nbsp;&nbsp;Adicionar símbolo
+      </button>
+    </ion-card-title>
+  </ion-card-content>
+</ion-card>
+
+<ion-item *ngIf="imageB64">
+  <img [src]="imageB64" />
+</ion-item>

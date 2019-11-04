@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
-import { LoadingService } from '../../../../shared/providers/loading.service';
+import { NavController, NavParams } from 'ionic-angular';
 import { BoardService } from '../../../../shared/providers/board.service';
+import { LoadingService } from '../../../../shared/providers/loading.service';
 import { LoginService } from '../../../../shared/providers/login.service';
-import { PlanPage } from '../plan';
 import { MessageService } from '../../../../shared/providers/message.service';
+import { PlanPage } from '../plan';
 
 @Component({
   selector: 'plan-register',
@@ -19,7 +19,6 @@ export class PlanRegister {
 
   constructor(
     private loadingService: LoadingService,
-    private viewCtrl: ViewController,
     private boardService: BoardService,
     private loginService: LoginService,
     private navCtrl: NavController,
@@ -30,10 +29,6 @@ export class PlanRegister {
     if (this.navParams.get('userFiltered')) {
       this.owner = this.navParams.data.userFiltered;
     }
-  }
-
-  viewDismiss() {
-    this.viewCtrl.dismiss();
   }
 
   register() {
