@@ -30,9 +30,9 @@
   </ion-card>
 
   <ion-grid>
-    <ion-row>
+    <ion-row *ngIf="!isTeacher">
       <ion-col col-12>
-        <button ion-button (click)="invite()">Convitar {{ role() }}</button>
+        <button ion-button (click)="invite()">Convitar Tutor</button>
       </ion-col>
     </ion-row>
     <ion-row>

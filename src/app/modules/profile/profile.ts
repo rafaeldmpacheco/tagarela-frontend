@@ -43,12 +43,12 @@ export class ProfilePage implements OnInit {
     }
   }
 
-  role() {
-    if (this.isTeacher) {
-      return 'Tutor';
-    }
-    return 'Paciente';
-  }
+  // role() {
+  //   if (this.isTeacher) {
+  //     return 'Tutor';
+  //   }
+  //   return 'Paciente';
+  // }
 
   translateRole(role) {
     if (role === 'ADMIN') {
