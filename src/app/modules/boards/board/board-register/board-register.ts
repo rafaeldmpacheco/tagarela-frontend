@@ -44,44 +44,48 @@ export class BoardRegisterPage implements OnInit {
         let loading: any = this.loadingService.createLoadingPage('Aguarde...');
         loading.present();
 
-        this.boardService
-          .getMultipleSymbols(symbolIds)
-          .pipe(
-            map(response => (this.symbols = response)),
-            switchMap(() => this.boardService.getCategories()),
-            map(response => (this.categories = response))
-          )
-          .subscribe(
-            () => {
-              for (let index = 0; index < this.board.symbols.length; index++) {
-                const element = this.board.symbols[index];
-
-                for (let index = 0; index < this.symbols.length; index++) {
-                  const symbol = this.symbols[index];
-
-                  if (element.symbolId === symbol._id) {
-                    this.boardImagesUrl[element.boardIndex] = symbol.image[0].url;
-                    this.boardAudios[element.boardIndex] = symbol.audio[0].url;
-
-                    for (let index = 0; index < this.categories.length; index++) {
-                      const category = this.categories[index];
-
-                      if (category._id === symbol.categoryId) {
-                        this.boardColors[element.boardIndex] = category.color;
-                      }
-                    }
-                  }
-                }
-              }
-
-              loading.dismiss();
-            },
-            () => loading.dismiss()
-          );
+        this.getSymbols(symbolIds, loading);
       }
 
       this.board.planId = planId;
     }
+  }
+
+  getSymbols(symbolIds, loading) {
+    this.boardService
+      .getMultipleSymbols(symbolIds)
+      .pipe(
+        map(response => (this.symbols = response)),
+        switchMap(() => this.boardService.getCategories()),
+        map(response => (this.categories = response))
+      )
+      .subscribe(
+        () => {
+          for (let index = 0; index < this.board.symbols.length; index++) {
+            const element = this.board.symbols[index];
+
+            for (let index = 0; index < this.symbols.length; index++) {
+              const symbol = this.symbols[index];
+
+              if (element.symbolId === symbol._id) {
+                this.boardImagesUrl[element.boardIndex] = symbol.image[0].url;
+                this.boardAudios[element.boardIndex] = symbol.audio[0].url;
+
+                for (let index = 0; index < this.categories.length; index++) {
+                  const category = this.categories[index];
+
+                  if (category._id === symbol.categoryId) {
+                    this.boardColors[element.boardIndex] = category.color;
+                  }
+                }
+              }
+            }
+          }
+
+          loading.dismiss();
+        },
+        () => loading.dismiss()
+      );
   }
 
   getBorderColor(i) {
@@ -123,11 +127,11 @@ export class BoardRegisterPage implements OnInit {
     delete newBoard._id;
     newBoard.name += ' - Duplicado';
 
-    this.saveBoard(newBoard);
+    this.board = newBoard;
   }
 
-  saveBoard(newBoard?): void {
-    const board = newBoard ? newBoard : this.board;
+  saveBoard(): void {
+    const board = this.board;
 
     if (!board.name) {
       this.messageService.showMessage('É necessario informar um nome à prancha');

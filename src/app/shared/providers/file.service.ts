@@ -44,29 +44,23 @@ export class FileService {
         filePath = this.file.externalDataDirectory + fileName;
       }
     }
-
     let mime = isImage ? 'image/' : 'audio/';
 
     return new Promise((resolve, reject) => {
       let fileName: string;
-
       this.file
         .resolveLocalFilesystemUrl(filePath)
         .then(fileEntry => {
           let { name, nativeURL } = fileEntry;
-
           let path = nativeURL.substring(0, nativeURL.lastIndexOf('/'));
           fileName = name;
-
           mime += fileName.match(/\.[A-z0-9]+$/i)[0].slice(1);
-
           return this.file.readAsArrayBuffer(path, name);
         })
         .then(buffer => {
           let blob = new Blob([buffer], {
             type: mime
           });
-
           resolve(blob);
         })
         .catch(e => reject(e));

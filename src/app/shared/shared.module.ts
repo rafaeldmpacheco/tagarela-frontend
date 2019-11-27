@@ -28,29 +28,33 @@ const COMPONENTS = [
   ImageGalleryComponent,
   AlertMessageComponent
 ];
+const PROVIDERS = [
+  LoadingService,
+  MessageService,
+  ExceptionService,
+  LoginService,
+  BoardService,
+  ModulesService
+];
+const IONIC_PROVIDERS = [
+  StatusBar,
+  SplashScreen,
+  Media,
+  FileTransfer,
+  FileTransferObject,
+  File,
+  Camera,
+  FileService
+];
 const PAGES = [GridMenuComponent];
-
 @NgModule({
   imports: [CommonModule, IonicModule],
   declarations: [...COMPONENTS, ...PAGES],
   exports: [...COMPONENTS],
   entryComponents: [...PAGES],
   providers: [
-    LoadingService,
-    MessageService,
-    ExceptionService,
-    LoginService,
-    BoardService,
-    ModulesService,
-    // IONIC
-    StatusBar,
-    SplashScreen,
-    Media,
-    FileTransfer,
-    FileTransferObject,
-    File,
-    Camera,
-    FileService
+    ...PROVIDERS,
+    ...IONIC_PROVIDERS
   ]
 })
 export class SharedModule {}
