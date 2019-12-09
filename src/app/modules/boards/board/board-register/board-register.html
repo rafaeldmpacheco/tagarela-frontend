@@ -23,6 +23,7 @@
         <ion-card
           *ngIf="boardImagesUrl[i]"
           class="no-margin width-100"
+          style="height: 140px;"
           [ngStyle]="{ border: getBorderColor(i) }"
           (click)="selectedImage(i)"
         >
